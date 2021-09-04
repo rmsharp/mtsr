@@ -1,0 +1,267 @@
+---
+title: "Test of a Cross-sectional Sampling Timer"
+author: "R. Mark Sharp"
+date: "9/1/2021"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library("crosssectiontimer")
+library(ggplot2)
+library(kableExtra)
+library(magrittr)
+library(rmsutilityr)
+library(stringi)
+
+```
+
+# Purpose
+
+We want to get some insight into how much time developers and implementers 
+spend doing the various activities associated with model deployment and
+what activities detract from model deployment. We expect that well over 
+20 percent of their time is used in other activities, but we have no source
+of information regarding how their time is used.
+
+The initial goals are two fold. The first is simply to allow the developers 
+and implementers to 
+see how they, as a group, spend their time. Second, there is a hope that this
+insight will allow them to advocate for modifying the way their time is being
+used to improve our work environment and productivity.
+
+This document presents a cross-sectional sampling design as an alternative 
+to a longitudinal sampling design inherent in the logging of
+activities method proposed 
+to collect time on task information. Logging of time on 
+task is has the problems listed below.   
+
+-   Failure rate in logging activities can be high.
+-   Recall of the amount of time spent is often wrong.
+-   Preconceptions of how time should be spent biases recalled durations.
+-   Keeping, collecting, and analysing logs requires significant administrative
+    overhead to an already administrative heavy environment.
+-   The biases introduced from earlier points makes interpretaton of results
+    difficult.
+-   The longitudinal collection of data requires a long data collection
+    phase before any analysis can begin. 
+-   Variance among different projects is anticipated to be high, which
+    further complicates analysis.
+
+The cross-sectional design assumes that we have the ability to send a question
+to selected individuals and collect that response.
+
+The cross-sectional design presented and illustrated below has the following
+advantages.
+
+-   Failure rate has far less impact since failure to respond simply 
+    initiates another response request.
+-   Participants do not need to recall time spent.
+-   Administrative overhead greatly reduced.
+-   Bias is minimized.
+-   Data could be analyzed within the first month of use.
+-   Variance among projects could be assessed and more accurately measured if
+    desired. However, I recommend that project differences be ignored
+    at the outset.
+
+
+# Scenario
+
+The remainer of this document presents a simple simulation study that provides
+a reasonable approximation of what a cross-sectional design would look like
+and provides sufficient detail to assess expected data quality.
+
+The simulated model has a set of representative activities for developers.^[
+The software is fully adaptable to other job types, activity lists, and 
+expected frequencies.]. It simulates asking a set of developers to indicate
+which of the activities listed on the questionaire they were doing at the time
+the question popped up on their screen. Once the developer makes a selection,
+that selection is returned as a result to the collection software. 
+
+In the simulation model these queries and responses can all be processed in
+less than a second but as described below this can be constructed so that
+each simulated developer responds only five times during the entire
+duration of the experiments illustrated below.
+
+## Simulation
+
+The developers' activites are programmed to occur with the following 
+frequencies.
+
+```{r activities, echo = TRUE}
+dev_freq <- c(
+  0.05, # data discovery, # 
+  0.10, # data analysis 
+  0.05, # data marshalling 
+  0.05, # data transformation 
+  0.05, # model selection 
+  0.15, # model training 
+  0.20, # model testing 
+  0.05, # output coding 
+  0.01, # metric coding 
+  0.01, # ongoing monitoring coding 
+  0.03, # literature research 
+  0.03, # communication with integrators 
+  0.02, # communication with business partners 
+  0.01, # peer review 
+  0.01, # narrative writing 
+  0.02, # model description formatting 
+  0.01, # ongoing monitoring report formatting, # model description
+  0.10, # administrative tasks, # not directly related to modeling; including
+        # general training, communications, etc.
+  0.01, # training, # any training related to modeling
+  0.02, # personal activities, # not work related
+  0.02) # other
+
+```
+
+Lets see what we get with 20 developers sampled 5 times a day for 1 week out of 
+each of 12 months.
+
+Since the algorithm is not actually modeling individual developers order of 
+sampling has no impact on results, which means we simply take `r 20*5*12` 
+(20 * 5 * 12) samples 10 times and compare each result set to the expected 
+values.
+
+Lets first show one and three samples look like.
+
+A single sample: `r make_activity_observation("developer", size = 1, dev_freq)`   
+Three samples: `r get_and_or_list(make_activity_observation("developer", size = 3, dev_freq))`.
+
+
+To estimate the duration on each activity, we can allocate `r 20 * 5 * 12`
+observations into one 8 hour day which has 560 minutes.
+
+```{r small-sample,}
+make_sample_durations <- function(sample_duration, actor_activities) {
+  description <- names(sample_duration)
+  missing_names <- actor_activities$action[
+    !is.element(actor_activities$action, description)]
+  missing_names_len <- length(missing_names)
+  description <- c(description, missing_names) 
+  duration <- as.numeric(sample_duration)
+  duration <- c(duration, rep(0, missing_names_len))
+  data.frame(description = description, duration = duration)
+
+}
+
+activities <- get_defined_activities()
+dev_activities <- activities[activities$actor_type == "developer", 
+                             c("action", "description")]
+dev_activities <- cbind(dev_activities, prob = dev_freq)
+small_sample <- make_activity_observation("developer", size = 20 * 5 * 12, 
+                                          dev_freq)
+small_sample_counts <- table(small_sample)
+sample_size <- sum(small_sample_counts)
+small_sample_duration <- small_sample_counts / sample_size
+# add back missing activities with counts of 0
+small_sample_duration <- 
+  make_sample_durations(small_sample_duration, dev_activities)
+
+dev_activities <- dev_activities[order(dev_activities$action), ]
+minutes_per_activity <- small_sample_duration$duration * 560
+minutes_per_activity <- data.frame(description = small_sample_duration$description,
+                                    minutes = as.numeric(minutes_per_activity))
+caption <- stri_c("List of activities and the estimated number of minutes ",
+                  "spent on the activity in an average day.")
+minutes_per_activity %>%
+  kbl(digits = 1, col.names = c("Description", "Minutes"),
+      caption = caption) %>%
+  kable_material(c("striped", "hover"))
+
+caption <- stri_c("List of activities, the frequency in which they were ",
+                  "observed, the simulated frequency of the activity ",
+                  "(expected), and the absolute difference between the ",
+                  "observed and expected frequencies.")
+
+delta <- abs(small_sample_duration$duration - dev_activities$prob)
+small_sample_duration %>%
+  cbind(data.frame(prob = dev_activities$prob, delta = delta)) %>%
+  kbl(digits = 3, 
+      col.names = c("Description", "Observed", "Expected", "Delta"),
+      caption = caption) %>%
+  add_header_above(c(" " = 1, "Duration" = 3)) %>%
+  kable_material(c("striped", "hover")) 
+
+```
+
+The estimates are shown to be very close as in seen in the _Delta_ column
+(within about 1 percent). A simulation that repeats this experiment many times
+can show us what to expect.
+
+We will start by putting the simulation into a function. Note that this is 
+not a generic function as it assumes the presence of the globally defined 
+objects (__dev_prop__ and __dev_activities__, and the function 
+__make_activity_observation__) and knows about their structure.
+
+```{r simulation-function, echo = TRUE}
+sim_sample_duration <- function(size = 20 * 5 * 12, iterations = 1) {
+  max_delta <- numeric(iterations)
+  for (i in seq_len(iterations)) {
+    small_sample <-
+      make_activity_observation("developer", size = size,
+                                dev_freq)
+    small_sample_counts <- table(small_sample)
+    sample_size <- sum(small_sample_counts)
+    small_sample_duration <- small_sample_counts / sample_size
+    delta <- max(abs(small_sample_duration - dev_activities$prob))
+    max_delta[i] <- delta
+  }
+  max_delta
+}
+
+```
+
+We can now see what we can expect by examining the results of repeating the 
+simulation 1000 times.
+
+```{r hist-1200, fig.cap="20 developers sampled 5 times per month for one year"}
+iterations <- 1000
+n_developers <- 20
+sim_delta_freq <- sim_sample_duration(size = n_developers * 5 * 12, 
+                                         iterations = iterations)
+gt_2_percent <- sum(sim_delta_freq > 0.02) / length(sim_delta_freq)
+gt_3_percent <- sum(sim_delta_freq > 0.03) / length(sim_delta_freq)
+
+data.frame(freq = sim_delta_freq) %>%
+ggplot(aes(x = freq)) + 
+  geom_histogram(bins = 30) +
+  ggtitle(stri_c("Simulation of ", iterations, " iterations with ",
+                 n_developers, " developers found ", 
+                 100 * gt_2_percent, "% of durations \nwere greater than ", 
+                 "2 percent away from the ",
+                 "expected value and ", 100 * gt_3_percent, 
+                 "% of \ndurations were greater than 3 ", 
+                 "percent away from the expected value.")) +
+  xlab("Absolute Value of (Expected - Observed) Frequency") +
+  ylab("Count")
+
+```
+
+What if we double our sample size for each iteration?
+
+```{r hist-2400, fig.cap="40 developers sampled 5 times per month for one year"}
+iterations <- 1000
+n_developers <- 40
+sim_delta_freq <- sim_sample_duration(size = n_developers * 5 * 12, 
+                                         iterations = iterations)
+gt_2_percent <- sum(sim_delta_freq > 0.02) / length(sim_delta_freq)
+gt_3_percent <- sum(sim_delta_freq > 0.03) / length(sim_delta_freq)
+
+data.frame(freq = sim_delta_freq) %>%
+ggplot(aes(x = freq)) + 
+  geom_histogram(bins = 30) +
+  ggtitle(stri_c("Simulation of ", iterations, " iterations with ",
+                 n_developers, " developers found ", 
+                 100 * gt_2_percent, "% of durations \nwere greater than ", 
+                 "2 percent away from the ",
+                 "expected value and ", 100 * gt_3_percent, 
+                 "% of \ndurations were greater than 3 ", 
+                 "percent away from the expected value.")) +
+  xlab("Absolute Value of (Expected - Observed) Frequency") +
+  ylab("Count") 
+
+```
+
