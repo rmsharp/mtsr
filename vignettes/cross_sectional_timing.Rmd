@@ -1,7 +1,7 @@
 ---
 title: "Test of a Cross-sectional Sampling Timer"
 author: "R. Mark Sharp"
-date: "9/1/2021"
+date: "`r Sys.Date()`"
 output:
   pdf_document: default
   html_document: default
@@ -20,30 +20,39 @@ library(stringi)
 
 # Purpose
 
-We want to get some insight into how much time developers and implementers 
-spend doing the various activities associated with model deployment and
-what activities detract from model deployment. We expect that well over 
-20 percent of their time is used in other activities, but we have no source
-of information regarding how their time is used.
+We want to gain insight into how much time is spent on specific activities by 
+various actors^[business partners, developers, implementers, Modeling
+Center of Excellence (MCOE) personnel, and Model Risk Management (MRM) personnel]
+responsible for the success of the model deployment life-cycle.
+It is anticipated that having time on task data will provide insight in those
+areas where where improvement opportunities exist.
 
-The initial goals are two fold. The first is simply to allow the developers 
-and implementers to 
-see how they, as a group, spend their time. Second, there is a hope that this
-insight will allow them to advocate for modifying the way their time is being
-used to improve our work environment and productivity.
+Detailed planning regarding questions to be addressed is required to design
+which activities^[We expect that well over 
+20 percent of time is used in activities that are not directly related to 
+model deployment or use. Planning how much detail to collect and how the data
+will be analyzed should occur prior to any data being collected.]
+should be measured. 
+However, the intent of this document is to
+propose the use of a cross-sectional study design instead of longitudinal 
+design.
 
-This document presents a cross-sectional sampling design as an alternative 
-to a longitudinal sampling design inherent in the logging of
-activities method proposed 
-to collect time on task information. Logging of time on 
-task is has the problems listed below.   
+A benefit of time on task studies is that they provide hard data regarding how 
+time is spent and how much of it directly contributes to our primary goals.
+A second benefit is that these data
+allow each class of actor to advocate for modifying the way their
+time is being used to improve their work environment and productivity.
+
+A longitudinal design calls for representative actors within each group to
+log defined activities during their work day.
+Logging of time on task is has the problems listed below.   
 
 -   Failure rate in logging activities can be high.
 -   Recall of the amount of time spent is often wrong.
 -   Preconceptions of how time should be spent biases recalled durations.
--   Keeping, collecting, and analysing logs requires significant administrative
+-   Keeping, collecting, and analyzing logs requires significant administrative
     overhead to an already administrative heavy environment.
--   The biases introduced from earlier points makes interpretaton of results
+-   The biases introduced from earlier points makes interpretation of results
     difficult.
 -   The longitudinal collection of data requires a long data collection
     phase before any analysis can begin. 
@@ -53,13 +62,13 @@ task is has the problems listed below.
 The cross-sectional design assumes that we have the ability to send a question
 to selected individuals and collect that response.
 
-The cross-sectional design presented and illustrated below has the following
+The cross-sectional design presented and tested below has the following
 advantages.
 
 -   Failure rate has far less impact since failure to respond simply 
     initiates another response request.
 -   Participants do not need to recall time spent.
--   Administrative overhead greatly reduced.
+-   Administrative overhead is greatly reduced.
 -   Bias is minimized.
 -   Data could be analyzed within the first month of use.
 -   Variance among projects could be assessed and more accurately measured if
@@ -69,14 +78,14 @@ advantages.
 
 # Scenario
 
-The remainer of this document presents a simple simulation study that provides
+The remainder of this document presents a simple simulation study that provides
 a reasonable approximation of what a cross-sectional design would look like
 and provides sufficient detail to assess expected data quality.
 
 The simulated model has a set of representative activities for developers.^[
 The software is fully adaptable to other job types, activity lists, and 
 expected frequencies.]. It simulates asking a set of developers to indicate
-which of the activities listed on the questionaire they were doing at the time
+which of the activities listed on the questionnaire they were doing at the time
 the question popped up on their screen. Once the developer makes a selection,
 that selection is returned as a result to the collection software. 
 
@@ -87,14 +96,14 @@ duration of the experiments illustrated below.
 
 ## Simulation
 
-The developers' activites are programmed to occur with the following 
+The developers' activities are programmed to occur with the following 
 frequencies.
 
 ```{r activities, echo = TRUE}
 dev_freq <- c(
   0.05, # data discovery, # 
   0.10, # data analysis 
-  0.05, # data marshalling 
+  0.05, # data marshaling 
   0.05, # data transformation 
   0.05, # model selection 
   0.15, # model training 
@@ -103,7 +112,7 @@ dev_freq <- c(
   0.01, # metric coding 
   0.01, # ongoing monitoring coding 
   0.03, # literature research 
-  0.03, # communication with integrators 
+  0.03, # communication with implementors 
   0.02, # communication with business partners 
   0.01, # peer review 
   0.01, # narrative writing 
@@ -158,7 +167,7 @@ sample_size <- sum(small_sample_counts)
 small_sample_duration <- small_sample_counts / sample_size
 # add back missing activities with counts of 0
 small_sample_duration <- 
-  make_sample_durations(small_sample_duration, dev_activities)
+  make_complete_sample_durations(small_sample_duration, dev_activities)
 
 dev_activities <- dev_activities[order(dev_activities$action), ]
 minutes_per_activity <- small_sample_duration$duration * 560
