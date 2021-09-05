@@ -1,5 +1,9 @@
 #' Make a complete sample duration data.frame object
 #'
+#' Adds back missing activities that were dropped by the \code{table} function
+#' because they do not appear in the sample. They are added into the object
+#' and given a count of zero.
+#'
 #' @returns an sample duration data.frame object
 #' @param sample_duration named numeric vector that may be missing actions if
 #' those actions did not occur during the sampling phase.

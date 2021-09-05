@@ -3,12 +3,12 @@ title: "Test of a Cross-sectional Sampling Timer"
 author: "R. Mark Sharp"
 date: "`r Sys.Date()`"
 output:
-  pdf_document: default
-  html_document: default
+  bookdown::pdf_document2: default
+  bookdown::html_document2: default
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, fig.pos = 'H')
 library("crosssectiontimer")
 library(ggplot2)
 library(kableExtra)
@@ -78,21 +78,27 @@ advantages.
 
 # Scenario
 
-The remainder of this document presents a simple simulation study that provides
-a reasonable approximation of what a cross-sectional design would look like
+The remainder of this document presents a simple simulation study using a
+realistic design 
 and provides sufficient detail to assess expected data quality.
 
 The simulated model has a set of representative activities for developers.^[
-The software is fully adaptable to other job types, activity lists, and 
-expected frequencies.]. It simulates asking a set of developers to indicate
+The software is has the ability to examine multiple job types, job specific
+activity lists, and corresponding expected frequencies.]. 
+It simulates asking a set of developers to indicate
 which of the activities listed on the questionnaire they were doing at the time
 the question popped up on their screen. Once the developer makes a selection,
-that selection is returned as a result to the collection software. 
+that selection is returned as a result to the collection software, which
+cumulates the responses for later analysis. 
 
-In the simulation model these queries and responses can all be processed in
-less than a second but as described below this can be constructed so that
+In the simulation model, these queries and responses can all be processed in
+less than a second but as described below this simulation is constructed so that
 each simulated developer responds only five times during the entire
 duration of the experiments illustrated below.
+
+The manner in which the questions are presented and the timing of when the 
+questions are presented are critical aspects of the study design, which are 
+not discusses further.
 
 ## Simulation
 
@@ -101,7 +107,7 @@ frequencies.
 
 ```{r activities, echo = TRUE}
 dev_freq <- c(
-  0.05, # data discovery, # 
+  0.05, # data discovery
   0.10, # data analysis 
   0.05, # data marshaling 
   0.05, # data transformation 
@@ -118,44 +124,27 @@ dev_freq <- c(
   0.01, # narrative writing 
   0.02, # model description formatting 
   0.01, # ongoing monitoring report formatting, # model description
-  0.10, # administrative tasks, # not directly related to modeling; including
+  0.10, # administrative tasks, not directly related to modeling; including
         # general training, communications, etc.
-  0.01, # training, # any training related to modeling
-  0.02, # personal activities, # not work related
+  0.01, # training related to modeling
+  0.02, # personal activities that are not work related
   0.02) # other
 
 ```
 
-Lets see what we get with 20 developers sampled 5 times a day for 1 week out of 
-each of 12 months.
-
-Since the algorithm is not actually modeling individual developers order of 
-sampling has no impact on results, which means we simply take `r 20*5*12` 
-(20 * 5 * 12) samples 10 times and compare each result set to the expected 
-values.
-
-Lets first show one and three samples look like.
+For clarity, we demonstrate one and three samples.
 
 A single sample: `r make_activity_observation("developer", size = 1, dev_freq)`   
 Three samples: `r get_and_or_list(make_activity_observation("developer", size = 3, dev_freq))`.
 
+Lets see how precise our estimates would be if we included 20 developers 
+sampled just 5 times a month for each of 12 months.
 
-To estimate the duration on each activity, we can allocate `r 20 * 5 * 12`
-observations into one 8 hour day which has 560 minutes.
+Since the algorithm is not actually modeling individual developers, the order of 
+sampling has no impact on results, which means we simply take `r 20*5*12` 
+(20 * 5 * 12) compare each result set to the expected values.
 
 ```{r small-sample,}
-make_sample_durations <- function(sample_duration, actor_activities) {
-  description <- names(sample_duration)
-  missing_names <- actor_activities$action[
-    !is.element(actor_activities$action, description)]
-  missing_names_len <- length(missing_names)
-  description <- c(description, missing_names) 
-  duration <- as.numeric(sample_duration)
-  duration <- c(duration, rep(0, missing_names_len))
-  data.frame(description = description, duration = duration)
-
-}
-
 activities <- get_defined_activities()
 dev_activities <- activities[activities$actor_type == "developer", 
                              c("action", "description")]
@@ -165,20 +154,11 @@ small_sample <- make_activity_observation("developer", size = 20 * 5 * 12,
 small_sample_counts <- table(small_sample)
 sample_size <- sum(small_sample_counts)
 small_sample_duration <- small_sample_counts / sample_size
-# add back missing activities with counts of 0
+
 small_sample_duration <- 
   make_complete_sample_durations(small_sample_duration, dev_activities)
 
 dev_activities <- dev_activities[order(dev_activities$action), ]
-minutes_per_activity <- small_sample_duration$duration * 560
-minutes_per_activity <- data.frame(description = small_sample_duration$description,
-                                    minutes = as.numeric(minutes_per_activity))
-caption <- stri_c("List of activities and the estimated number of minutes ",
-                  "spent on the activity in an average day.")
-minutes_per_activity %>%
-  kbl(digits = 1, col.names = c("Description", "Minutes"),
-      caption = caption) %>%
-  kable_material(c("striped", "hover"))
 
 caption <- stri_c("List of activities, the frequency in which they were ",
                   "observed, the simulated frequency of the activity ",
@@ -191,21 +171,42 @@ small_sample_duration %>%
   kbl(digits = 3, 
       col.names = c("Description", "Observed", "Expected", "Delta"),
       caption = caption) %>%
+  kable_styling(latex_options = "HOLD_position") %>%
   add_header_above(c(" " = 1, "Duration" = 3)) %>%
   kable_material(c("striped", "hover")) 
 
 ```
 
-The estimates are shown to be very close as in seen in the _Delta_ column
-(within about 1 percent). A simulation that repeats this experiment many times
-can show us what to expect.
 
-We will start by putting the simulation into a function. Note that this is 
+We can estimate the duration in minutes on each activity if we allocate 
+the `r 20 * 5 * 12` observations into one 8 hour day which has 560 minutes.
+
+```{r small-sample-in-minutes}
+minutes_per_activity <- small_sample_duration$duration * 560
+minutes_per_activity <- data.frame(description = small_sample_duration$description,
+                                    minutes = as.numeric(minutes_per_activity))
+caption <- stri_c("List of activities and the estimated number of minutes ",
+                  "spent on the activity if represented in a single day.")
+minutes_per_activity %>%
+  kbl(digits = 1, col.names = c("Description", "Minutes"),
+      caption = caption) %>%
+  kable_styling(latex_options = "HOLD_position") %>%
+  kable_material(c("striped", "hover"))
+
+```
+
+I have run this experiment several times and usually the 
+estimates are shown to be very close as in seen in the _Delta_ column
+(within about 1 percent). However, it is more instructive to simulation this 
+experiment many times to learn what precision we can expect.
+
+<!-- We will start by putting the simulation into a function. Note that this is 
 not a generic function as it assumes the presence of the globally defined 
-objects (__dev_prop__ and __dev_activities__, and the function 
-__make_activity_observation__) and knows about their structure.
+objects (__dev_prop__ and __dev_activities__) and it knows about their 
+structure.
+-->
 
-```{r simulation-function, echo = TRUE}
+```{r simulation-function, echo = FALSE}
 sim_sample_duration <- function(size = 20 * 5 * 12, iterations = 1) {
   max_delta <- numeric(iterations)
   for (i in seq_len(iterations)) {
@@ -215,19 +216,22 @@ sim_sample_duration <- function(size = 20 * 5 * 12, iterations = 1) {
     small_sample_counts <- table(small_sample)
     sample_size <- sum(small_sample_counts)
     small_sample_duration <- small_sample_counts / sample_size
-    delta <- max(abs(small_sample_duration - dev_activities$prob))
-    max_delta[i] <- delta
+    max_delta[i] <- max(abs(small_sample_duration - dev_activities$prob))
   }
   max_delta
 }
 
 ```
 
-We can now see what we can expect by examining the results of repeating the 
-simulation 1000 times.
+Figure \@ref(fig:hist-1200) shows a histogram plot of 
+the results of 
+repeating the simulation of 20 developers providing 5 responses 
+in each of the 12 months of a year 1000 times. 
+Similarly, Figure \@ref(fig:hist-2400) shows a histogram plot of 
+the similar simulation with 40 developers instead of 20.
 
 ```{r hist-1200, fig.cap="20 developers sampled 5 times per month for one year"}
-iterations <- 1000
+iterations <- 10000
 n_developers <- 20
 sim_delta_freq <- sim_sample_duration(size = n_developers * 5 * 12, 
                                          iterations = iterations)
@@ -252,7 +256,7 @@ ggplot(aes(x = freq)) +
 What if we double our sample size for each iteration?
 
 ```{r hist-2400, fig.cap="40 developers sampled 5 times per month for one year"}
-iterations <- 1000
+iterations <- 10000
 n_developers <- 40
 sim_delta_freq <- sim_sample_duration(size = n_developers * 5 * 12, 
                                          iterations = iterations)
