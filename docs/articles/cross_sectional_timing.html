@@ -76,7 +76,7 @@
       <h1 data-toc-skip>Test of a Cross-sectional Sampling Timer</h1>
                         <h4 class="author">R. Mark Sharp</h4>
             
-            <h4 class="date">2021-09-04</h4>
+            <h4 class="date">2021-09-06</h4>
       
       
       <div class="hidden name"><code>cross_sectional_timing.Rmd</code></div>
@@ -88,24 +88,25 @@
 <div id="purpose" class="section level1">
 <h1 class="hasAnchor">
 <a href="#purpose" class="anchor"></a>Purpose</h1>
-<p>We want to get some insight into how much time developers and implementers spend doing the various activities associated with model deployment and what activities detract from model deployment. We expect that well over 20 percent of their time is used in other activities, but we have no source of information regarding how their time is used.</p>
-<p>The initial goals are two fold. The first is simply to allow the developers and implementers to see how they, as a group, spend their time. Second, there is a hope that this insight will allow them to advocate for modifying the way their time is being used to improve our work environment and productivity.</p>
-<p>This document presents a cross-sectional sampling design as an alternative to a longitudinal sampling design inherent in the logging of activities method proposed to collect time on task information. Logging of time on task is has the problems listed below.</p>
+<p>We want to gain insight into how much time is spent on specific activities by various actors<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> responsible for the success of the model deployment life-cycle. It is anticipated that having time on task data will provide insight in those areas where where improvement opportunities exist.</p>
+<p>Detailed planning regarding questions to be addressed is required to design which activities<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> should be measured. However, the intent of this document is to propose the use of a cross-sectional study design instead of longitudinal design.</p>
+<p>A benefit of time on task studies is that they provide hard data regarding how time is spent and how much of it directly contributes to our primary goals. A second benefit is that these data allow each class of actor to advocate for modifying the way their time is being used to improve their work environment and productivity.</p>
+<p>A longitudinal design calls for representative actors within each group to log defined activities during their work day. Logging of time on task is has the problems listed below.</p>
 <ul>
 <li>Failure rate in logging activities can be high.</li>
 <li>Recall of the amount of time spent is often wrong.</li>
 <li>Preconceptions of how time should be spent biases recalled durations.</li>
-<li>Keeping, collecting, and analysing logs requires significant administrative overhead to an already administrative heavy environment.</li>
-<li>The biases introduced from earlier points makes interpretaton of results difficult.</li>
+<li>Keeping, collecting, and analyzing logs requires significant administrative overhead to an already administrative heavy environment.</li>
+<li>The biases introduced from earlier points makes interpretation of results difficult.</li>
 <li>The longitudinal collection of data requires a long data collection phase before any analysis can begin.</li>
 <li>Variance among different projects is anticipated to be high, which further complicates analysis.</li>
 </ul>
 <p>The cross-sectional design assumes that we have the ability to send a question to selected individuals and collect that response.</p>
-<p>The cross-sectional design presented and illustrated below has the following advantages.</p>
+<p>The cross-sectional design presented and tested below has the following advantages.</p>
 <ul>
 <li>Failure rate has far less impact since failure to respond simply initiates another response request.</li>
 <li>Participants do not need to recall time spent.</li>
-<li>Administrative overhead greatly reduced.</li>
+<li>Administrative overhead is greatly reduced.</li>
 <li>Bias is minimized.</li>
 <li>Data could be analyzed within the first month of use.</li>
 <li>Variance among projects could be assessed and more accurately measured if desired. However, I recommend that project differences be ignored at the outset.</li>
@@ -114,62 +115,81 @@
 <div id="scenario" class="section level1">
 <h1 class="hasAnchor">
 <a href="#scenario" class="anchor"></a>Scenario</h1>
-<p>The remainer of this document presents a simple simulation study that provides a reasonable approximation of what a cross-sectional design would look like and provides sufficient detail to assess expected data quality.</p>
-<p>The simulated model has a set of representative activities for developers.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. It simulates asking a set of developers to indicate which of the activities listed on the questionaire they were doing at the time the question popped up on their screen. Once the developer makes a selection, that selection is returned as a result to the collection software.</p>
-<p>In the simulation model these queries and responses can all be processed in less than a second but as described below this can be constructed so that each simulated developer responds only five times during the entire duration of the experiments illustrated below.</p>
+<p>The remainder of this document presents a simple simulation study using a realistic design and provides sufficient detail to assess expected data quality.</p>
+<p>The simulated model has a set of representative activities for implementers.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>. It simulates asking a set of implementers to indicate which of the activities listed on the questionnaire they were doing at the time the question popped up on their screen. Once the implementer makes a selection, that selection is returned as a result to the collection software, which cumulates the responses for later analysis.</p>
+<p>In the simulation model, these queries and responses can all be processed in less than a second but as described below this simulation is constructed so that each simulated implementer responds only five times during the entire duration of the experiments illustrated below.</p>
+<p>The manner in which the questions are presented and the timing of when the questions are presented are critical aspects of the study design, which are not discusses further.</p>
 <div id="simulation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#simulation" class="anchor"></a>Simulation</h2>
-<p>The developers’ activites are programmed to occur with the following frequencies.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dev_freq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>
-  <span class="fl">0.05</span>, <span class="co"># data discovery, # </span>
-  <span class="fl">0.10</span>, <span class="co"># data analysis </span>
-  <span class="fl">0.05</span>, <span class="co"># data marshalling </span>
-  <span class="fl">0.05</span>, <span class="co"># data transformation </span>
-  <span class="fl">0.05</span>, <span class="co"># model selection </span>
-  <span class="fl">0.15</span>, <span class="co"># model training </span>
-  <span class="fl">0.20</span>, <span class="co"># model testing </span>
-  <span class="fl">0.05</span>, <span class="co"># output coding </span>
-  <span class="fl">0.01</span>, <span class="co"># metric coding </span>
-  <span class="fl">0.01</span>, <span class="co"># ongoing monitoring coding </span>
-  <span class="fl">0.03</span>, <span class="co"># literature research </span>
-  <span class="fl">0.03</span>, <span class="co"># communication with integrators </span>
-  <span class="fl">0.02</span>, <span class="co"># communication with business partners </span>
-  <span class="fl">0.01</span>, <span class="co"># peer review </span>
-  <span class="fl">0.01</span>, <span class="co"># narrative writing </span>
-  <span class="fl">0.02</span>, <span class="co"># model description formatting </span>
-  <span class="fl">0.01</span>, <span class="co"># ongoing monitoring report formatting, # model description</span>
-  <span class="fl">0.10</span>, <span class="co"># administrative tasks, # not directly related to modeling; including</span>
-        <span class="co"># general training, communications, etc.</span>
-  <span class="fl">0.01</span>, <span class="co"># training, # any training related to modeling</span>
-  <span class="fl">0.02</span>, <span class="co"># personal activities, # not work related</span>
-  <span class="fl">0.02</span><span class="op">)</span> <span class="co"># other</span></code></pre></div>
-<p>Lets see what we get with 20 developers sampled 5 times a day for 1 week out of each of 12 months.</p>
-<p>Since the algorithm is not actually modeling individual developers order of sampling has no impact on results, which means we simply take 1200 (20 * 5 * 12) samples 10 times and compare each result set to the expected values.</p>
-<p>Lets first show one and three samples look like.</p>
-<p>A single sample: model selection<br>
-Three samples: model training, data analysis, and model testing.</p>
-<p>To estimate the duration on each activity, we can allocate 1200 observations into one 8 hour day which has 560 minutes.</p>
-<table class="table  lightable-material lightable-striped lightable-hover">
+<p>The implementers’ activities are programmed to occur with the following frequencies.</p>
+<table class="table table lightable-material lightable-striped lightable-hover">
 <caption>
-List of activities and the estimated number of minutes spent on the activity in an average day.
+List of possible activities for the implementer with assigend frequencies to be used in simulations.
 </caption>
 <thead><tr>
 <th style="text-align:left;">
-Description
+Activity
 </th>
 <th style="text-align:right;">
-Minutes
+Frequency
 </th>
 </tr></thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
-administrative tasks
+algorithm recoding
 </td>
 <td style="text-align:right;">
-55.1
+0.10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+logging code
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+adding defensive code
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+integration
+</td>
+<td style="text-align:right;">
+0.25
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+integration testing
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+component testing
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+communication with developers
+</td>
+<td style="text-align:right;">
+0.10
 </td>
 </tr>
 <tr>
@@ -177,31 +197,7 @@ administrative tasks
 communication with business partners
 </td>
 <td style="text-align:right;">
-14.5
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-communication with integrators
-</td>
-<td style="text-align:right;">
-13.1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-data analysis
-</td>
-<td style="text-align:right;">
-55.5
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-data discovery
-</td>
-<td style="text-align:right;">
-28.0
+0.01
 </td>
 </tr>
 <tr>
@@ -209,103 +205,7 @@ data discovery
 data marshalling
 </td>
 <td style="text-align:right;">
-21.9
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-data transformation
-</td>
-<td style="text-align:right;">
-33.1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-literature research
-</td>
-<td style="text-align:right;">
-16.3
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-metric coding
-</td>
-<td style="text-align:right;">
-5.6
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-model description formatting
-</td>
-<td style="text-align:right;">
-11.7
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-model selection
-</td>
-<td style="text-align:right;">
-30.3
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-model testing
-</td>
-<td style="text-align:right;">
-110.6
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-model training
-</td>
-<td style="text-align:right;">
-91.5
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-narrative writing
-</td>
-<td style="text-align:right;">
-5.6
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ongoing monitoring coding
-</td>
-<td style="text-align:right;">
-2.8
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ongoing monitoring report formatting
-</td>
-<td style="text-align:right;">
-4.7
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-other
-</td>
-<td style="text-align:right;">
-10.7
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-output coding
-</td>
-<td style="text-align:right;">
-26.6
+0.10
 </td>
 </tr>
 <tr>
@@ -313,28 +213,49 @@ output coding
 peer review
 </td>
 <td style="text-align:right;">
-6.1
+0.05
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-personal activities
+narrative writing
 </td>
 <td style="text-align:right;">
-10.3
+0.05
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-training
+ongoing monitoring report formatting
 </td>
 <td style="text-align:right;">
-6.1
+0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+system testing
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+other
+</td>
+<td style="text-align:right;">
+0.05
 </td>
 </tr>
 </tbody>
 </table>
-<table class="table  lightable-material lightable-striped lightable-hover">
+<p>For clarity, we demonstrate one and three samples.</p>
+<p>A single sample: component testing<br>
+Three samples: integration, integration, and communication with developers.</p>
+<p>Lets see how precise our estimates would be if we included 20 implementers sampled just 5 times a month for each of 12 months.</p>
+<p>Since the algorithm is not actually modeling individual implementers, the order of sampling has no impact on results, which means we simply take 1200 (20 * 5 * 12) compare each result set to the expected values.</p>
+<table class="table table lightable-material lightable-striped lightable-hover">
 <caption>
 List of activities, the frequency in which they were observed, the simulated frequency of the activity (expected), and the absolute difference between the observed and expected frequencies.
 </caption>
@@ -366,7 +287,49 @@ Delta
 <tbody>
 <tr>
 <td style="text-align:left;">
-administrative tasks
+adding defensive code
+</td>
+<td style="text-align:right;">
+0.095
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+<td style="text-align:right;">
+0.005
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+algorithm recoding
+</td>
+<td style="text-align:right;">
+0.098
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+<td style="text-align:right;">
+0.003
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+communication with business partners
+</td>
+<td style="text-align:right;">
+0.007
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+0.003
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+communication with developers
 </td>
 <td style="text-align:right;">
 0.098
@@ -380,58 +343,16 @@ administrative tasks
 </tr>
 <tr>
 <td style="text-align:left;">
-communication with business partners
+component testing
 </td>
 <td style="text-align:right;">
-0.026
-</td>
-<td style="text-align:right;">
-0.02
-</td>
-<td style="text-align:right;">
-0.006
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-communication with integrators
-</td>
-<td style="text-align:right;">
-0.023
+0.034
 </td>
 <td style="text-align:right;">
 0.03
 </td>
 <td style="text-align:right;">
-0.007
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-data analysis
-</td>
-<td style="text-align:right;">
-0.099
-</td>
-<td style="text-align:right;">
-0.10
-</td>
-<td style="text-align:right;">
-0.001
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-data discovery
-</td>
-<td style="text-align:right;">
-0.050
-</td>
-<td style="text-align:right;">
-0.05
-</td>
-<td style="text-align:right;">
-0.000
+0.004
 </td>
 </tr>
 <tr>
@@ -439,18 +360,102 @@ data discovery
 data marshalling
 </td>
 <td style="text-align:right;">
-0.039
+0.107
+</td>
+<td style="text-align:right;">
+0.10
+</td>
+<td style="text-align:right;">
+0.007
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+integration
+</td>
+<td style="text-align:right;">
+0.236
+</td>
+<td style="text-align:right;">
+0.25
+</td>
+<td style="text-align:right;">
+0.014
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+integration testing
+</td>
+<td style="text-align:right;">
+0.047
 </td>
 <td style="text-align:right;">
 0.05
 </td>
 <td style="text-align:right;">
-0.011
+0.003
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-data transformation
+logging code
+</td>
+<td style="text-align:right;">
+0.058
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.007
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+narrative writing
+</td>
+<td style="text-align:right;">
+0.044
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.006
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ongoing monitoring report formatting
+</td>
+<td style="text-align:right;">
+0.007
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+0.003
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+other
+</td>
+<td style="text-align:right;">
+0.056
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.006
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+peer review
 </td>
 <td style="text-align:right;">
 0.059
@@ -464,49 +469,7 @@ data transformation
 </tr>
 <tr>
 <td style="text-align:left;">
-literature research
-</td>
-<td style="text-align:right;">
-0.029
-</td>
-<td style="text-align:right;">
-0.03
-</td>
-<td style="text-align:right;">
-0.001
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-metric coding
-</td>
-<td style="text-align:right;">
-0.010
-</td>
-<td style="text-align:right;">
-0.01
-</td>
-<td style="text-align:right;">
-0.000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-model description formatting
-</td>
-<td style="text-align:right;">
-0.021
-</td>
-<td style="text-align:right;">
-0.02
-</td>
-<td style="text-align:right;">
-0.001
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-model selection
+system testing
 </td>
 <td style="text-align:right;">
 0.054
@@ -518,32 +481,92 @@ model selection
 0.004
 </td>
 </tr>
+</tbody>
+</table>
+<p>We can estimate the duration in minutes on each activity if we allocate the 1200 observations into one 8 hour day which has 560 minutes.</p>
+<table class="table table lightable-material lightable-striped lightable-hover">
+<caption>
+List of activities and the estimated number of minutes spent on the activity if represented in a single day.
+</caption>
+<thead><tr>
+<th style="text-align:left;">
+Description
+</th>
+<th style="text-align:right;">
+Minutes
+</th>
+</tr></thead>
+<tbody>
 <tr>
 <td style="text-align:left;">
-model testing
+adding defensive code
 </td>
 <td style="text-align:right;">
-0.198
-</td>
-<td style="text-align:right;">
-0.20
-</td>
-<td style="text-align:right;">
-0.003
+53.2
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-model training
+algorithm recoding
 </td>
 <td style="text-align:right;">
-0.163
+54.6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+communication with business partners
 </td>
 <td style="text-align:right;">
-0.15
+4.2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+communication with developers
 </td>
 <td style="text-align:right;">
-0.013
+55.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+component testing
+</td>
+<td style="text-align:right;">
+19.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+data marshalling
+</td>
+<td style="text-align:right;">
+59.7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+integration
+</td>
+<td style="text-align:right;">
+132.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+integration testing
+</td>
+<td style="text-align:right;">
+26.1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+logging code
+</td>
+<td style="text-align:right;">
+32.2
 </td>
 </tr>
 <tr>
@@ -551,27 +574,7 @@ model training
 narrative writing
 </td>
 <td style="text-align:right;">
-0.010
-</td>
-<td style="text-align:right;">
-0.01
-</td>
-<td style="text-align:right;">
-0.000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ongoing monitoring coding
-</td>
-<td style="text-align:right;">
-0.005
-</td>
-<td style="text-align:right;">
-0.01
-</td>
-<td style="text-align:right;">
-0.005
+24.7
 </td>
 </tr>
 <tr>
@@ -579,13 +582,7 @@ ongoing monitoring coding
 ongoing monitoring report formatting
 </td>
 <td style="text-align:right;">
-0.008
-</td>
-<td style="text-align:right;">
-0.01
-</td>
-<td style="text-align:right;">
-0.002
+4.2
 </td>
 </tr>
 <tr>
@@ -593,27 +590,7 @@ ongoing monitoring report formatting
 other
 </td>
 <td style="text-align:right;">
-0.019
-</td>
-<td style="text-align:right;">
-0.02
-</td>
-<td style="text-align:right;">
-0.001
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-output coding
-</td>
-<td style="text-align:right;">
-0.048
-</td>
-<td style="text-align:right;">
-0.05
-</td>
-<td style="text-align:right;">
-0.003
+31.3
 </td>
 </tr>
 <tr>
@@ -621,72 +598,34 @@ output coding
 peer review
 </td>
 <td style="text-align:right;">
-0.011
-</td>
-<td style="text-align:right;">
-0.01
-</td>
-<td style="text-align:right;">
-0.001
+33.1
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-personal activities
+system testing
 </td>
 <td style="text-align:right;">
-0.018
-</td>
-<td style="text-align:right;">
-0.02
-</td>
-<td style="text-align:right;">
-0.002
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-training
-</td>
-<td style="text-align:right;">
-0.011
-</td>
-<td style="text-align:right;">
-0.01
-</td>
-<td style="text-align:right;">
-0.001
+30.3
 </td>
 </tr>
 </tbody>
 </table>
-<p>The estimates are shown to be very close as in seen in the <em>Delta</em> column (within about 1 percent). A simulation that repeats this experiment many times can show us what to expect.</p>
-<p>We will start by putting the simulation into a function. Note that this is not a generic function as it assumes the presence of the globally defined objects (<strong>dev_prop</strong> and <strong>dev_activities</strong>, and the function <strong>make_activity_observation</strong>) and knows about their structure.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sim_sample_duration</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">size</span> <span class="op">=</span> <span class="fl">20</span> <span class="op">*</span> <span class="fl">5</span> <span class="op">*</span> <span class="fl">12</span>, <span class="va">iterations</span> <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">max_delta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="va">iterations</span><span class="op">)</span>
-  <span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">iterations</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
-    <span class="va">small_sample</span> <span class="op">&lt;-</span>
-      <span class="fu">make_activity_observation</span><span class="op">(</span><span class="st">"developer"</span>, size <span class="op">=</span> <span class="va">size</span>,
-                                <span class="va">dev_freq</span><span class="op">)</span>
-    <span class="va">small_sample_counts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">small_sample</span><span class="op">)</span>
-    <span class="va">sample_size</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">small_sample_counts</span><span class="op">)</span>
-    <span class="va">small_sample_duration</span> <span class="op">&lt;-</span> <span class="va">small_sample_counts</span> <span class="op">/</span> <span class="va">sample_size</span>
-    <span class="va">delta</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">small_sample_duration</span> <span class="op">-</span> <span class="va">dev_activities</span><span class="op">$</span><span class="va">prob</span><span class="op">)</span><span class="op">)</span>
-    <span class="va">max_delta</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">delta</span>
-  <span class="op">}</span>
-  <span class="va">max_delta</span>
-<span class="op">}</span></code></pre></div>
-<p>We can now see what we can expect by examining the results of repeating the simulation 1000 times.</p>
+<p>I have run this experiment several times and usually the estimates are shown to be very close as in seen in the <em>Delta</em> column (within about 1 percent). However, it is more instructive to simulation this experiment many times to learn what precision we can expect.</p>
+<!-- We will start by putting the simulation into a function. Note that this is 
+not a generic function as it assumes the presence of the globally defined 
+objects (__activities$freq__ and __activities$activity__) and it knows about their 
+structure.
+-->
+<p>Figure @ref(fig:hist-1200) shows a histogram plot of the results of repeating the simulation of 20 implementers providing 5 responses in each of the 12 months of a year 5000 times. Similarly, Figure @ref(fig:hist-2400) shows a histogram plot of the similar simulation with 40 implementers instead of 20.</p>
 <div class="figure">
-<img src="cross_sectional_timing_files/figure-html/hist-1200-1.png" alt="20 developers sampled 5 times per month for one year" width="700"><p class="caption">
-20 developers sampled 5 times per month for one year
+<img src="cross_sectional_timing_files/figure-html/hist-1200-1.png" alt="20 implementers sampled 5 times per month for one year" width="700"><p class="caption">
+20 implementers sampled 5 times per month for one year
 </p>
 </div>
-<p>What if we double our sample size for each iteration?</p>
 <div class="figure">
-<img src="cross_sectional_timing_files/figure-html/hist-2400-1.png" alt="40 developers sampled 5 times per month for one year" width="700"><p class="caption">
-40 developers sampled 5 times per month for one year
+<img src="cross_sectional_timing_files/figure-html/hist-2400-1.png" alt="40 implementers sampled 5 times per month for one year" width="700"><p class="caption">
+40 implementers sampled 5 times per month for one year
 </p>
 </div>
 </div>
@@ -694,7 +633,9 @@ training
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p> The software is fully adaptable to other job types, activity lists, and expected frequencies.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>business partners, developers, implementers, Modeling Center of Excellence (MCOE) personnel, and Model Risk Management (MRM) personnel<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>We expect that well over 20 percent of time is used in activities that are not directly related to model deployment or use. Planning how much detail to collect and how the data will be analyzed should occur prior to any data being collected.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p> The software is has the ability to examine multiple job types, job specific activity lists, and corresponding expected frequencies.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>
@@ -710,7 +651,7 @@ training
 
 
       <footer><div class="copyright">
-  <p>Developed by The package maintainer.</p>
+  <p>Developed by R. Mark Sharp.</p>
 </div>
 
 <div class="pkgdown">

@@ -1,16 +1,25 @@
 Package: crosssectiontimer
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Cross-Section Activity Timer Simulation Tool
 Version: 0.1.0
 Authors@R: c(
     person("R. Mark", "Sharp", email = "rmsharp@me.com", 
     comment = c(ORCID = "0000-0002-6170-6942"), 
     role = c("aut", "cre", "cph", "dtc"))
     )
-Description: This document presents a cross-sectional sampling design as an 
-alternative to a longitudinal sampling design inherent in the logging of
-activities method proposed to collect time on task information. 
-License: What license is it under?
+Description: This document presents a cross-sectional sampling design as an
+ alternative to a longitudinal sampling design inherent in the logging of
+ activities method proposed to collect time on task information. 
+Imports:
+    ggplot2,
+    kableExtra,
+    magrittr,
+    rmsutilityr,
+    stringi
+Suggests:
+    knitr,
+    rmarkdown,
+    roxygen2 (>= 7.0.0)
 Language: en-US
 Encoding: UTF-8
 License: MIT + file LICENSE

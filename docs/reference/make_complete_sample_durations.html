@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hello, World! — hello • crosssectiontimer</title>
+<title>Make a complete sample duration data.frame object — make_complete_sample_durations • crosssectiontimer</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,10 @@
 
 
 
-<meta property="og:title" content="Hello, World! — hello" />
-<meta property="og:description" content="Prints 'Hello, world!'." />
+<meta property="og:title" content="Make a complete sample duration data.frame object — make_complete_sample_durations" />
+<meta property="og:description" content="Adds back missing activities that were dropped by the table function
+because they do not appear in the sample. They are added into the object
+and given a count of zero." />
 
 
 
@@ -115,23 +117,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Hello, World!</h1>
+    <h1>Make a complete sample duration data.frame object</h1>
     
-    <div class="hidden name"><code>hello.Rd</code></div>
+    <div class="hidden name"><code>make_complete_sample_durations.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Prints 'Hello, world!'.</p>
+    <p>Adds back missing activities that were dropped by the <code>table</code> function
+because they do not appear in the sample. They are added into the object
+and given a count of zero.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>hello</span><span class='op'>(</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>make_complete_sample_durations</span><span class='op'>(</span><span class='va'>sample_duration</span>, <span class='va'>actor_activities</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>sample_duration</th>
+      <td><p>named numeric vector that may be missing actions if
+those actions did not occur during the sampling phase.</p></td>
+    </tr>
+    <tr>
+      <th>actor_activities</th>
+      <td><p>data.frame of all possible actor actions.</p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='r-in'><span class='fu'>hello</span><span class='op'>(</span><span class='op'>)</span></span>
-<span class='r-err co'><span class='r-pr'>#&gt;</span> <span class='error'>Error in hello()</span> could not find function "hello"</span>
-</pre>
+    <p>an sample duration data.frame object</p>
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

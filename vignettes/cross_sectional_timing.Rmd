@@ -5,6 +5,10 @@ date: "`r Sys.Date()`"
 output:
   bookdown::pdf_document2: default
   bookdown::html_document2: default
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown_notangle} 
+  %\VignetteIndexEntry{Interactive Use of nprcgenekeepr} 
+  %\usepackage[UTF-8]{inputenc}
 ---
 
 ```{r setup, include=FALSE}
@@ -16,13 +20,19 @@ library(magrittr)
 library(rmsutilityr)
 library(stringi)
 
+actor <- "implementer"
+n_actors <- 20
+times_per_month <- 5
+iterations <- 5000
+n_months <- 12
 ```
 
 # Purpose
 
 We want to gain insight into how much time is spent on specific activities by 
 various actors^[business partners, developers, implementers, Modeling
-Center of Excellence (MCOE) personnel, and Model Risk Management (MRM) personnel]
+Center of Excellence (MCOE) personnel, and Model Risk Management (MRM) 
+personnel]
 responsible for the success of the model deployment life-cycle.
 It is anticipated that having time on task data will provide insight in those
 areas where where improvement opportunities exist.
@@ -82,18 +92,19 @@ The remainder of this document presents a simple simulation study using a
 realistic design 
 and provides sufficient detail to assess expected data quality.
 
-The simulated model has a set of representative activities for developers.^[
+The simulated model has a set of representative activities for `r actor`s.^[
 The software is has the ability to examine multiple job types, job specific
 activity lists, and corresponding expected frequencies.]. 
-It simulates asking a set of developers to indicate
+It simulates asking a set of `r actor`s to indicate
 which of the activities listed on the questionnaire they were doing at the time
-the question popped up on their screen. Once the developer makes a selection,
+the question popped up on their screen. Once the `r actor` makes a selection,
 that selection is returned as a result to the collection software, which
 cumulates the responses for later analysis. 
 
 In the simulation model, these queries and responses can all be processed in
 less than a second but as described below this simulation is constructed so that
-each simulated developer responds only five times during the entire
+each simulated `r actor` responds only `r numbers2words(times_per_month)` 
+times during the entire
 duration of the experiments illustrated below.
 
 The manner in which the questions are presented and the timing of when the 
@@ -102,72 +113,56 @@ not discusses further.
 
 ## Simulation
 
-The developers' activities are programmed to occur with the following 
+The `r actor`s' activities are programmed to occur with the following 
 frequencies.
 
-```{r activities, echo = TRUE}
-dev_freq <- c(
-  0.05, # data discovery
-  0.10, # data analysis 
-  0.05, # data marshaling 
-  0.05, # data transformation 
-  0.05, # model selection 
-  0.15, # model training 
-  0.20, # model testing 
-  0.05, # output coding 
-  0.01, # metric coding 
-  0.01, # ongoing monitoring coding 
-  0.03, # literature research 
-  0.03, # communication with implementors 
-  0.02, # communication with business partners 
-  0.01, # peer review 
-  0.01, # narrative writing 
-  0.02, # model description formatting 
-  0.01, # ongoing monitoring report formatting, # model description
-  0.10, # administrative tasks, not directly related to modeling; including
-        # general training, communications, etc.
-  0.01, # training related to modeling
-  0.02, # personal activities that are not work related
-  0.02) # other
+```{r activities, echo = FALSE}
+activities <- get_defined_activities()
+activities <- activities[activities$actor_type == actor, ]
+caption <- stri_c("List of possible activities for the ", actor, 
+" with assigend frequencies to be used in simulations.")
+activities[ , c("activity", "freq")] %>%
+  kbl(digits = 2, col.names = c("Activity", "Frequency"),
+      caption = caption, row.names = FALSE) %>%
+  kable_styling(latex_options = "HOLD_position") %>%
+  kable_material(c("striped", "hover"))
 
 ```
 
 For clarity, we demonstrate one and three samples.
 
-A single sample: `r make_activity_observation("developer", size = 1, dev_freq)`   
-Three samples: `r get_and_or_list(make_activity_observation("developer", size = 3, dev_freq))`.
+A single sample: `r make_activity_observation(actor, size = 1, activities$freq)`   
+Three samples: `r get_and_or_list(make_activity_observation(actor, size = 3, activities$freq))`.
 
-Lets see how precise our estimates would be if we included 20 developers 
-sampled just 5 times a month for each of 12 months.
+Lets see how precise our estimates would be if we included 20 `r actor`s 
+sampled just `r times_per_month` times a month for each of `r n_months` months.
 
-Since the algorithm is not actually modeling individual developers, the order of 
-sampling has no impact on results, which means we simply take `r 20*5*12` 
-(20 * 5 * 12) compare each result set to the expected values.
+Since the algorithm is not actually modeling individual `r actor`s, the order of 
+sampling has no impact on results, which means we simply take 
+`r n_actors * times_per_month * n_months` 
+(`r n_actors` * `r times_per_month` * `r n_months`) compare each result set to 
+the expected values.
 
 ```{r small-sample,}
-activities <- get_defined_activities()
-dev_activities <- activities[activities$actor_type == "developer", 
-                             c("action", "description")]
-dev_activities <- cbind(dev_activities, prob = dev_freq)
-small_sample <- make_activity_observation("developer", size = 20 * 5 * 12, 
-                                          dev_freq)
+small_sample <- make_activity_observation(
+  actor, size = n_actors * times_per_month * n_months, activities$freq)
 small_sample_counts <- table(small_sample)
 sample_size <- sum(small_sample_counts)
 small_sample_duration <- small_sample_counts / sample_size
 
 small_sample_duration <- 
-  make_complete_sample_durations(small_sample_duration, dev_activities)
+  make_complete_sample_durations(small_sample_duration, activities)
 
-dev_activities <- dev_activities[order(dev_activities$action), ]
+activities <- activities[order(activities$activity), ]
 
 caption <- stri_c("List of activities, the frequency in which they were ",
                   "observed, the simulated frequency of the activity ",
                   "(expected), and the absolute difference between the ",
                   "observed and expected frequencies.")
 
-delta <- abs(small_sample_duration$duration - dev_activities$prob)
+delta <- abs(small_sample_duration$duration - activities$freq)
 small_sample_duration %>%
-  cbind(data.frame(prob = dev_activities$prob, delta = delta)) %>%
+  cbind(data.frame(prob = activities$freq, delta = delta)) %>%
   kbl(digits = 3, 
       col.names = c("Description", "Observed", "Expected", "Delta"),
       caption = caption) %>%
@@ -179,7 +174,8 @@ small_sample_duration %>%
 
 
 We can estimate the duration in minutes on each activity if we allocate 
-the `r 20 * 5 * 12` observations into one 8 hour day which has 560 minutes.
+the `r n_actors * times_per_month * n_months` observations into one 8 hour day 
+which has 560 minutes.
 
 ```{r small-sample-in-minutes}
 minutes_per_activity <- small_sample_duration$duration * 560
@@ -202,21 +198,25 @@ experiment many times to learn what precision we can expect.
 
 <!-- We will start by putting the simulation into a function. Note that this is 
 not a generic function as it assumes the presence of the globally defined 
-objects (__dev_prop__ and __dev_activities__) and it knows about their 
+objects (__activities$freq__ and __activities$activity__) and it knows about their 
 structure.
 -->
 
 ```{r simulation-function, echo = FALSE}
-sim_sample_duration <- function(size = 20 * 5 * 12, iterations = 1) {
+sim_sample_duration <- 
+  function(size = n_actors * times_per_month * n_months, iterations = 1) {
   max_delta <- numeric(iterations)
   for (i in seq_len(iterations)) {
     small_sample <-
-      make_activity_observation("developer", size = size,
-                                dev_freq)
+      make_activity_observation(actor, size = size,
+                                activities$freq)
     small_sample_counts <- table(small_sample)
     sample_size <- sum(small_sample_counts)
     small_sample_duration <- small_sample_counts / sample_size
-    max_delta[i] <- max(abs(small_sample_duration - dev_activities$prob))
+    small_sample_duration <- 
+      make_complete_sample_durations(small_sample_duration, activities)
+    max_delta[i] <- 
+      max(abs(small_sample_duration$duration - activities$freq))
   }
   max_delta
 }
@@ -225,54 +225,71 @@ sim_sample_duration <- function(size = 20 * 5 * 12, iterations = 1) {
 
 Figure \@ref(fig:hist-1200) shows a histogram plot of 
 the results of 
-repeating the simulation of 20 developers providing 5 responses 
-in each of the 12 months of a year 1000 times. 
+repeating the simulation of 20 `r actor`s providing `r times_per_month` responses 
+in each of the `r n_months` months of a year `r iterations` times. 
 Similarly, Figure \@ref(fig:hist-2400) shows a histogram plot of 
-the similar simulation with 40 developers instead of 20.
+the similar simulation with 40 `r actor`s instead of 20.
 
-```{r hist-1200, fig.cap="20 developers sampled 5 times per month for one year"}
-iterations <- 10000
-n_developers <- 20
-sim_delta_freq <- sim_sample_duration(size = n_developers * 5 * 12, 
-                                         iterations = iterations)
+```{r}
+hist_1200_cap <- paste0("20 ", actor, "s sampled ", times_per_month, 
+                        " times per month for one year")
+
+```
+
+```{r hist-1200, fig.cap=hist_1200_cap}
+this_n_actors <- n_actors
+sim_delta_freq <- sim_sample_duration(
+  size = this_n_actors * times_per_month * n_months, iterations = iterations)
 gt_2_percent <- sum(sim_delta_freq > 0.02) / length(sim_delta_freq)
 gt_3_percent <- sum(sim_delta_freq > 0.03) / length(sim_delta_freq)
 
 data.frame(freq = sim_delta_freq) %>%
 ggplot(aes(x = freq)) + 
   geom_histogram(bins = 30) +
-  ggtitle(stri_c("Simulation of ", iterations, " iterations with ",
-                 n_developers, " developers found ", 
+  ggtitle(stri_c("Simulation of ", 
+                 format(iterations, digits = 0, decimal.mark = ".", 
+                        big.mark = ","), 
+                 " iterations with ",
+                 this_n_actors, " ", actor, "s found ", 
                  100 * gt_2_percent, "% of durations \nwere greater than ", 
                  "2 percent away from the ",
                  "expected value and ", 100 * gt_3_percent, 
                  "% of \ndurations were greater than 3 ", 
-                 "percent away from the expected value.")) +
+                 "percent away from the expected value \nwith the largest ",
+                 "absolute delta value being ", round(max(sim_delta_freq), 3), 
+                 ".")) +
   xlab("Absolute Value of (Expected - Observed) Frequency") +
   ylab("Count")
 
 ```
+```{r}
+hist_2400_cap <- paste0("40 ", actor, "s sampled ", times_per_month, 
+                        " times per month for one year")
 
-What if we double our sample size for each iteration?
-
-```{r hist-2400, fig.cap="40 developers sampled 5 times per month for one year"}
-iterations <- 10000
-n_developers <- 40
-sim_delta_freq <- sim_sample_duration(size = n_developers * 5 * 12, 
-                                         iterations = iterations)
+```
+```{r hist-2400, fig.cap=hist_2400_cap}
+this_n_actors <- 2 * n_actors
+sim_delta_freq <- 
+  sim_sample_duration(size = this_n_actors * times_per_month * n_months, 
+                      iterations = iterations)
 gt_2_percent <- sum(sim_delta_freq > 0.02) / length(sim_delta_freq)
 gt_3_percent <- sum(sim_delta_freq > 0.03) / length(sim_delta_freq)
 
 data.frame(freq = sim_delta_freq) %>%
 ggplot(aes(x = freq)) + 
   geom_histogram(bins = 30) +
-  ggtitle(stri_c("Simulation of ", iterations, " iterations with ",
-                 n_developers, " developers found ", 
-                 100 * gt_2_percent, "% of durations \nwere greater than ", 
+  ggtitle(stri_c("Simulation of ", 
+                 format(iterations, digits = 0, decimal.mark = ".", 
+                        big.mark = ","), 
+                 " iterations with ",
+                 this_n_actors, " ", actor, "s found ", 
+                 100 * gt_2_percent, "% of \ndurations were greater than ", 
                  "2 percent away from the ",
-                 "expected value and ", 100 * gt_3_percent, 
-                 "% of \ndurations were greater than 3 ", 
-                 "percent away from the expected value.")) +
+                 "expected value and \n", 100 * gt_3_percent, 
+                 "% of durations were greater than 3 ", 
+                 "percent away from the expected \nvalue with the largest ",
+                 "absolute delta value being ", round(max(sim_delta_freq), 3), 
+                 ".")) +
   xlab("Absolute Value of (Expected - Observed) Frequency") +
   ylab("Count") 
 

@@ -11,8 +11,8 @@
 #' @export
 make_complete_sample_durations <- function(sample_duration, actor_activities) {
   description <- names(sample_duration)
-  missing_names <- actor_activities$action[
-    !is.element(actor_activities$action, description)]
+  missing_names <- actor_activities$activity[
+    !is.element(actor_activities$activity, description)]
   missing_names_len <- length(missing_names)
   description <- c(description, missing_names)
   duration <- as.numeric(sample_duration)
