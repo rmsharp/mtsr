@@ -3,3 +3,4 @@
 export(get_defined_activities)
 export(make_activity_observation)
 export(make_complete_sample_durations)
+export(sim_sample_duration)

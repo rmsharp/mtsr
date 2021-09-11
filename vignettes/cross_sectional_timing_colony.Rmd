@@ -3,7 +3,8 @@ title: "Test of a Cross-sectional Sampling Timer"
 author: "R. Mark Sharp"
 date: "`r Sys.Date()`"
 output:
-  bookdown::pdf_document2: default
+  bookdown::pdf_document2: 
+    extra_dependencies: ["float"]
   bookdown::html_document2: default
 vignette: >
   %\VignetteEngine{knitr::rmarkdown_notangle} 
@@ -20,27 +21,33 @@ library(magrittr)
 library(rmsutilityr)
 library(stringi)
 
-actor <- "implementer"
+activity_file <- stri_c("~/Documents/Development/R/r_workspace/",
+                        "crosssectiontimer/inst/extdata/",
+                        "colony_management_defined_activities.csv")
+value_stream_descriptor <- stri_c("the husbandry and veterinary care of ",
+                                  "colony animals")
+actor <- "animal_caretaker"
 n_actors <- 20
 times_per_month <- 5
 iterations <- 5000
 n_months <- 12
+activities <- get_defined_activities(activity_file)
+
 ```
 
 # Purpose
 
 We want to gain insight into how much time is spent on specific activities by 
-various actors^[business partners, developers, implementers, Modeling
-Center of Excellence (MCOE) personnel, and Model Risk Management (MRM) 
-personnel]
-responsible for the success of the model deployment life-cycle.
+various actors^[`r get_and_or_list(activities$actor)`]
+responsible for the success of `r value_stream_descriptor`.
 It is anticipated that having time on task data will provide insight in those
 areas where where improvement opportunities exist.
 
 Detailed planning regarding questions to be addressed is required to design
 which activities^[We expect that well over 
 20 percent of time is used in activities that are not directly related to 
-model deployment or use. Planning how much detail to collect and how the data
+the value stream under study. 
+Planning how much detail to collect and how the data
 will be analyzed should occur prior to any data being collected.]
 should be measured. 
 However, the intent of this document is to
@@ -117,10 +124,11 @@ The `r actor`s' activities are programmed to occur with the following
 frequencies.
 
 ```{r activities, echo = FALSE}
-activities <- get_defined_activities()
 activities <- activities[activities$actor_type == actor, ]
-caption <- stri_c("List of possible activities for the ", actor, 
-" with assigend frequencies to be used in simulations.")
+caption <- stri_c("List of possible activities for the ", 
+                  stri_replace_all_fixed(actor, pattern = "_", 
+                                         replacement = "\\_"),
+" with assigned frequencies to be used in simulations.")
 activities[ , c("activity", "freq")] %>%
   kbl(digits = 2, col.names = c("Activity", "Frequency"),
       caption = caption, row.names = FALSE) %>%
@@ -130,11 +138,19 @@ activities[ , c("activity", "freq")] %>%
 ```
 
 For clarity, we demonstrate one and three samples.
+```{r}
+three_samples <- get_and_or_list(make_activity_observation(activities, 
+                                                           size = 3, 
+                                                           activities$freq))
 
-A single sample: `r make_activity_observation(actor, size = 1, activities$freq)`   
-Three samples: `r get_and_or_list(make_activity_observation(actor, size = 3, activities$freq))`.
+```
 
-Lets see how precise our estimates would be if we included 20 `r actor`s 
+A single sample: 
+`r make_activity_observation(activities, size = 1, activities$freq)`   
+Three samples: `r three_samples`.
+
+Lets see how precise our estimates would be if we included 
+`r n_actors` `r actor`s 
 sampled just `r times_per_month` times a month for each of `r n_months` months.
 
 Since the algorithm is not actually modeling individual `r actor`s, the order of 
@@ -145,7 +161,7 @@ the expected values.
 
 ```{r small-sample,}
 small_sample <- make_activity_observation(
-  actor, size = n_actors * times_per_month * n_months, activities$freq)
+  activities, size = n_actors * times_per_month * n_months, activities$freq)
 small_sample_counts <- table(small_sample)
 sample_size <- sum(small_sample_counts)
 small_sample_duration <- small_sample_counts / sample_size
@@ -196,50 +212,33 @@ estimates are shown to be very close as in seen in the _Delta_ column
 (within about 1 percent). However, it is more instructive to simulation this 
 experiment many times to learn what precision we can expect.
 
-<!-- We will start by putting the simulation into a function. Note that this is 
-not a generic function as it assumes the presence of the globally defined 
-objects (__activities$freq__ and __activities$activity__) and it knows about their 
-structure.
+<!-- We will start by putting the simulation into a function. 
 -->
 
-```{r simulation-function, echo = FALSE}
-sim_sample_duration <- 
-  function(size = n_actors * times_per_month * n_months, iterations = 1) {
-  max_delta <- numeric(iterations)
-  for (i in seq_len(iterations)) {
-    small_sample <-
-      make_activity_observation(actor, size = size,
-                                activities$freq)
-    small_sample_counts <- table(small_sample)
-    sample_size <- sum(small_sample_counts)
-    small_sample_duration <- small_sample_counts / sample_size
-    small_sample_duration <- 
-      make_complete_sample_durations(small_sample_duration, activities)
-    max_delta[i] <- 
-      max(abs(small_sample_duration$duration - activities$freq))
-  }
-  max_delta
-}
 
-```
-
-Figure \@ref(fig:hist-1200) shows a histogram plot of 
-the results of 
-repeating the simulation of 20 `r actor`s providing `r times_per_month` responses 
+Figure \@ref(fig:hist-1X) shows a histogram plot of 
+the results of repeating the simulation of `r n_actors`
+`r actor`s providing `r times_per_month` responses 
 in each of the `r n_months` months of a year `r iterations` times. 
-Similarly, Figure \@ref(fig:hist-2400) shows a histogram plot of 
-the similar simulation with 40 `r actor`s instead of 20.
+Similarly, Figure \@ref(fig:hist-2X) shows a histogram plot of 
+the similar simulation with `r round(n_actors * 2, 0)` 
+`r actor`s instead of `r n_actors`.
 
 ```{r}
-hist_1200_cap <- paste0("20 ", actor, "s sampled ", times_per_month, 
-                        " times per month for one year")
+hist_1X_cap <- stri_c(n_actors, " ", 
+                      stri_replace_all_fixed(actor, pattern = "_", 
+                                             replacement = "\\_"), 
+                      "s sampled ", times_per_month, 
+                      " times per month for one year")
 
 ```
 
-```{r hist-1200, fig.cap=hist_1200_cap}
+```{r hist-1X, fig.cap=hist_1X_cap, cache=TRUE}
 this_n_actors <- n_actors
 sim_delta_freq <- sim_sample_duration(
-  size = this_n_actors * times_per_month * n_months, iterations = iterations)
+  activities,
+  size = this_n_actors * times_per_month * n_months, 
+  iterations = iterations)
 gt_2_percent <- sum(sim_delta_freq > 0.02) / length(sim_delta_freq)
 gt_3_percent <- sum(sim_delta_freq > 0.03) / length(sim_delta_freq)
 
@@ -263,14 +262,18 @@ ggplot(aes(x = freq)) +
 
 ```
 ```{r}
-hist_2400_cap <- paste0("40 ", actor, "s sampled ", times_per_month, 
-                        " times per month for one year")
+hist_2X_cap <- paste0(round(n_actors * 2, 0), " ", 
+                      stri_replace_all_fixed(actor, pattern = "_", 
+                                             replacement = "\\_"), 
+                      "s sampled ", times_per_month, 
+                      " times per month for one year.")
 
 ```
-```{r hist-2400, fig.cap=hist_2400_cap}
+```{r hist-2X, fig.cap=hist_2X_cap, cache=TRUE}
 this_n_actors <- 2 * n_actors
 sim_delta_freq <- 
-  sim_sample_duration(size = this_n_actors * times_per_month * n_months, 
+  sim_sample_duration(activities,
+                      size = this_n_actors * times_per_month * n_months, 
                       iterations = iterations)
 gt_2_percent <- sum(sim_delta_freq > 0.02) / length(sim_delta_freq)
 gt_3_percent <- sum(sim_delta_freq > 0.03) / length(sim_delta_freq)

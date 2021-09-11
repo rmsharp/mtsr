@@ -5,3 +5,5 @@
 docs/*.svg
 docs/*.yml
 docc/*.js
+^vignettes/cross_sectional_timing_model.*$
+^vignettes/Cross_Section_Activity_Timing_Proposal.*$
