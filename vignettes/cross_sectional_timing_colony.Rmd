@@ -6,6 +6,8 @@ output:
   bookdown::pdf_document2: 
     extra_dependencies: ["float"]
   bookdown::html_document2: default
+header-includes:
+  - \usepackage{caption}
 vignette: >
   %\VignetteEngine{knitr::rmarkdown_notangle} 
   %\VignetteIndexEntry{Interactive Use of nprcgenekeepr} 
@@ -156,8 +158,8 @@ sampled just `r times_per_month` times a month for each of `r n_months` months.
 Since the algorithm is not actually modeling individual `r actor`s, the order of 
 sampling has no impact on results, which means we simply take 
 `r n_actors * times_per_month * n_months` 
-(`r n_actors` * `r times_per_month` * `r n_months`) compare each result set to 
-the expected values.
+(`r n_actors` * `r times_per_month` * `r n_months`) samples per result set and
+compare each to the expected values.
 
 ```{r small-sample,}
 small_sample <- make_activity_observation(
@@ -232,6 +234,7 @@ hist_1X_cap <- stri_c(n_actors, " ",
                       " times per month for one year")
 
 ```
+\captionsetup{width=4in}`
 
 ```{r hist-1X, fig.cap=hist_1X_cap, cache=TRUE}
 this_n_actors <- n_actors
