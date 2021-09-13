@@ -4,16 +4,12 @@
 \alias{sim_sample_duration}
 \title{Simulation of actors activities to estimate duration on each activity}
 \usage{
-sim_sample_duration(
-  activities,
-  size = n_actors * times_per_month * n_months,
-  iterations = 1
-)
+sim_sample_duration(activities, size = 100, iterations = 1)
 }
 \arguments{
 \item{activities}{data.frame object with a single actor_type}
 
-\item{size}{the number of actors * n_months * time_per_month}
+\item{size}{typically n_actors * n_months * times_per_month}
 
 \item{iterations}{integer indicating the number of times the simulation
 is to occur.}

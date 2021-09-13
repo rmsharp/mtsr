@@ -3,3 +3,4 @@
 .RData
 .Ruserdata
 ^vignettes/cross_sectional_timing_model.Rmd$
+^vignettes/cross_sectional_timing_cache$

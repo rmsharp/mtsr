@@ -4,13 +4,13 @@
 #' precision of the estimates expected from the estimation experiment.
 #'
 #' @param activities data.frame object with a single actor_type
-#' @param size the number of actors * n_months * time_per_month
+#' @param size typically n_actors * n_months * times_per_month
 #' @param iterations integer indicating the number of times the simulation
 #' is to occur.
 #'
 #' @export
 sim_sample_duration <- function(activities,
-                                size = n_actors * times_per_month * n_months,
+                                size = 100,
                                 iterations = 1) {
   max_delta <- numeric(iterations)
     for (i in seq_len(iterations)) {
