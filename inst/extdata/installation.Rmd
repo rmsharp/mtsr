@@ -1,0 +1,34 @@
+---
+title: "Installation"
+author: "R. Mark Sharp, Ph.D."
+date: "11/1/2017"
+output: html_document
+---
+
+### github.com Installation
+
+The current development version can be 
+intalled from GitHub.
+[github.com/rmsharp/crosssectiontimer](
+https://github.com/rmsharp/crosssectiontimer) 
+as all of the dependencies are automatically installed.
+
+You can install **crosssectiontimer** from github with:
+
+```{r gh-installation, eval = FALSE}
+install.packages("devtools")
+devtools::install_github("rmsharp/crosssectiontimer")
+
+```
+
+All missing dependencies should be automatically installed except for those
+found in rmsutilityr, which is available at my github account.
+
+You can install **rmsutilityr** from github with:
+
+```{r gh-rmsutilityr-installation, eval = FALSE}
+install.packages("devtools")
+devtools::install_github("rmsharp/rmsutilityr")
+
+```
+
