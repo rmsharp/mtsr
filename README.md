@@ -275,9 +275,9 @@ For clarity, we demonstrate one and three samples.
 
 ## Data Collection Example
 
-A single sample: animal care meeting  
-Three samples: food preparation, individual caged animal inventory and
-health check, and animal care record use.
+A single sample: gang cage animal feeding  
+Three samples: animal care meeting, food preparation, and food
+preparation.
 
 Lets see how precise our estimates would be if we included 20
 animal_caretakers sampled just 5 times a month for each of 12 months.
@@ -328,66 +328,10 @@ Delta
 administrative work
 </td>
 <td style="text-align:right;">
-0.098
+0.096
 </td>
 <td style="text-align:right;">
 0.10
-</td>
-<td style="text-align:right;">
-0.002
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-animal care correspondence
-</td>
-<td style="text-align:right;">
-0.012
-</td>
-<td style="text-align:right;">
-0.01
-</td>
-<td style="text-align:right;">
-0.002
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-animal care meeting
-</td>
-<td style="text-align:right;">
-0.049
-</td>
-<td style="text-align:right;">
-0.05
-</td>
-<td style="text-align:right;">
-0.001
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-animal care record keeping
-</td>
-<td style="text-align:right;">
-0.038
-</td>
-<td style="text-align:right;">
-0.05
-</td>
-<td style="text-align:right;">
-0.013
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-animal care record use
-</td>
-<td style="text-align:right;">
-0.046
-</td>
-<td style="text-align:right;">
-0.05
 </td>
 <td style="text-align:right;">
 0.004
@@ -395,77 +339,7 @@ animal care record use
 </tr>
 <tr>
 <td style="text-align:left;">
-food preparation
-</td>
-<td style="text-align:right;">
-0.140
-</td>
-<td style="text-align:right;">
-0.15
-</td>
-<td style="text-align:right;">
-0.010
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-gang cage animal feeding
-</td>
-<td style="text-align:right;">
-0.216
-</td>
-<td style="text-align:right;">
-0.20
-</td>
-<td style="text-align:right;">
-0.016
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-gang caged animal inventory and health check
-</td>
-<td style="text-align:right;">
-0.053
-</td>
-<td style="text-align:right;">
-0.05
-</td>
-<td style="text-align:right;">
-0.003
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-group animal transfer
-</td>
-<td style="text-align:right;">
-0.049
-</td>
-<td style="text-align:right;">
-0.05
-</td>
-<td style="text-align:right;">
-0.001
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-individual animal feeding
-</td>
-<td style="text-align:right;">
-0.045
-</td>
-<td style="text-align:right;">
-0.05
-</td>
-<td style="text-align:right;">
-0.005
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-individual animal transfer
+animal care correspondence
 </td>
 <td style="text-align:right;">
 0.013
@@ -479,7 +353,21 @@ individual animal transfer
 </tr>
 <tr>
 <td style="text-align:left;">
-individual cage cleaning
+animal care meeting
+</td>
+<td style="text-align:right;">
+0.044
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.006
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+animal care record keeping
 </td>
 <td style="text-align:right;">
 0.054
@@ -493,24 +381,10 @@ individual cage cleaning
 </tr>
 <tr>
 <td style="text-align:left;">
-individual cage sanitation
+animal care record use
 </td>
 <td style="text-align:right;">
-0.048
-</td>
-<td style="text-align:right;">
-0.05
-</td>
-<td style="text-align:right;">
-0.003
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-individual caged animal inventory and health check
-</td>
-<td style="text-align:right;">
-0.053
+0.047
 </td>
 <td style="text-align:right;">
 0.05
@@ -521,7 +395,77 @@ individual caged animal inventory and health check
 </tr>
 <tr>
 <td style="text-align:left;">
-ordering of major equipment
+food preparation
+</td>
+<td style="text-align:right;">
+0.150
+</td>
+<td style="text-align:right;">
+0.15
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gang cage animal feeding
+</td>
+<td style="text-align:right;">
+0.187
+</td>
+<td style="text-align:right;">
+0.20
+</td>
+<td style="text-align:right;">
+0.013
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+gang caged animal inventory and health check
+</td>
+<td style="text-align:right;">
+0.044
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.006
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+group animal transfer
+</td>
+<td style="text-align:right;">
+0.058
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.008
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+individual animal feeding
+</td>
+<td style="text-align:right;">
+0.049
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+individual animal transfer
 </td>
 <td style="text-align:right;">
 0.009
@@ -535,16 +479,72 @@ ordering of major equipment
 </tr>
 <tr>
 <td style="text-align:left;">
-ordering of supplies and minor equipment
+individual cage cleaning
 </td>
 <td style="text-align:right;">
-0.007
+0.049
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+individual cage sanitation
+</td>
+<td style="text-align:right;">
+0.058
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.008
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+individual caged animal inventory and health check
+</td>
+<td style="text-align:right;">
+0.058
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:right;">
+0.008
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ordering of major equipment
+</td>
+<td style="text-align:right;">
+0.011
 </td>
 <td style="text-align:right;">
 0.01
 </td>
 <td style="text-align:right;">
-0.003
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ordering of supplies and minor equipment
+</td>
+<td style="text-align:right;">
+0.009
+</td>
+<td style="text-align:right;">
+0.01
+</td>
+<td style="text-align:right;">
+0.001
 </td>
 </tr>
 <tr>
@@ -566,13 +566,13 @@ other
 personal time
 </td>
 <td style="text-align:right;">
-0.056
+0.050
 </td>
 <td style="text-align:right;">
 0.05
 </td>
 <td style="text-align:right;">
-0.006
+0.000
 </td>
 </tr>
 </tbody>
@@ -602,7 +602,7 @@ Minutes
 administrative work
 </td>
 <td style="text-align:right;">
-55.1
+53.7
 </td>
 </tr>
 <tr>
@@ -610,7 +610,7 @@ administrative work
 animal care correspondence
 </td>
 <td style="text-align:right;">
-6.5
+7.0
 </td>
 </tr>
 <tr>
@@ -618,7 +618,7 @@ animal care correspondence
 animal care meeting
 </td>
 <td style="text-align:right;">
-27.5
+24.7
 </td>
 </tr>
 <tr>
@@ -626,7 +626,7 @@ animal care meeting
 animal care record keeping
 </td>
 <td style="text-align:right;">
-21.0
+30.3
 </td>
 </tr>
 <tr>
@@ -634,7 +634,7 @@ animal care record keeping
 animal care record use
 </td>
 <td style="text-align:right;">
-25.7
+26.1
 </td>
 </tr>
 <tr>
@@ -642,7 +642,7 @@ animal care record use
 food preparation
 </td>
 <td style="text-align:right;">
-78.4
+84.0
 </td>
 </tr>
 <tr>
@@ -650,7 +650,7 @@ food preparation
 gang cage animal feeding
 </td>
 <td style="text-align:right;">
-120.9
+104.5
 </td>
 </tr>
 <tr>
@@ -658,7 +658,7 @@ gang cage animal feeding
 gang caged animal inventory and health check
 </td>
 <td style="text-align:right;">
-29.9
+24.7
 </td>
 </tr>
 <tr>
@@ -666,7 +666,7 @@ gang caged animal inventory and health check
 group animal transfer
 </td>
 <td style="text-align:right;">
-27.5
+32.7
 </td>
 </tr>
 <tr>
@@ -674,7 +674,7 @@ group animal transfer
 individual animal feeding
 </td>
 <td style="text-align:right;">
-25.2
+27.5
 </td>
 </tr>
 <tr>
@@ -682,7 +682,7 @@ individual animal feeding
 individual animal transfer
 </td>
 <td style="text-align:right;">
-7.5
+5.1
 </td>
 </tr>
 <tr>
@@ -690,7 +690,7 @@ individual animal transfer
 individual cage cleaning
 </td>
 <td style="text-align:right;">
-30.3
+27.5
 </td>
 </tr>
 <tr>
@@ -698,7 +698,7 @@ individual cage cleaning
 individual cage sanitation
 </td>
 <td style="text-align:right;">
-26.6
+32.7
 </td>
 </tr>
 <tr>
@@ -706,7 +706,7 @@ individual cage sanitation
 individual caged animal inventory and health check
 </td>
 <td style="text-align:right;">
-29.9
+32.7
 </td>
 </tr>
 <tr>
@@ -714,7 +714,7 @@ individual caged animal inventory and health check
 ordering of major equipment
 </td>
 <td style="text-align:right;">
-5.1
+6.1
 </td>
 </tr>
 <tr>
@@ -722,7 +722,7 @@ ordering of major equipment
 ordering of supplies and minor equipment
 </td>
 <td style="text-align:right;">
-4.2
+5.1
 </td>
 </tr>
 <tr>
@@ -738,7 +738,7 @@ other
 personal time
 </td>
 <td style="text-align:right;">
-31.3
+28.0
 </td>
 </tr>
 </tbody>
@@ -760,17 +760,17 @@ in each of the 12 months of a year 5000 times. Similarly, Figure
 @ref(fig:hist-2X) shows a histogram plot of the similar simulation with
 40 animal caretakers instead of 20.
 
-![Simulation of 5,000 iterations with 20 animal caretakers found 16% of
-durations were greater than 2 percent away from the expected value and
-1.12% of durations were greater than 3 percent away from the expected
-value with the largest absolute delta value being
-0.045.](README-hist-1X-1.png)
+![Simulation of 5,000 iterations with 20 animal caretakers found 16.38%
+of durations were greater than 2 percent away from the expected value
+and 1.26% of durations were greater than 3 percent away from the
+expected value with the largest absolute delta value being
+0.048.](README-hist-1X-1.png)
 
-![Simulation of 5,000 iterations with 40 animal caretakers found 2.02%
+![Simulation of 5,000 iterations with 40 animal caretakers found 2.44%
 of durations were greater than 2 percent away from the expected value
 and 0% of durations were greater than 3 percent away from the expected
 value with the largest absolute delta value being
-0.028.](README-hist-2X-1.png)
+0.03.](README-hist-2X-1.png)
 
 ## Conclusions
 
@@ -792,13 +792,23 @@ as all of the dependencies are automatically installed.
 
 You can install **crosssectiontimer** from github with:
 
+``` r
+install.packages("devtools")
+devtools::install_github("rmsharp/crosssectiontimer")
+```
+
 All missing dependencies should be automatically installed except for
 those found in rmsutilityr, which is available at my github account.
 
 You can install **rmsutilityr** from github with:
 
+``` r
+install.packages("devtools")
+devtools::install_github("rmsharp/rmsutilityr")
+```
+
 Find online documentation at
-[https://rmsharp.github.io/rmsutilityr/](https://rmsharp.github.io/crosssectiontimer/).
+<https://rmsharp.github.io/crosssectiontimer/>.
 
 See the setup code chunk of this vignette to see how to customize this
 document to examine results you can expect from your own time on task

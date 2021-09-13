@@ -354,7 +354,7 @@ cognative bias introduced by the actors' own expectations.
 ```
 
 Find online documentation at 
-[https://rmsharp.github.io/rmsutilityr/](
+[https://rmsharp.github.io/crosssectiontimer/](
 https://rmsharp.github.io/crosssectiontimer/).
 
 See the setup code chunk of this vignette to see how to customize this document

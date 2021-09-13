@@ -15,7 +15,7 @@ as all of the dependencies are automatically installed.
 
 You can install **crosssectiontimer** from github with:
 
-```{r gh-installation, eval = FALSE}
+```{r gh-installation, eval = FALSE, echo = TRUE}
 install.packages("devtools")
 devtools::install_github("rmsharp/crosssectiontimer")
 
@@ -26,7 +26,7 @@ found in rmsutilityr, which is available at my github account.
 
 You can install **rmsutilityr** from github with:
 
-```{r gh-rmsutilityr-installation, eval = FALSE}
+```{r gh-rmsutilityr-installation, eval = FALSE, echo = TRUE}
 install.packages("devtools")
 devtools::install_github("rmsharp/rmsutilityr")
 
