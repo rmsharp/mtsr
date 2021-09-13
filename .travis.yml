@@ -1,10 +1,11 @@
 language: r
 sudo: required
 dist: bionic
+Remotes: rmsharp/rmsutilityr
 cache:
   - packages
   - github_packages
-r: 
+r:
     - release
     - oldrel
     - devel
