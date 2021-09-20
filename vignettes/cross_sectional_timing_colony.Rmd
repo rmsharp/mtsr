@@ -9,9 +9,9 @@ output:
 header-includes:
   - \usepackage{caption}
 vignette: >
-  %\VignetteEngine{knitr::rmarkdown_notangle} 
   %\VignetteIndexEntry{Interactive Use of nprcgenekeepr} 
   %\usepackage[UTF-8]{inputenc}
+  %\VignetteEngine{knitr::rmarkdown_notangle} 
 ---
 
 ```{r setup, include=FALSE}
@@ -43,33 +43,36 @@ n_months <- 12
 iterations <- 5000          # 5000 seems more than adequate for stable results
 
 activities <- get_defined_activities(activity_file)
+activities <- activities[activities$actor_type == actor, ]
 
 ```
 
 # Purpose
 
-A cross-sectional time on task estimation method is presented, compaired to 
+A cross-sectional time on task estimation method is presented, compared to 
 use of time logging, illustrated with an example, and its accuracy and 
-precision demonstrated with a simulation. Embedded within this package are the 
-R functions used to create this document including the simulation software. 
+precision demonstrated with a simulation. 
+This package contains the 
+R functions used to create this document and the simulation software. 
 The specific example, which is the `r value_stream_descriptor` is provided by
 setup section of the ".Rmd" source file and a comma
 separated value (CSV) file with the actor, activity, and activity descriptions.
 
-Management of a value stream requires adequate estimate of the resources used
+Management of a value stream requires adequate estimates of the resources used
 to create that value with time on task being a direct measure of the primary 
-resource for many value streams. The need to obtain quality estimates of these
-times on the various tasks in a value stream motivated me to provide and
-advocating the use of this time on task method 
+resource creating the value. The need to obtain quality estimates of these
+times on the various tasks in a value stream is the motivation to provide these
+tools and to 
+advocate for the use of this cross-sectional time on task estimation method.
 
 In this example, we want to gain insight into how much time is spent on 
 specific activities by 
 various actors^[`r get_and_or_list(unique(activities$actor))`]
 responsible for the success of `r value_stream_descriptor`.
 It is anticipated that having time on task data will provide insight in those
-areas where where improvement opportunities exist.
+areas where improvement opportunities exist.
 
-Detailed planning regarding questions to be addressed is required to design
+Detailed planning regarding questions to be addressed is required to identify
 which activities^[We expect that some actors will work on more than one value
 stream and all will have additional responsibilities. Thus, some activities
 recorded are intentionally defined as various unrelated activities.
@@ -82,18 +85,19 @@ time is spent and how much of it directly contributes to our primary goals.
 A second benefit is that these data
 allow each class of actor to advocate for modifying the way their
 time is being used to improve their work environment and productivity.
+`r clearpage()`
 
 Time on task estimation methods that call for representative actors within 
 each group or type of actors to
 log time on tasks during their work day have the problems listed below.   
 
 -   Failure rate in logging activities can be high.
--   Recall of the amount of time spent is often wrong this will artificially
-    inflate the variance.
+-   Recall of the amount of time spent is often wrong resulting in an 
+    artificially inflated variance.
 -   Preconceptions of how time should be spent biases recalled durations.
 -   Keeping, collecting, and analyzing logs requires significant administrative
     overhead.
--   The biases introduced from earlier points makes interpretation of results
+-   The biases described in earlier points makes interpretation of results
     difficult.
 -   The longitudinal collection of data requires a long data collection
     phase before any analysis can begin. 
@@ -114,16 +118,17 @@ advantages.
 -   Data can be analyzed at any time.
 -   Variance among projects could be assessed and more accurately measured if
     desired. However, I recommend that project differences be ignored during 
-    initial timeing studies.
-
+    initial timing studies.
 
 # Simulation
 
 ## Design
 
-The remainder of this document presents an example data collection, a simple
-simulation study using a realistic design 
-that provides sufficient detail to assess expected data quality.
+The remainder of this document presents an example data collection design and 
+a simulation study and results
+that provides sufficient detail to assess expected accuracy and precision
+of the resulting time on task estimates for the 
+`r length(activities$activity)` activities.
 
 The example has a set of representative activities for `r actor`s.^[
 The software is has the ability to examine multiple job types, job specific
@@ -132,16 +137,19 @@ It simulates asking a set of `r actor`s to indicate
 which of the activities listed on the questionnaire they were doing at the time
 the question popped up on their screen. Once the `r actor` makes a selection,
 that selection is returned as a result to the collection software, which
-cumulates the responses for later analysis. 
+accumulates the responses for later analysis. 
 
 In the simulation model, these queries and responses can all be processed in
 less than a second but, as described below, this simulation is constructed so
-that each simulated `r actor` responds `r numbers2words(times_per_month)` 
-times during the entire duration of the experiments illustrated below.
+that each simulated `r actor` responds 
+`r numbers2words(times_per_month)` 
+times during the duration of each of the three experiments illustrated below.
 
 The manner in which the questions are presented and the timing of when the 
 questions are presented are critical aspects of the study design but are 
-not discusses further.
+not part of the simulation. Typically, uniformly pseudo-random times throughout the 
+work period would be used so that systematic work schedules will not bias the
+results. 
 
 ## Simulation Activity Frequencies
 
@@ -149,7 +157,6 @@ The `r actor`s' activities are programmed to occur with the following
 frequencies.
 
 ```{r activities, echo = FALSE}
-activities <- activities[activities$actor_type == actor, ]
 caption <- stri_c("List of possible activities for the ", 
                   stri_replace_all_fixed(actor, pattern = "_", 
                                          replacement = "\\_"),
@@ -286,7 +293,7 @@ hist_1X_cap <-
 data.frame(freq = sim_delta_freq) %>%
   ggplot(aes(x = freq)) + 
   geom_histogram(bins = 30) +
-  ggtitle(stri_c(n_actors, " ",  
+  ggtitle(stri_c(this_n_actors, " ",  
          stri_replace_all_fixed(actor, pattern = "_", replacement = " "), 
          "s sampled ", times_per_month, 
                  " times per month for one year")) +
@@ -324,7 +331,7 @@ hist_2X_cap <-
 data.frame(freq = sim_delta_freq) %>%
   ggplot(aes(x = freq)) + 
   geom_histogram(bins = 30) +
-  ggtitle(paste0(round(n_actors * 2, 0), " ", 
+  ggtitle(paste0(round(this_n_actors, 0), " ", 
          stri_replace_all_fixed(actor, pattern = "_", replacement = " "), 
          "s sampled ", times_per_month, 
                  " times per month for one year.")) +
@@ -341,7 +348,7 @@ shown that about 250 samples will provide time estimates for up to 20 activities
 that are all accurate and precise within $\pm2$ percent, which
 should be precise enough for most management activities. I do not think any 
 amount of sampling using actor logs can be that accurate because of inherent 
-cognative bias introduced by the actors' own expectations.
+cognitive bias introduced by the actors' own expectations.
 
 ## Appendix
 
