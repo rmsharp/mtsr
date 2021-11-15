@@ -119,12 +119,12 @@ advantages.
 
 Detailed planning regarding questions to be addressed and how and when those
 questions are presented to participants is required for the successful use of
-this time on task measurment protocol.
+this time on task measurement protocol.
 
 ## Selection of Activities to be Timed
 
 Creation of the activity list is a critical step. The process should engage 
-all participants to enclued everything that should be measured is and leave out
+all participants to included everything that should be measured is and leave out
 those that should not be measured. The goal is to discover how the actors' 
 work environment can be improved. Thus, measuring time spent on activities not
 directly contributing to the value stream(s) being studied are often critical.
@@ -157,7 +157,7 @@ accurately captured.
 Finding that the activity equivalent to __Other__ in the simulation below
 represents more time than 
 anticipated may be a reason to collect additional information to identify
-subcomponents.
+sub components.
 
 ## Collecting the Timing Data
 
@@ -167,7 +167,7 @@ An ideal would be to have a modal box appear on an actor's computer monitor
 and request a minimal amount of input so that the modal box can be dismissed
 in less than 10 seconds where fewer seconds are desirable. 
 
-A webpage coould be used by all participants to indicate a willingness to 
+A webpage could be used by all participants to indicate a willingness to 
 participate, their current availability, and provide any basic metadata 
 needed to ensure the correct
 activities list is provided and the data collected is appropriately aggregated
@@ -188,7 +188,7 @@ https://api.slack.com/block-kit/building for a possible Slack approach.]
 
 Planning how much detail to collect and how the data will be
 analyzed should occur prior to any data being collected. 
-This essential to priventing bias introduced by observing the results prior to 
+This essential to preventing bias introduced by observing the results prior to 
 designing the analysis.
 
 The primary analysis should include calculating the time estimates for each
