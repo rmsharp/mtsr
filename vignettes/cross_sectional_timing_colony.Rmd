@@ -205,7 +205,21 @@ See the [description of Table \@ref(tab:small-sample-in-minutes)]( #calculation-
 example where the calculation of minutes
 per activity in one 8 hour day is illustrated.
 
-Planning on using at least two sampling periods is recommended as it is expected
+Prior to the collection of data the various questions to be addressed should
+be articulated along with a description of how the provided activity durations
+will address those questions.
+In addition to questions to be addressed, expected relationships among various
+subset of activities should be recorded for later reference.
+
+This is a critical part of the analysis as the
+full appreciation of our ignorance prior to collecting the data cannot be 
+fully realized without this record. 
+Without this concrete evidence, we tend to dismiss our ignorance as trivial and
+of no practical importance in planning our reactions to our findings. 
+This clearer understanding of what we do not know will better guide our next
+actions. 
+
+Plan on using at least two sampling periods as it is expected
 that the activity granularity will likely need adjusting based on initial 
 results. Also, followup studies will be critical a behavioral and management
 changes should be assessed. This low impact sampling design makes this possible.
