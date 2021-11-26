@@ -22,28 +22,16 @@ library(kableExtra)
 library(magrittr)
 library(rmsutilityr)
 library(stringi)
+library(here)
 
-activity_file <-
-  system.file("extdata",
-              "colony_management_defined_activities.csv",
-              package = "crosssectiontimer", lib.loc = NULL,
-              mustWork = FALSE)
-value_stream_descriptor <- stri_c("the husbandry and veterinary care of ",
-                                  "colony animals")
-actor <- "animal_caretaker" # can be any value in the actor column of the
-                            # activity file
-
-# The product of n_actors, times_per_month, and n_months is the size.
-# The size should be about 250 for about 20 activities to get the precision
-# illustrated herein
-n_actors <- 20
-times_per_month <- 5
-n_months <- 12
-
-iterations <- 5000          # 5000 seems more than adequate for stable results
-
-activities <- get_defined_activities(activity_file)
-activities <- activities[activities$actor_type == actor, ]
+```
+```{r customization}
+source(file.path(
+  stri_c(
+    here(),
+    "/inst/doc/customization_files/colony_customization.R"
+  )
+))
 
 ```
 
@@ -51,36 +39,44 @@ activities <- activities[activities$actor_type == actor, ]
 
 A cross-sectional time on task estimation method is presented, compared to use
 of time logging, illustrated with an example, and its accuracy and precision
-demonstrated with a simulation. Finally, a proposed protocol for using the time
-on task estimation method is presented that discusses potential methods to
-ensure representative time estimates are obtained.
+demonstrated with a simulation. Finally, a proposed protocol for using this
+time on task estimation technique is presented that discusses potential methods
+to ensure representative time estimates are obtained.
 
 This package contains the R functions used to create this document and the
-simulation software.  The specific example, which is the `r
-value_stream_descriptor` is provided by setup section of the ".Rmd" source file
+simulation software.  The specific example, which is the 
+`r value_stream_descriptor` is provided by setup section of the ".Rmd" source 
+file
 and a comma separated value (CSV) file with the actor, activity, and activity
-descriptions.
+descriptions. Users of this package can easily adapt the small customization
+script and the task activities file to simulate the study they are considering
+to estimate the precision they can expect for their specified task and sampling
+design.
 
 ## Purpose
 
 Management of a value stream requires adequate estimates of the resources used
-to create that value with time on task being a direct measure of the primary
-resource creating the value. The need to obtain quality estimates of these
-times on the various tasks in a value stream is the motivation to provide these
-tools and to advocate for the use of this cross-sectional time on task
-estimation method.
+to create value, with time on task being a direct measure of the primary
+resource^[Employee effort as measured by time is the most expensive resource.
+In addition, creating a work environment the encourages retention of employees
+requires time management through appropriate prioritization so that employees
+are maximally productive and fulfilled.] creating the value.  The need to
+obtain quality estimates of these times on the various tasks in a value stream
+is the motivation to provide these tools and to advocate for the use of this
+cross-sectional time on task estimation method.
 
 In this example, we want to gain insight into how much time is spent on
-specific activities by various actors^[`r
-get_and_or_list(unique(activities$actor))`] responsible for the success of `r
-value_stream_descriptor`. It is anticipated that having time on task data will
+specific activities by various actors^[
+`r get_and_or_list(unique(activities$actor))`] responsible for the success of 
+the `r value_stream_descriptor`. 
+It is anticipated that having time on task data will
 provide insight in those areas where improvement opportunities exist.
 
 A benefit of time on task studies is that they provide hard data regarding how
 time is spent and how much of it directly contributes to our primary goals. A
 second benefit is that these data allow each class of actor to advocate for
 modifying the way their time is being used to improve their work environment
-and productivity. `r clearpage()`
+and productivity.
 
 Time on task estimation methods that call for representative actors within each
 group or type of actors to log time on tasks during their work day have the
@@ -123,10 +119,10 @@ this time on task measurement protocol.
 
 ## Selection of Activities to be Timed
 
-Creation of the activity list is a critical step. The process should engage 
-all participants to included everything that should be measured is and leave out
-those that should not be measured. The goal is to discover how the actors' 
-work environment can be improved. Thus, measuring time spent on activities not
+Creation of the activity list is a critical step. The process should engage all
+participants to included everything that should be measured is and leave out
+those that should not be measured. The goal is to discover how the actors' work
+environment can be improved. Thus, measuring time spent on activities not
 directly contributing to the value stream(s) being studied are often critical.
 Examples, include administrative activities, non-mission critical meetings, and
 dealing with work blocking technical issues.
@@ -144,85 +140,79 @@ publish their findings at the same time.
 Some actors will work on more than one value stream and all will have
 additional responsibilities specific to their work environment. Thus, some
 activities recorded are intentionally defined as various unrelated activities.
-The activity list could include __Personal__ to assure
-participants that management supports a healthy work-life balance. 
-This is an example where the inclusion of activities not directly related to 
-the workstream under study may be appropriate.
-These activities could include references to practices encouraged by management
-such as ongoing education, exercise breaks, and helping co-workers.
-It is critical that these aspects of the work landscape are clearly described so
-that any negative stigma associated with non-workstream related activities are
-accurately captured.
+The activity list could include __Personal__ to assure participants that
+management supports a healthy work-life balance.  This is an example where the
+inclusion of activities not directly related to the workstream under study may
+be appropriate. These activities could include references to practices
+encouraged by management such as ongoing education, exercise breaks, and
+helping co-workers. It is critical that these aspects of the work landscape are
+clearly described so that any negative stigma associated with non-workstream
+related activities are accurately captured.
 
 Finding that the activity equivalent to __Other__ in the simulation below
-represents more time than 
-anticipated may be a reason to collect additional information to identify
-sub components.
+represents more time than anticipated may be a reason to collect additional
+information to identify sub components.
 
 ## Collecting the Timing Data
 
 The method used to collect the timing data should have minimal impact on the
-actor's day. 
-An ideal would be to have a modal box appear on an actor's computer monitor
-and request a minimal amount of input so that the modal box can be dismissed
-in less than 10 seconds where fewer seconds are desirable. 
+actor's day.  An ideal would be to have a modal box appear on an actor's
+computer monitor and request a minimal amount of input so that the modal box
+can be dismissed in less than 10 seconds where fewer seconds are desirable.
 
-A webpage could be used by all participants to indicate a willingness to 
-participate, their current availability, and provide any basic metadata 
-needed to ensure the correct
-activities list is provided and the data collected is appropriately aggregated
-for analysis.
+A webpage could be used by all participants to indicate a willingness to
+participate, their current availability, and provide any basic metadata needed
+to ensure the correct activities list is provided and the data collected is
+appropriately aggregated for analysis.
 
-This webpage could interact via a web API to a background application that 
-contained the various activity lists being used, an algorithm for selecting 
-when actors are prompted for a current activity response, and a method to 
+This webpage could interact via a web API to a background application that
+contained the various activity lists being used, an algorithm for selecting
+when actors are prompted for a current activity response, and a method to
 accept the response data and store it in a database that can later be accessed
 for data analysis.
 
-Group chat tools, such as __Slack__^[Slack is an online communication platform for
-teams] may have APIs to provide similar services.^[See,
+Group chat tools, such as __Slack__^[Slack is an online communication platform
+for teams] may have APIs to provide similar services.^[See,
 https://api.slack.com/block-kit/building for a possible Slack approach.]
 
+It is recommended that uniformly pseudo-random times throughout the work period
+(typically day, week, and month) would be used so that systematic work
+schedules will not bias the results.
 
 ## Data Analysis and Followup
 
-Planning how much detail to collect and how the data will be
-analyzed should occur prior to any data being collected. 
-This essential to preventing bias introduced by observing the results prior to 
-designing the analysis.
+Planning how much detail to collect and how the data will be analyzed should
+occur prior to any data being collected.  This essential to preventing bias
+introduced by observing the results prior to designing the analysis.
 
 The primary analysis should include calculating the time estimates for each
-activity. 
-$$time_{activity_i} = m_i * time\_units / \sum_{i=1}^{i=n} m_i$$
-where $i$ is the index of the activity of interest,   
-$time\_units$ is the total number of units of the desired unit of measure
-within the time period of interest,
-such as 560 minutes in a typical 8 hour work day,  
-$m_i$ is the number of times activity $i$ was observed,  
-$n$ is the number of distinct activities.
+activity.  $$time_{activity_i} = m_i * time\_units / \sum_{i=1}^{i=n} m_i$$
+where $i$ is the index of the activity of interest, $time\_units$ is the total
+number of units of the desired unit of measure within the time period of
+interest, such as 560 minutes in a typical 8 hour work day, $m_i$ is the number
+of times activity $i$ was observed, $n$ is the number of distinct activities.
 
-See the [description of Table \@ref(tab:small-sample-in-minutes)]( #calculation-of-minutes-per-day) for an
-example where the calculation of minutes
-per activity in one 8 hour day is illustrated.
+See the [description of Table \@ref(tab:small-sample-in-minutes)](
+#calculation-of-minutes-per-day) for an example where the calculation of
+minutes per activity in one 8 hour day is illustrated.
 
-Prior to the collection of data the various questions to be addressed should
-be articulated along with a description of how the provided activity durations
-will address those questions.
-In addition to questions to be addressed, expected relationships among various
-subset of activities should be recorded for later reference.
+Prior to the collection of data the various questions to be addressed should be
+articulated along with a description of how the provided activity durations
+will address those questions. In addition to questions to be addressed,
+expected relationships among various subset of activities should be recorded
+for later reference.
 
-This is a critical part of the analysis as the
-full appreciation of our ignorance prior to collecting the data cannot be 
-fully realized without this record. 
-Without this concrete evidence, we tend to dismiss our ignorance as trivial and
-of no practical importance in planning our reactions to our findings. 
-This clearer understanding of what we do not know will better guide our next
-actions. 
+This is a critical part of the analysis as the full appreciation of our
+ignorance prior to collecting the data cannot be fully realized without this
+record.  Without this concrete evidence, we tend to dismiss our ignorance as
+trivial and of no practical importance in planning our reactions to our
+findings.  This clearer understanding of what we do not know will better guide
+our next actions.
 
-Plan on using at least two sampling periods as it is expected
-that the activity granularity will likely need adjusting based on initial 
-results. Also, followup studies will be critical a behavioral and management
-changes should be assessed. This low impact sampling design makes this possible.
+Plan on using at least two sampling periods as it is expected that the activity
+granularity will likely need adjusting based on initial results. Also, followup
+studies will be critical a behavioral and management changes should be
+assessed. This low impact sampling design makes this possible.
 
 
 
@@ -230,10 +220,10 @@ changes should be assessed. This low impact sampling design makes this possible.
 
 ## Design
 
-The remainder of this document presents an example data collection design and a
-simulation study and results that provides sufficient detail to assess expected
-accuracy and precision of the resulting time on task estimates for the `r
-length(activities$activity)` activities.
+The remainder of this document presents an example data collection in a
+simulation study using a realistic design that provides sufficient detail to
+assess expected accuracy and precision of the resulting time on task estimates
+for the `r length(activities$activity)` activities.
 
 The example has a set of representative activities for `r actor`s.^[ The
 software is has the ability to examine multiple job types, job specific
@@ -251,16 +241,15 @@ during the duration of each of the three experiments illustrated below.
 
 The manner in which the questions are presented and the timing of when the
 questions are presented are critical aspects of the study design but are not
-part of the simulation. Typically, uniformly pseudo-random times throughout the
-work period would be used so that systematic work schedules will not bias the
-results.
+part of the simulation.
 
 ## Simulation Activity Frequencies
 
 The `r actor`s' activities are programmed to occur with the following
-frequencies.
+frequencies as specified in the CSV file.
 
 ```{r activities, echo = FALSE}
+activities <- activities[activities$actor_type == actor, ]
 caption <- stri_c("List of possible activities for the ",
                   stri_replace_all_fixed(actor, pattern = "_",
                                          replacement = "\\_"),
@@ -273,7 +262,11 @@ activities[ , c("activity", "freq")] %>%
 
 ```
 
-For clarity, we demonstrate one and three samples.
+## Data Collection Example
+
+
+For clarity, we demonstrate with the results from sampling one `r actor` one
+time and three times.
 ```{r}
 three_samples <- get_and_or_list(make_activity_observation(activities,
                                                            size = 3,
@@ -281,18 +274,18 @@ three_samples <- get_and_or_list(make_activity_observation(activities,
 
 ```
 
-## Data Collection Example
+A single sample: 
+`r make_activity_observation(activities, size = 1, activities$freq)` 
+Three samples: `r three_samples`.
 
-A single sample: `r make_activity_observation(activities, size = 1,
-activities$freq)` Three samples: `r three_samples`.
-
-Lets see how precise our estimates would be if we included `r n_actors` `r
-actor`s sampled just `r times_per_month` times a month for each of `r n_months`
-months.
+In the single iteration of the simulation below, we observe how precise the
+estimates are if we include `r n_actors` `r actor`s sampled just 
+`r times_per_month` times a month for each of `r n_months` months.
 
 Since the algorithm is not actually modeling individual `r actor`s, the order
-of sampling has no impact on results, which means we simply take `r n_actors *
-times_per_month * n_months` (`r n_actors` * `r times_per_month` * `r n_months`)
+of sampling has no impact on results, which means we simply take 
+`r n_actors * times_per_month * n_months`
+(`r n_actors` * `r times_per_month` * `r n_months`)
 samples per result set and compare each to the expected values.
 
 ```{r small-sample,}
@@ -324,10 +317,9 @@ small_sample_duration %>%
 
 ```
 
-(#calculation-of-minutes-per-day)
-We can estimate the duration in minutes on each activity if we allocate the `r
-n_actors * times_per_month * n_months` observations into one 8 hour day which
-has 560 minutes. 
+(#calculation-of-minutes-per-day) We can estimate the duration in minutes on
+each activity if we allocate the `r n_actors * times_per_month * n_months`
+observations into one 8 hour day which has 560 minutes.
 
 ```{r small-sample-in-minutes}
 minutes_per_activity <- small_sample_duration$duration * 560
@@ -353,12 +345,14 @@ learn what precision we can expect.
 ## Results
 
 Figure \@ref(fig:hist-1X) shows a histogram plot of the results of repeating
-the simulation of `r n_actors` `r stri_replace_all_fixed(actor, pattern = "_",
-replacement = " ")`s providing `r times_per_month` responses in each of the `r
-n_months` months of a year `r iterations` times.  Similarly, Figure
-\@ref(fig:hist-2X) shows a histogram plot of the similar simulation with `r
-round(n_actors * 2, 0)` `r stri_replace_all_fixed(actor, pattern = "_",
-replacement = " ")`s instead of `r n_actors`.
+the simulation of `r n_actors` 
+`r stri_replace_all_fixed(actor, pattern = "_", replacement = " ")`s
+providing `r times_per_month` responses in each of the 
+`r n_months` months of a year `r iterations` times.  Similarly, Figure
+\@ref(fig:hist-2X) shows a histogram plot of the similar simulation with 
+`r round(n_actors * 2, 0)` 
+`r stri_replace_all_fixed(actor, pattern = "_", replacement = " ")`s 
+instead of `r n_actors`.
 
 ```{r}
 this_n_actors <- n_actors
@@ -366,6 +360,7 @@ sim_delta_freq <- sim_sample_duration(
   activities,
   size = this_n_actors * times_per_month * n_months,
   iterations = iterations)
+gt_1_percent <- sum(sim_delta_freq > 0.01) / length(sim_delta_freq)
 gt_2_percent <- sum(sim_delta_freq > 0.02) / length(sim_delta_freq)
 gt_3_percent <- sum(sim_delta_freq > 0.03) / length(sim_delta_freq)
 
@@ -376,7 +371,11 @@ hist_1X_cap <-
          " iterations with ",
          this_n_actors, " ",
          stri_replace_all_fixed(actor, pattern = "_", replacement = " "),
-         "s found ",
+         "s sampled ",times_per_month,
+         " times per month for one year found ",
+         100 * gt_1_percent, "% of durations \nwere greater than ",
+         "1 percent away from the ",
+         "expected value and ",
          100 * gt_2_percent, "% of durations \nwere greater than ",
          "2 percent away from the ",
          "expected value and ", 100 * gt_3_percent,
@@ -406,6 +405,7 @@ sim_delta_freq <-
   sim_sample_duration(activities,
                       size = this_n_actors * times_per_month * n_months,
                       iterations = iterations)
+gt_1_percent <- sum(sim_delta_freq > 0.01) / length(sim_delta_freq)
 gt_2_percent <- sum(sim_delta_freq > 0.02) / length(sim_delta_freq)
 gt_3_percent <- sum(sim_delta_freq > 0.03) / length(sim_delta_freq)
 
@@ -416,7 +416,11 @@ hist_2X_cap <-
          " iterations with ",
          this_n_actors, " ",
          stri_replace_all_fixed(actor, pattern = "_", replacement = " "),
-         "s found ",
+         "s sampled ",times_per_month,
+         " times per month for one year found ",
+         100 * gt_1_percent, "% of durations \nwere greater than ",
+         "1 percent away from the ",
+         "expected value and ",
          100 * gt_2_percent, "% of \ndurations were greater than ",
          "2 percent away from the ",
          "expected value and \n", 100 * gt_3_percent,
@@ -438,6 +442,51 @@ data.frame(freq = sim_delta_freq) %>%
   ylab("Count")
 
 ```
+
+```{r}
+this_n_actors <- 4 * n_actors
+sim_delta_freq <-
+  sim_sample_duration(activities,
+                      size = this_n_actors * times_per_month * n_months,
+                      iterations = iterations)
+gt_1_percent <- sum(sim_delta_freq > 0.01) / length(sim_delta_freq)
+gt_2_percent <- sum(sim_delta_freq > 0.02) / length(sim_delta_freq)
+gt_3_percent <- sum(sim_delta_freq > 0.03) / length(sim_delta_freq)
+
+hist_4X_cap <-
+  stri_c("Simulation of ",
+         format(iterations, digits = 0, decimal.mark = ".",
+                big.mark = ","),
+         " iterations with ",
+         this_n_actors, " ",
+         stri_replace_all_fixed(actor, pattern = "_", replacement = " "),
+         "s sampled ",times_per_month,
+         " times per month for one year found ",
+         100 * gt_1_percent, "% of durations \nwere greater than ",
+         "1 percent away from the ",
+         "expected value and ",
+         100 * gt_2_percent, "% of \ndurations were greater than ",
+         "2 percent away from the ",
+         "expected value and \n", 100 * gt_3_percent,
+         "% of durations were greater than 3 ",
+         "percent away from the expected \nvalue with the largest ",
+         "absolute delta value being ", round(max(sim_delta_freq), 3),
+         ".")
+
+```
+```{r hist-4X, fig.cap=hist_2X_cap, fig.pos="H"}
+data.frame(freq = sim_delta_freq) %>%
+  ggplot(aes(x = freq)) +
+  geom_histogram(bins = 30) +
+  ggtitle(paste0(round(this_n_actors, 0), " ",
+         stri_replace_all_fixed(actor, pattern = "_", replacement = " "),
+         "s sampled ", times_per_month,
+                 " times per month for one year.")) +
+  xlab("Absolute Value of (Expected - Observed) Frequency") +
+  ylab("Count")
+
+```
+
 `r clearpage()`
 
 ## Conclusions
@@ -466,7 +515,7 @@ activity_file <-
               "colony_management_defined_activities.csv",
               package = "crosssectiontimer", lib.loc = NULL,
               mustWork = FALSE)
-value_stream_descriptor <- stri_c("the husbandry and veterinary care of ",
+value_stream_descriptor <- stri_c("husbandry and veterinary care of ",
                                   "colony animals")
 actor <- "animal_caretaker" # can be any value in the actor column of the
                             # activity file

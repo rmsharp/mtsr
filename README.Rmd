@@ -33,7 +33,7 @@ activity_file <-
               "colony_management_defined_activities.csv", 
               package = "crosssectiontimer", lib.loc = NULL, 
               mustWork = FALSE)
-value_stream_descriptor <- stri_c("the husbandry and veterinary care of ",
+value_stream_descriptor <- stri_c("husbandry and veterinary care of ",
                                   "colony animals")
 actor <- "animal_caretaker" # can be any value in the actor column of the 
                             # activity file
@@ -51,304 +51,23 @@ activities <- get_defined_activities(activity_file)
 
 ```
 
-# Purpose
+# Introduction
 
-A cross-sectional time on task estimation method is presented, compaired to 
-use of time logging, illustrated with an example, and its accuracy and 
-precision demonstrated with a simulation. Embedded within this package are the 
-R functions used to create this document including the simulation software. 
-The specific example, which is the `r value_stream_descriptor` is provided by
-setup section of the ".Rmd" source file and a comma
-separated value (CSV) file with the actor, activity, and activity descriptions.
+A cross-sectional time on task estimation method is presented, compared to use
+of time logging, illustrated with an example, and its accuracy and precision
+demonstrated with a simulation. Finally, a proposed protocol for using this
+time on task estimation technique is presented that discusses potential methods
+to ensure representative time estimates are obtained.
 
-Management of a value stream requires adequate estimate of the resources used
-to create that value with time on task being a direct measure of the primary 
-resource for many value streams. The need to obtain quality estimates of these
-times on the various tasks in a value stream motivated me to provide and
-advocating the use of this time on task method 
-
-In this example, we want to gain insight into how much time is spent on 
-specific activities by 
-various actors^[`r get_and_or_list(unique(activities$actor))`]
-responsible for the success of `r value_stream_descriptor`.
-It is anticipated that having time on task data will provide insight in those
-areas where where improvement opportunities exist.
-
-Detailed planning regarding questions to be addressed is required to design
-which activities^[We expect that some actors will work on more than one value
-stream and all will have additional responsibilities. Thus, some activities
-recorded are intentionally defined as various unrelated activities.
-Planning how much detail to collect and how the data
-will be analyzed should occur prior to any data being collected.]
-should be measured. 
-
-A benefit of time on task studies is that they provide hard data regarding how 
-time is spent and how much of it directly contributes to our primary goals.
-A second benefit is that these data
-allow each class of actor to advocate for modifying the way their
-time is being used to improve their work environment and productivity.
-
-Time on task estimation methods that call for representative actors within 
-each group or type of actors to
-log time on tasks during their work day have the problems listed below.   
-
--   Failure rate in logging activities can be high.
--   Recall of the amount of time spent is often wrong this will artificially
-    inflate the variance.
--   Preconceptions of how time should be spent biases recalled durations.
--   Keeping, collecting, and analyzing logs requires significant administrative
-    overhead.
--   The biases introduced from earlier points makes interpretation of results
-    difficult.
--   The longitudinal collection of data requires a long data collection
-    phase before any analysis can begin. 
--   Variance among different projects is anticipated to be high, which
-    further complicates analysis.
-
-The cross-sectional design assumes that we have the ability to send a question
-to selected individuals at selected times and collect that response.
-
-The cross-sectional design presented and tested below has the following
-advantages.
-
--   The failure to respond rate has far less impact since failure to respond
-    simply initiates another response request.
--   Participants do not need to recall time spent.
--   Administrative overhead is greatly reduced.
--   Bias is minimized.
--   Data can be analyzed at any time.
--   Variance among projects could be assessed and more accurately measured if
-    desired. However, I recommend that project differences be ignored during 
-    initial timeing studies.
-
-
-# Simulation
-
-## Design
-
-The remainder of this document presents an example data collection, a simple
-simulation study using a realistic design 
-that provides sufficient detail to assess expected data quality.
-
-The example has a set of representative activities for `r actor`s.^[
-The software is has the ability to examine multiple job types, job specific
-activity lists, and corresponding expected frequencies.]. 
-It simulates asking a set of `r actor`s to indicate
-which of the activities listed on the questionnaire they were doing at the time
-the question popped up on their screen. Once the `r actor` makes a selection,
-that selection is returned as a result to the collection software, which
-cumulates the responses for later analysis. 
-
-In the simulation model, these queries and responses can all be processed in
-less than a second but, as described below, this simulation is constructed so
-that each simulated `r actor` responds `r numbers2words(times_per_month)` 
-times during the entire duration of the experiments illustrated below.
-
-The manner in which the questions are presented and the timing of when the 
-questions are presented are critical aspects of the study design but are 
-not discusses further.
-
-## Simulation Activity Frequencies
-
-The `r actor`s' activities are programmed to occur with the following 
-frequencies.
-
-```{r activities, echo = FALSE}
-activities <- activities[activities$actor_type == actor, ]
-caption <- stri_c("List of possible activities for the ", 
-                  stri_replace_all_fixed(actor, pattern = "_", 
-                                         replacement = "\\_"),
-" with assigned frequencies to be used in simulations.")
-activities[ , c("activity", "freq")] %>%
-  kbl(digits = 2, col.names = c("Activity", "Frequency"),
-      caption = caption, row.names = FALSE) %>%
-  kable_styling(latex_options = "HOLD_position") %>%
-  kable_material(c("striped", "hover"))
-
-```
-
-For clarity, we demonstrate one and three samples.
-```{r}
-three_samples <- get_and_or_list(make_activity_observation(activities, 
-                                                           size = 3, 
-                                                           activities$freq))
-
-```
-
-## Data Collection Example
-
-A single sample: 
-`r make_activity_observation(activities, size = 1, activities$freq)`   
-Three samples: `r three_samples`.
-
-Lets see how precise our estimates would be if we included 
-`r n_actors` `r actor`s 
-sampled just `r times_per_month` times a month for each of `r n_months` months.
-
-Since the algorithm is not actually modeling individual `r actor`s, the order 
-of sampling has no impact on results, which means we simply take 
-`r n_actors * times_per_month * n_months` 
-(`r n_actors` * `r times_per_month` * `r n_months`) samples per result set and
-compare each to the expected values.
-
-```{r small-sample,}
-small_sample <- make_activity_observation(
-  activities, size = n_actors * times_per_month * n_months, activities$freq)
-small_sample_counts <- table(small_sample)
-sample_size <- sum(small_sample_counts)
-small_sample_duration <- small_sample_counts / sample_size
-
-small_sample_duration <- 
-  make_complete_sample_durations(small_sample_duration, activities)
-
-activities <- activities[order(activities$activity), ]
-
-caption <- stri_c("List of activities, the frequency in which they were ",
-                  "observed, the simulated frequency of the activity ",
-                  "(expected), and the absolute difference between the ",
-                  "observed and expected frequencies.")
-
-delta <- abs(small_sample_duration$duration - activities$freq)
-small_sample_duration %>%
-  cbind(data.frame(prob = activities$freq, delta = delta)) %>%
-  kbl(digits = 3, 
-      col.names = c("Description", "Observed", "Expected", "Delta"),
-      caption = caption) %>%
-  kable_styling(latex_options = "HOLD_position") %>%
-  add_header_above(c(" " = 1, "Duration" = 3)) %>%
-  kable_material(c("striped", "hover")) 
-
-```
-
-
-We can estimate the duration in minutes on each activity if we allocate 
-the `r n_actors * times_per_month * n_months` observations into one 8 hour day 
-which has 560 minutes.
-
-```{r small-sample-in-minutes}
-minutes_per_activity <- small_sample_duration$duration * 560
-minutes_per_activity <- data.frame(description = small_sample_duration$description,
-                                    minutes = as.numeric(minutes_per_activity))
-caption <- stri_c("List of activities and the estimated number of minutes ",
-                  "spent on the activity if represented in a single day.")
-minutes_per_activity %>%
-  kbl(digits = 1, col.names = c("Description", "Minutes"),
-      caption = caption) %>%
-  kable_styling(latex_options = "HOLD_position") %>%
-  kable_material(c("striped", "hover"))
-
-```
-
-I have run this experiment several times and usually the 
-estimates are shown to be very close as in seen in the _Delta_ column
-(within about 1 percent). However, it is more instructive to simulation this 
-experiment many times to learn what precision we can expect.
-
-<!-- We will start by putting the simulation into a function. 
--->
-
-## Results
-
-Figure \@ref(fig:hist-1X) shows a histogram plot of 
-the results of repeating the simulation of `r n_actors`
-`r stri_replace_all_fixed(actor, pattern = "_", replacement = " ")`s 
-providing `r times_per_month` responses 
-in each of the `r n_months` months of a year `r iterations` times. 
-Similarly, Figure \@ref(fig:hist-2X) shows a histogram plot of 
-the similar simulation with `r round(n_actors * 2, 0)` 
-`r stri_replace_all_fixed(actor, pattern = "_", replacement = " ")`s 
-instead of `r n_actors`.
-
-```{r}
-this_n_actors <- n_actors
-sim_delta_freq <- sim_sample_duration(
-  activities,
-  size = this_n_actors * times_per_month * n_months, 
-  iterations = iterations)
-gt_2_percent <- sum(sim_delta_freq > 0.02) / length(sim_delta_freq)
-gt_3_percent <- sum(sim_delta_freq > 0.03) / length(sim_delta_freq)
-
-hist_1X_cap <- 
-  stri_c("Simulation of ", 
-         format(iterations, digits = 0, decimal.mark = ".", 
-                big.mark = ","), 
-         " iterations with ",
-         this_n_actors, " ", 
-         stri_replace_all_fixed(actor, pattern = "_", replacement = " "), 
-         "s found ", 
-         100 * gt_2_percent, "% of durations \nwere greater than ", 
-         "2 percent away from the ",
-         "expected value and ", 100 * gt_3_percent, 
-         "% of \ndurations were greater than 3 ", 
-         "percent away from the expected value \nwith the largest ",
-         "absolute delta value being ", round(max(sim_delta_freq), 3), 
-         ".")
-
-```
-
-
-```{r hist-1X, fig.cap=hist_1X_cap, fig.pos="H"}
-data.frame(freq = sim_delta_freq) %>%
-  ggplot(aes(x = freq)) + 
-  geom_histogram(bins = 30) +
-  ggtitle(stri_c(n_actors, " ",  
-         stri_replace_all_fixed(actor, pattern = "_", replacement = " "), 
-         "s sampled ", times_per_month, 
-                 " times per month for one year")) +
-  xlab("Absolute Value of (Expected - Observed) Frequency") +
-  ylab("Count")
-
-```
-```{r}
-this_n_actors <- 2 * n_actors
-sim_delta_freq <- 
-  sim_sample_duration(activities,
-                      size = this_n_actors * times_per_month * n_months, 
-                      iterations = iterations)
-gt_2_percent <- sum(sim_delta_freq > 0.02) / length(sim_delta_freq)
-gt_3_percent <- sum(sim_delta_freq > 0.03) / length(sim_delta_freq)
-
-hist_2X_cap <- 
-  stri_c("Simulation of ", 
-         format(iterations, digits = 0, decimal.mark = ".", 
-                big.mark = ","), 
-         " iterations with ",
-         this_n_actors, " ", 
-         stri_replace_all_fixed(actor, pattern = "_", replacement = " "), 
-         "s found ", 
-         100 * gt_2_percent, "% of \ndurations were greater than ", 
-         "2 percent away from the ",
-         "expected value and \n", 100 * gt_3_percent, 
-         "% of durations were greater than 3 ", 
-         "percent away from the expected \nvalue with the largest ",
-         "absolute delta value being ", round(max(sim_delta_freq), 3), 
-         ".")
-
-```
-```{r hist-2X, fig.cap=hist_2X_cap, fig.pos="H"}
-data.frame(freq = sim_delta_freq) %>%
-  ggplot(aes(x = freq)) + 
-  geom_histogram(bins = 30) +
-  ggtitle(paste0(round(n_actors * 2, 0), " ", 
-         stri_replace_all_fixed(actor, pattern = "_", replacement = " "), 
-         "s sampled ", times_per_month, 
-                 " times per month for one year.")) +
-  xlab("Absolute Value of (Expected - Observed) Frequency") +
-  ylab("Count") 
-
-```
-`r clearpage()`
-
-## Conclusions
-
-Prior experiments with this cross-sectional activity time estimation have 
-shown that about 250 samples will provide time estimates for up to 20 activities
-that are all accurate and precise within $\pm2$ percent, which
-should be precise enough for most management activities. I do not think any 
-amount of sampling using actor logs can be that accurate because of inherent 
-cognative bias introduced by the actors' own expectations.
-
-## Appendix
+This package contains the R functions used to create this document and the
+simulation software.  The specific example, which is the 
+`r value_stream_descriptor` is provided by setup section of the ".Rmd" source 
+file
+and a comma separated value (CSV) file with the actor, activity, and activity
+descriptions. Users of this package can easily adapt the small customization
+script and the task activities file to simulate the study they are considering
+to estimate the precision they can expect for their specified task and sampling
+design.
 
 ```{r child = "inst/extdata/installation.Rmd", ref = "installation"}
 ```
@@ -373,7 +92,7 @@ activity_file <-
               "colony_management_defined_activities.csv", 
               package = "crosssectiontimer", lib.loc = NULL, 
               mustWork = FALSE)
-value_stream_descriptor <- stri_c("the husbandry and veterinary care of ",
+value_stream_descriptor <- stri_c("husbandry and veterinary care of ",
                                   "colony animals")
 actor <- "animal_caretaker" # can be any value in the actor column of the 
                             # activity file

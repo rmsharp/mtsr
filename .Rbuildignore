@@ -5,8 +5,13 @@
 docs/*.svg
 docs/*.yml
 docc/*.js
-^vignettes/cross_sectional_timing_model.*$
+^vignettes/cross_sectional_timing_colony.*$
 ^vignettes/Cross_Section_Activity_Timing_Proposal.*$
 ^vignettes/Cross_Section_Activity_Timing_Proposal.*$
 ^vignettes/cross_sectional_timing_colony_cache/*$
 ^vignettes/cross_sectional_timing_colony_cache$
+^vignettes/cross_sectional_timing_colony_files$
+^vignettes/cross_sectional_timing_colony.R$
+^vignettes/cross_sectional_timing_colony.pdf$
+^\.travis.yml$
+^.*\.Rmd$
