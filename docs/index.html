@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>What the Package Does (Title Case) • crosssectiontimer</title>
+<title>Cross-Section Activity Timer Simulation Tool • crosssectiontimer</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="What the Package Does (Title Case)">
+<script src="pkgdown.js"></script><meta property="og:title" content="Cross-Section Activity Timer Simulation Tool">
 <meta property="og:description" content="This document presents a cross-sectional sampling design as an
  alternative to a longitudinal sampling design inherent in the logging of
  activities method proposed to collect time on task information. ">
@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">crosssectiontimer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -56,9 +56,12 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/cross_sectional_timing.html">Test of a Cross-sectional Sampling Timer</a>
+      <a href="articles/cross_sectional_timing_colony.html">Test of a Cross-sectional Sampling Timer</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right"></ul>
@@ -73,9 +76,58 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-This document presents a cross-sectional sampling design as an
- alternative to a longitudinal sampling design inherent in the logging of
- activities method proposed to collect time on task information. 
+
+<div id="readme" class="section level1">
+<div class="page-header"><h1 class="hasAnchor">
+<a href="#readme" class="anchor"></a>README</h1></div>
+<p>R. Mark Sharp 2021-11-26</p>
+<p><a href="http://www.rdocumentation.org/packages/roxygen2"><img src="http://www.rdocumentation.org/badges/version/roxygen2" alt="Rdoc"></a> <a href="https://travis-ci.org/rmsharp/crosssectiontimer"><img src="https://travis-ci.org/rmsharp/rmsutilityr.svg?branch=master" alt="Build Status"></a> <a href="https://codecov.io/gh/rmsharp/crosssectiontimer"><img src="https://codecov.io/gh/rmsharp/rmsutilityr/branch/master/graph/badge.svg" alt="codecov"></a></p>
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+</div>
+<div id="introduction" class="section level1">
+<h1 class="hasAnchor">
+<a href="#introduction" class="anchor"></a>Introduction</h1>
+<p>A cross-sectional time on task estimation method is presented, compared to use of time logging, illustrated with an example, and its accuracy and precision demonstrated with a simulation. Finally, a proposed protocol for using this time on task estimation technique is presented that discusses potential methods to ensure representative time estimates are obtained.</p>
+<p>This package contains the R functions used to create this document and the simulation software. The specific example, which is the husbandry and veterinary care of colony animals is provided by setup section of the “.Rmd” source file and a comma separated value (CSV) file with the actor, activity, and activity descriptions. Users of this package can easily adapt the small customization script and the task activities file to simulate the study they are considering to estimate the precision they can expect for their specified task and sampling design.</p>
+<div id="githubcom-installation" class="section level3">
+<h3 class="hasAnchor">
+<a href="#githubcom-installation" class="anchor"></a>github.com Installation</h3>
+<p>The current development version can be intalled from GitHub. <a href="https://github.com/rmsharp/crosssectiontimer">github.com/rmsharp/crosssectiontimer</a> as all of the dependencies are automatically installed.</p>
+<p>You can install <strong>crosssectiontimer</strong> from github with:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"rmsharp/crosssectiontimer"</span><span class="op">)</span></code></pre></div>
+<p>All missing dependencies should be automatically installed except for those found in rmsutilityr, which is available at my github account.</p>
+<p>You can install <strong>rmsutilityr</strong> from github with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"rmsharp/rmsutilityr"</span><span class="op">)</span></code></pre></div>
+<p>Find online documentation at <a href="https://rmsharp.github.io/crosssectiontimer/" class="uri">https://rmsharp.github.io/crosssectiontimer/</a>.</p>
+<p>See the setup code chunk of this vignette to see how to customize this document to examine results you can expect from your own time on task activity analysis. You will need to provide the CSV file<a href="Comparable%20to%20colony_management_defined_activities.csv">^1</a> with your own actors<a href="Actors%20are%20used%20as%20variable%20names%20so%20must%20follow%20rules%20for%20naming">^2</a>, activities, and activity descriptions in addition to providing your definitions for the setup chunk definitions indicated below.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">activity_file</span> <span class="op">&lt;-</span> 
+  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,
+              <span class="st">"colony_management_defined_activities.csv"</span>, 
+              package <span class="op">=</span> <span class="st">"crosssectiontimer"</span>, lib.loc <span class="op">=</span> <span class="cn">NULL</span>, 
+              mustWork <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="va">value_stream_descriptor</span> <span class="op">&lt;-</span> <span class="fu">stri_c</span><span class="op">(</span><span class="st">"husbandry and veterinary care of "</span>,
+                                  <span class="st">"colony animals"</span><span class="op">)</span>
+<span class="va">actor</span> <span class="op">&lt;-</span> <span class="st">"animal_caretaker"</span> <span class="co"># can be any value in the actor column of the </span>
+                            <span class="co"># activity file</span>
+
+<span class="co"># The product of n_actors, times_per_month, and n_months is the size. </span>
+<span class="co"># The size should be about 250 for about 20 activities to get the precision</span>
+<span class="co"># illustrated herein</span>
+<span class="va">n_actors</span> <span class="op">&lt;-</span> <span class="fl">20</span>
+<span class="va">times_per_month</span> <span class="op">&lt;-</span> <span class="fl">5</span>
+<span class="va">n_months</span> <span class="op">&lt;-</span> <span class="fl">12</span>
+
+<span class="va">iterations</span> <span class="op">&lt;-</span> <span class="fl">5000</span>          <span class="co"># 5000 seems more than adequate for stable results</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>variables <span class="cf">in</span> R. They must start with a letter, contain only letters,</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>numerals, “.”, and “\_“.</span></code></pre></div>
+</div>
+</div>
+
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

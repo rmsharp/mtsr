@@ -26,12 +26,11 @@ library(here)
 
 ```
 ```{r customization}
-source(file.path(
-  stri_c(
-    here(),
-    "/inst/doc/customization_files/colony_customization.R"
-  )
-))
+source(
+  system.file("extdata",
+              "colony_customization.R",
+              package = "crosssectiontimer", lib.loc = NULL,
+              mustWork = FALSE))
 
 ```
 
