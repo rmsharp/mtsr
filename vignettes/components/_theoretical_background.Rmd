@@ -1,0 +1,23 @@
+---
+title: "Theoretical Background"
+author: "R. Mark Sharp"
+date: "2023-08-29"
+output:
+     - rmarkdown::pdf_document
+     - rmarkdown::latex_document
+     - rmarkdown::html_document
+     - rmarkdown::word_document
+vignette: >
+  %\VignetteEngine{knitr::knotr}
+  %\VingetteIndexEntry{Theoretical Background}
+  %\usepackage[UTF-8]{inputenc}
+---
+
+## Theoretical Background
+
+Use of a cross-sectional technique assumes that the durations of the tasks of 
+interest are sufficiently long as to be readily detected. 
+Tasks of a momentary nature are not measured without bias.
+Multiple animal an dhuman studies as well as simulations have demonstrated that 
+instantaneous sampling is efficient and unbiased for behavior of greater than 
+momentary duration (@harrop-daniels-1988, @powel-te-al-1977).

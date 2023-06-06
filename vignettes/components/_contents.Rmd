@@ -1,0 +1,38 @@
+---
+title: "crossectiontime Package Contents"
+author: "R. Mark Sharp"
+date: "`r Sys.Date()`"
+output:
+  - rmarkdown::pdf_document
+  - rmarkdown::latex_document
+  - rmarkdown::html_document
+  - rmarkdown::word_document
+  
+vignette: >
+  %\VignetteIndexEntry{crossectiontime Package Contents}
+  %\usepackage[UTF-8]{inputenc}
+  %\VignetteEngine{knitr::knitr}
+---
+
+## Package Contents
+
+Momentary time sampling (MTS) is a sample of the defined behaviour in the exact 
+instant that you’re taking data. 
+This package presents MTS^[Identified as Instantaneous, Pinpoint, 
+Momentary, and Scan Sampling in animal and human behavior research. Momentary
+Time Sampling dominates in the human literature.], a time-on-task 
+estimation method, in two parallel vignettes that use different valu stream for illustration. 
+The vignette each point out advantages of using MTS in a comparison with two
+established longitudinal time collection method: (1) time duration between 
+milestones and (2) time logging.
+
+
+The two vignettes contain simulations that illustrate the structure, simplicity,
+accuracy, and precision of the cross-sectional time-on-task estimation method.
+Three levels of sampling demonstrate the ease and relatively low impact that 
+any need for increased precision would impose on the sampled population.
+A discussion of appropriately identifying what activities to time and how the 
+data could be collected is included.
+
+This package contains all R functions used to create this document including
+the simulation software.

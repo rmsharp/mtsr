@@ -21,6 +21,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -33,23 +35,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">crosssectiontimer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -57,6 +53,12 @@
   <ul class="dropdown-menu" role="menu">
 <li>
       <a href="articles/cross_sectional_timing_colony.html">Test of a Cross-sectional Sampling Timer</a>
+    </li>
+    <li>
+      <a href="articles/cross_sectional_timing_model.html">Test of a Cross-sectional Sampling Timer</a>
+    </li>
+    <li>
+      <a href="articles/test_cross_sectional_timing.html">Test of a Cross-sectional Sampling Timer</a>
     </li>
   </ul>
 </li>
@@ -77,84 +79,102 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div id="readme" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#readme" class="anchor"></a>README</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="readme">README<a class="anchor" aria-label="anchor" href="#readme"></a>
+</h1></div>
 <p>R. Mark Sharp 2021-11-26</p>
-<p><a href="http://www.rdocumentation.org/packages/roxygen2"><img src="http://www.rdocumentation.org/badges/version/roxygen2" alt="Rdoc"></a> <a href="https://travis-ci.org/rmsharp/crosssectiontimer"><img src="https://travis-ci.org/rmsharp/rmsutilityr.svg?branch=master" alt="Build Status"></a> <a href="https://codecov.io/gh/rmsharp/crosssectiontimer"><img src="https://codecov.io/gh/rmsharp/rmsutilityr/branch/master/graph/badge.svg" alt="codecov"></a></p>
+<p><a href="http://www.rdocumentation.org/packages/roxygen2" class="external-link"><img src="http://www.rdocumentation.org/badges/version/roxygen2" alt="Rdoc"></a> <a href="https://travis-ci.org/rmsharp/crosssectiontimer" class="external-link"><img src="https://travis-ci.org/rmsharp/rmsutilityr.svg?branch=master" alt="Build Status"></a> <a href="https://codecov.io/gh/rmsharp/crosssectiontimer" class="external-link"><img src="https://codecov.io/gh/rmsharp/rmsutilityr/branch/master/graph/badge.svg" alt="codecov"></a></p>
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 </div>
-<div id="introduction" class="section level1">
-<h1 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h1>
+<div class="section level1">
+<h1 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h1>
 <p>A cross-sectional time on task estimation method is presented, compared to use of time logging, illustrated with an example, and its accuracy and precision demonstrated with a simulation. Finally, a proposed protocol for using this time on task estimation technique is presented that discusses potential methods to ensure representative time estimates are obtained.</p>
 <p>This package contains the R functions used to create this document and the simulation software. The specific example, which is the husbandry and veterinary care of colony animals is provided by setup section of the “.Rmd” source file and a comma separated value (CSV) file with the actor, activity, and activity descriptions. Users of this package can easily adapt the small customization script and the task activities file to simulate the study they are considering to estimate the precision they can expect for their specified task and sampling design.</p>
-<div id="githubcom-installation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#githubcom-installation" class="anchor"></a>github.com Installation</h3>
-<p>The current development version can be intalled from GitHub. <a href="https://github.com/rmsharp/crosssectiontimer">github.com/rmsharp/crosssectiontimer</a> as all of the dependencies are automatically installed.</p>
+<div class="section level3">
+<h3 id="githubcom-installation">github.com Installation<a class="anchor" aria-label="anchor" href="#githubcom-installation"></a>
+</h3>
+<p>The current development version can be intalled from GitHub. <a href="https://github.com/rmsharp/crosssectiontimer" class="external-link">github.com/rmsharp/crosssectiontimer</a> as all of the dependencies are automatically installed.</p>
 <p>You can install <strong>crosssectiontimer</strong> from github with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"rmsharp/crosssectiontimer"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"rmsharp/crosssectiontimer"</span><span class="op">)</span></span></code></pre></div>
 <p>All missing dependencies should be automatically installed except for those found in rmsutilityr, which is available at my github account.</p>
 <p>You can install <strong>rmsutilityr</strong> from github with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"rmsharp/rmsutilityr"</span><span class="op">)</span></code></pre></div>
-<p>Find online documentation at <a href="https://rmsharp.github.io/crosssectiontimer/" class="uri">https://rmsharp.github.io/crosssectiontimer/</a>.</p>
-<p>See the setup code chunk of this vignette to see how to customize this document to examine results you can expect from your own time on task activity analysis. You will need to provide the CSV file<a href="Comparable%20to%20colony_management_defined_activities.csv">^1</a> with your own actors<a href="Actors%20are%20used%20as%20variable%20names%20so%20must%20follow%20rules%20for%20naming">^2</a>, activities, and activity descriptions in addition to providing your definitions for the setup chunk definitions indicated below.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"rmsharp/rmsutilityr"</span><span class="op">)</span></span></code></pre></div>
+<p>Find online documentation at <a href="https://rmsharp.github.io/crosssectiontimer/" class="external-link uri">https://rmsharp.github.io/crosssectiontimer/</a>.</p>
+<p>See the setup code chunk of this vignette to see how to customize this document to examine results you can expect from your own time on task activity analysis. You will need to provide the CSV file<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> with your own actors<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, activities, and activity descriptions in addition to providing your definitions for the setup chunk definitions indicated below.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">activity_file</span> <span class="op">&lt;-</span> 
-  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,
-              <span class="st">"colony_management_defined_activities.csv"</span>, 
-              package <span class="op">=</span> <span class="st">"crosssectiontimer"</span>, lib.loc <span class="op">=</span> <span class="cn">NULL</span>, 
-              mustWork <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="va">value_stream_descriptor</span> <span class="op">&lt;-</span> <span class="fu">stri_c</span><span class="op">(</span><span class="st">"husbandry and veterinary care of "</span>,
-                                  <span class="st">"colony animals"</span><span class="op">)</span>
-<span class="va">actor</span> <span class="op">&lt;-</span> <span class="st">"animal_caretaker"</span> <span class="co"># can be any value in the actor column of the </span>
-                            <span class="co"># activity file</span>
-
-<span class="co"># The product of n_actors, times_per_month, and n_months is the size. </span>
-<span class="co"># The size should be about 250 for about 20 activities to get the precision</span>
-<span class="co"># illustrated herein</span>
-<span class="va">n_actors</span> <span class="op">&lt;-</span> <span class="fl">20</span>
-<span class="va">times_per_month</span> <span class="op">&lt;-</span> <span class="fl">5</span>
-<span class="va">n_months</span> <span class="op">&lt;-</span> <span class="fl">12</span>
-
-<span class="va">iterations</span> <span class="op">&lt;-</span> <span class="fl">5000</span>          <span class="co"># 5000 seems more than adequate for stable results</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>variables <span class="cf">in</span> R. They must start with a letter, contain only letters,</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>numerals, “.”, and “\_“.</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">activity_file</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,</span>
+<span>              <span class="st">"colony_management_defined_activities.csv"</span>, </span>
+<span>              package <span class="op">=</span> <span class="st">"crosssectiontimer"</span>, lib.loc <span class="op">=</span> <span class="cn">NULL</span>, </span>
+<span>              mustWork <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">value_stream_descriptor</span> <span class="op">&lt;-</span> <span class="fu">stri_c</span><span class="op">(</span><span class="st">"husbandry and veterinary care of "</span>,</span>
+<span>                                  <span class="st">"colony animals"</span><span class="op">)</span></span>
+<span><span class="va">actor</span> <span class="op">&lt;-</span> <span class="st">"animal_caretaker"</span> <span class="co"># can be any value in the actor column of the </span></span>
+<span>                            <span class="co"># activity file</span></span>
+<span></span>
+<span><span class="co"># The product of n_actors, times_per_month, and n_months is the size. </span></span>
+<span><span class="co"># The size should be about 250 for about 20 activities to get the precision</span></span>
+<span><span class="co"># illustrated herein</span></span>
+<span><span class="va">n_actors</span> <span class="op">&lt;-</span> <span class="fl">20</span></span>
+<span><span class="va">times_per_month</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
+<span><span class="va">n_months</span> <span class="op">&lt;-</span> <span class="fl">12</span></span>
+<span></span>
+<span><span class="va">iterations</span> <span class="op">&lt;-</span> <span class="fl">5000</span>          <span class="co"># 5000 seems more than adequate for stable results</span></span></code></pre></div>
 </div>
+</div>
+<div class="footnotes footnotes-end-of-document">
+<hr>
+<ol>
+<li id="fn1"><p>Comparable to colony_management_defined_activities.csv<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Actors are used as variable names so must follow rules for naming variables in R. They must start with a letter, contain only letters, numerals, “.”, and “_“.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
 
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>R. Mark Sharp <br><small class="roles"> Author, maintainer, copyright holder, data contributor </small> <a href="https://orcid.org/0000-0002-6170-6942" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html#citation">Citing crosssectiontimer</a></li>
 </ul>
 </div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>R. Mark Sharp <br><small class="roles"> Author, maintainer, copyright holder, data contributor </small> <a href="https://orcid.org/0000-0002-6170-6942" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+</ul>
+</div>
+
+
 
   </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by R. Mark Sharp.</p>
+  <p></p>
+<p>Developed by R. Mark Sharp.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -162,6 +182,8 @@
 
   
 
+
+  
 
   </body>
 </html>

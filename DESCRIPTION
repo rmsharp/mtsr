@@ -11,20 +11,20 @@ Description: This document presents a cross-sectional sampling design as an
  alternative to a longitudinal sampling design inherent in the logging of
  activities method proposed to collect time on task information. 
 Imports:
-    ggplot2,
-    kableExtra,
-    magrittr,
-    rmsutilityr,
-    stringi
 Suggests:
+    ggplot2,
     here,
+    kableExtra,
     knitr,
+    magrittr,
     rmarkdown,
-    roxygen2 (>= 7.0.0)
+    rmsutilityr,
+    roxygen2 (>= 7.0.0),
+    stringi
 Remotes: rmsharp/rmsutilityr
 Language: en-US
 Encoding: UTF-8
 License: MIT + file LICENSE
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 LazyData: TRUE
 VignetteBuilder: knitr, rmarkdown
