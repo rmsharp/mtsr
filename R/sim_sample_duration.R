@@ -13,17 +13,17 @@ sim_sample_duration <- function(activities,
                                 size = 100,
                                 iterations = 1) {
   max_delta <- numeric(iterations)
-    for (i in seq_len(iterations)) {
-      small_sample <-
-        make_activity_observation(activities, size = size,
-                                  activities$freq)
-      small_sample_counts <- table(small_sample)
-      sample_size <- sum(small_sample_counts)
-      small_sample_duration <- small_sample_counts / sample_size
-      small_sample_duration <-
-        make_complete_sample_durations(small_sample_duration, activities)
-      max_delta[i] <-
-        max(abs(small_sample_duration$duration - activities$freq))
-    }
-    max_delta
+  for (i in seq_len(iterations)) {
+    small_sample <-
+      make_activity_observation(activities, size = size,
+                                activities$freq)
+    small_sample_counts <- table(small_sample)
+    sample_size <- sum(small_sample_counts)
+    small_sample_duration <- small_sample_counts / sample_size
+    small_sample_duration <-
+      make_complete_sample_durations(small_sample_duration, activities)
+    max_delta[i] <-
+      max(abs(small_sample_duration$duration - activities$freq))
   }
+  max_delta
+}
