@@ -52,7 +52,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/cross_sectional_timing_colony.html">Test of a Cross-sectional Sampling Timer</a>
+      <a href="articles/cross_sectional_timing_colony.html">Nonhuman Primate Colony Management Test of a Cross-sectional Sampling Timer</a>
     </li>
     <li>
       <a href="articles/cross_sectional_timing_model.html">Test of a Cross-sectional Sampling Timer</a>
@@ -82,15 +82,18 @@
 <div class="section level1">
 <div class="page-header"><h1 id="readme">README<a class="anchor" aria-label="anchor" href="#readme"></a>
 </h1></div>
-<p>R. Mark Sharp 2021-11-26</p>
+<p>R. Mark Sharp 2023-09-13</p>
 <p><a href="http://www.rdocumentation.org/packages/roxygen2" class="external-link"><img src="http://www.rdocumentation.org/badges/version/roxygen2" alt="Rdoc"></a> <a href="https://travis-ci.org/rmsharp/crosssectiontimer" class="external-link"><img src="https://travis-ci.org/rmsharp/rmsutilityr.svg?branch=master" alt="Build Status"></a> <a href="https://codecov.io/gh/rmsharp/crosssectiontimer" class="external-link"><img src="https://codecov.io/gh/rmsharp/rmsutilityr/branch/master/graph/badge.svg" alt="codecov"></a></p>
-<!-- README.md is generated from README.Rmd. Please edit that file -->
 </div>
 <div class="section level1">
-<h1 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+<h1 id="crosssectiontimer">crosssectiontimer<a class="anchor" aria-label="anchor" href="#crosssectiontimer"></a>
 </h1>
-<p>A cross-sectional time on task estimation method is presented, compared to use of time logging, illustrated with an example, and its accuracy and precision demonstrated with a simulation. Finally, a proposed protocol for using this time on task estimation technique is presented that discusses potential methods to ensure representative time estimates are obtained.</p>
-<p>This package contains the R functions used to create this document and the simulation software. The specific example, which is the husbandry and veterinary care of colony animals is provided by setup section of the “.Rmd” source file and a comma separated value (CSV) file with the actor, activity, and activity descriptions. Users of this package can easily adapt the small customization script and the task activities file to simulate the study they are considering to estimate the precision they can expect for their specified task and sampling design.</p>
+<div class="section level2">
+<h2 id="package-contents">Package Contents<a class="anchor" aria-label="anchor" href="#package-contents"></a>
+</h2>
+<p>A cross-sectional<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> time-on-task estimation method is presented in two parallel vignettes that use different value streams for illustration. The vignettes each point out advantages of using a cross-sectional timing method in a comparison with two established longitudinal time collection methods: (1) time duration between milestones and (2) time logging.</p>
+<p>The two vignettes contain simulations that illustrate the structure, simplicity, accuracy, and precision of the cross-sectional time-on-task estimation method. Three levels of sampling demonstrate the ease and relatively low impact that any need for increased precision would impose on the sampled population. A discussion of appropriately identifying what activities to time and how the data could be collected is included.</p>
+<p>This package contains all R functions used to create this document including the simulation software.</p>
 <div class="section level3">
 <h3 id="githubcom-installation">github.com Installation<a class="anchor" aria-label="anchor" href="#githubcom-installation"></a>
 </h3>
@@ -104,34 +107,13 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"rmsharp/rmsutilityr"</span><span class="op">)</span></span></code></pre></div>
-<p>Find online documentation at <a href="https://rmsharp.github.io/crosssectiontimer/" class="external-link uri">https://rmsharp.github.io/crosssectiontimer/</a>.</p>
-<p>See the setup code chunk of this vignette to see how to customize this document to examine results you can expect from your own time on task activity analysis. You will need to provide the CSV file<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> with your own actors<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, activities, and activity descriptions in addition to providing your definitions for the setup chunk definitions indicated below.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">activity_file</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,</span>
-<span>              <span class="st">"colony_management_defined_activities.csv"</span>, </span>
-<span>              package <span class="op">=</span> <span class="st">"crosssectiontimer"</span>, lib.loc <span class="op">=</span> <span class="cn">NULL</span>, </span>
-<span>              mustWork <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="va">value_stream_descriptor</span> <span class="op">&lt;-</span> <span class="fu">stri_c</span><span class="op">(</span><span class="st">"husbandry and veterinary care of "</span>,</span>
-<span>                                  <span class="st">"colony animals"</span><span class="op">)</span></span>
-<span><span class="va">actor</span> <span class="op">&lt;-</span> <span class="st">"animal_caretaker"</span> <span class="co"># can be any value in the actor column of the </span></span>
-<span>                            <span class="co"># activity file</span></span>
-<span></span>
-<span><span class="co"># The product of n_actors, times_per_month, and n_months is the size. </span></span>
-<span><span class="co"># The size should be about 250 for about 20 activities to get the precision</span></span>
-<span><span class="co"># illustrated herein</span></span>
-<span><span class="va">n_actors</span> <span class="op">&lt;-</span> <span class="fl">20</span></span>
-<span><span class="va">times_per_month</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
-<span><span class="va">n_months</span> <span class="op">&lt;-</span> <span class="fl">12</span></span>
-<span></span>
-<span><span class="va">iterations</span> <span class="op">&lt;-</span> <span class="fl">5000</span>          <span class="co"># 5000 seems more than adequate for stable results</span></span></code></pre></div>
+</div>
 </div>
 </div>
 <div class="footnotes footnotes-end-of-document">
 <hr>
 <ol>
-<li id="fn1"><p>Comparable to colony_management_defined_activities.csv<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>Actors are used as variable names so must follow rules for naming variables in R. They must start with a letter, contain only letters, numerals, “.”, and “_“.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>Identified as Instantaneous, Pinpoint, Momentary, and Scan Sampling in animal behavior research is used to record behavior at predetermined points in time<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 

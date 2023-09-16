@@ -15,9 +15,10 @@ vignette: >
 
 ## Theoretical Background
 
-Use of a cross-sectional technique assumes that the durations of the tasks of 
+Use of MTS assumes that the durations of the tasks of 
 interest are sufficiently long as to be readily detected. 
 Tasks of a momentary nature are not measured without bias.
-Multiple animal an dhuman studies as well as simulations have demonstrated that 
+Multiple animal and human studies as well as simulations have demonstrated that 
 instantaneous sampling is efficient and unbiased for behavior of greater than 
-momentary duration (@harrop-daniels-1988, @powel-te-al-1977).
+momentary duration (@Powell1977-td, @Harrop1986-ln, @Saudargas1990-yg, 
+@Suen1991-cb, @Harrop1993-dn, @Rapp2011-of).

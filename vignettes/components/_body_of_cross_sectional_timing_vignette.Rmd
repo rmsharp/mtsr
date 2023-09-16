@@ -85,15 +85,30 @@ The MTS design presented^[The MTS design assumes that we have the ability to
 send a question to selected individuals at selected times and collect that 
 response.] and tested below has the following advantages.
 
--   The _failure to respond rate_ has far less impact since failure to respond
+-   The _failure to respond rate_^[MTS requires periodic momentary sampling by
+    requesting the actor to indicate what she was doing when the request 
+    arrived. (In those instances where the actor is not capable of responding, 
+    such as in animal behavior studies, a request for input is made to the 
+    data collecting ovserver of the actor.) 
+    _Failure-to-respond_ can occur because the actor is away from work or 
+    engaged in an activity where the request is not received or cannot be 
+    responded to. In some cases, feedback by the actor to the studiy's point 
+    of contact is needed to identify those activities that are significant 
+    contributors to the _failure-to-respond rate_]
+    has far less impact since failure to respond
     simply initiates another response request.
 -   Participants do not need to recall time spent.
 -   Administrative overhead is greatly reduced.
--   Bias is minimized.
--   Data can be analyzed at any time.
+-   Bias is minimized and is effectively zero given accurate responses by 
+    actors.
+-   Data can be analyzed at any time^[Assuming multiple value streams of the 
+    same type are in process and are at different phase of the value stream, 
+    estimates of thime on task for all phases of the value stream are almost 
+    immediately available and become more precies with each subsequent sample.].
 -   Variance among projects could be assessed and more accurately measured if
-    desired. However, I recommend that project differences be ignored during
-    initial timing studies.
+    desired^[While project differences can be ignored during intitial timing 
+    studies, project metadata will be a rich source of meaningful segmentation 
+    as sufficient data become available.]. 
 
 # Example Measurement Protocol
 
@@ -104,7 +119,7 @@ this time on task measurement protocol.
 ## Selection of Activities to be Timed
 
 Creation of the activity list is a critical step. The process should engage all
-participants to included everything that should be measured is and leave out
+participants to included everything that should be measured and leave out
 those that should not be measured. The goal is to discover how the actors' work
 environment can be improved. Thus, measuring time spent on activities not
 directly contributing to the value stream(s) being studied are often critical.
@@ -188,17 +203,15 @@ for later reference.
 
 This is a critical part of the analysis as the full appreciation of our
 ignorance prior to collecting the data cannot be fully realized without this
-record.  Without this concrete evidence, we tend to dismiss our ignorance as
+record. Without this concrete evidence, we tend to dismiss our ignorance as
 trivial and of no practical importance in planning our reactions to our
 findings.  This clearer understanding of what we do not know will better guide
 our next actions.
 
 Plan on using at least two sampling periods as it is expected that the activity
 granularity will likely need adjusting based on initial results. Also, followup
-studies will be critical a behavioral and management changes should be
+studies will be critical as behavioral and management changes should be
 assessed. This low impact sampling design makes this possible.
-
-
 
 # Simulation
 
@@ -211,10 +224,12 @@ for the `r length(activities$activity)` activities.
 
 The example has a set of representative activities for `r actor`s.^[ The
 software is has the ability to examine multiple job types, job specific
-activity lists, and corresponding expected frequencies.].  It simulates asking
+activity lists, and corresponding expected frequencies.].  
+It simulates asking
 a set of `r actor`s to indicate which of the activities listed on the
 questionnaire they were doing at the time the question popped up on their
-screen. Once the `r actor` makes a selection, that selection is returned as a
+screen. 
+Once the `r actor` makes a selection, that selection is returned as a
 result to the collection software, which accumulates the responses for later
 analysis.
 
@@ -248,9 +263,21 @@ activities[ , c("activity", "freq")] %>%
 
 ## Data Collection Example
 
+The data have a simple structure. A single observation will have the following
+fields at a minimum.
+
+-  The actor's Id, which is typically known because the request for 
+   information is often intentionally balanced among all actors which requeres 
+   tracking actor Id with the response.
+-  The actor type(_`r actor`_, which may be only one of multiple roles an 
+   actor may have. The various roles are metadata that are critical for 
+   meaningful analysis.
+-  The activity name.
+-  Date and time stamp.
 
 For clarity, we demonstrate with the results from sampling one `r actor` one
 time and three times.
+
 ```{r}
 three_samples <- get_and_or_list(make_activity_observation(activities,
                                                            size = 3,
@@ -478,17 +505,27 @@ data.frame(freq = sim_delta_freq) %>%
 Prior experiments with this cross-sectional activity time estimation have shown
 that about 250 samples will provide time estimates for up to 20 activities that
 are all accurate and precise within $\pm2$ percent, which should be precise
-enough for most management activities. I do not think any amount of sampling
-using actor logs can be that accurate because of inherent cognitive bias
-introduced by the actors' own expectations.
+enough for most management activities. As this estimation method provides
+unbiased estimates for activities with more than momentary duration, no amount 
+of sampling using actor logs can provide similar accuracy and precision because 
+of inherent cognitive bias introduced by the actors' own expectations.
+
+
+## References
+
+<div id="refs"></div>
+
+
 
 ## Appendix
 
-See the setup code chunk of this vignette to see how to customize this document
-to examine results you can expect from your own time on task activity analysis.
-You will need to provide the CSV file^[Comparable to
+See the R script file sourced by the `customization` code chunk of this 
+vignette to see how this document was customizeed.
+To examine results you can expect from your own time on task activity analysis,
+you will need to provide the CSV file^[Comparable to
 colony_management_defined_activities.csv] with your own actors^[Actors are used
-as variable names so must follow rules for naming variables in R. They must
+as variable names so must follow rules for naming variables in R and they are 
+used in LaTex so underscores may not be allowed. They must
 start with a letter, contain only letters, numerals, ".", and "_".],
 activities, and activity descriptions in addition to providing your definitions
 for the setup chunk definitions indicated below.

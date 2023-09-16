@@ -1,5 +1,5 @@
 ---
-title: "Nonhuman Primate Colony Management Test of a Cross-sectional Sampling Timer"
+title: "Nonhuman Primate Colony Management Test of Momentary Sampling"
 author: "R. Mark Sharp"
 date: "`r Sys.Date()`"
 output:
@@ -8,6 +8,7 @@ output:
   bookdown::html_document2: default
 header-includes:
   - \usepackage{caption}
+  - \usepackage{underscore}
 vignette: >
   %\VignetteIndexEntry{Nonhuman Primate Colony Management Test of a Cross-sectional Sampling Timer}
   %\usepackage[UTF-8]{inputenc}
@@ -26,9 +27,10 @@ library(here)
 here::i_am("vignettes/cross_sectional_timing_colony.Rmd") # needs to be in right
                                                         # directory
 ```
+
 ```{r customization}
 source(
-  system.file("extdata",
+  system.file("extdata", "customizations",
               "colony_customization.R",
               package = "crosssectiontimer", lib.loc = NULL,
               mustWork = FALSE))

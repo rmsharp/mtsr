@@ -16,18 +16,19 @@ vignette: >
 
 ## Package Contents
 
-Momentary time sampling (MTS) is a sample of the defined behaviour in the exact 
+Momentary time sampling (MTS) is a time-on-task 
+estimation method that samples defined behaviours in the exact 
 instant that you’re taking data. 
 This package presents MTS^[Identified as Instantaneous, Pinpoint, 
 Momentary, and Scan Sampling in animal and human behavior research. Momentary
-Time Sampling dominates in the human literature.], a time-on-task 
-estimation method, in two parallel vignettes that use different valu stream for illustration. 
-The vignette each point out advantages of using MTS in a comparison with two
-established longitudinal time collection method: (1) time duration between 
+Time Sampling dominates in the human literature.] in two parallel vignettes 
+that use different value streams for illustration. 
+Each vignette describes the strengths of MTS over two
+common longitudinal time collection methods: (1) time duration between 
 milestones and (2) time logging.
 
-
-The two vignettes contain simulations that illustrate the structure, simplicity,
+The two vignettes contain topic specific simulations that illustrate the 
+structure, simplicity,
 accuracy, and precision of the cross-sectional time-on-task estimation method.
 Three levels of sampling demonstrate the ease and relatively low impact that 
 any need for increased precision would impose on the sampled population.
@@ -35,4 +36,18 @@ A discussion of appropriately identifying what activities to time and how the
 data could be collected is included.
 
 This package contains all R functions used to create this document including
-the simulation software.
+the simulation software. The two vignettes share almost all code and text.
+Their individual attributes are provided by their separate parent documents,
+the value stream's defined activities, and an R script that contains the 
+directives of how the simulation is to be run and what value stream to examine.
+The parent documents 
+differ by three lines: the first is the title, the second is the name of 
+the file, and the third is the name of the customization R code script which
+is 18 lines long. 
+Thus, a user can easily simulate use MTS with their own value stream by
+creating homologous files of the following three files:
+
+-  cross_sectional_timing_colony.Rmd
+-  colony_customization.R
+-  colony_management_defined_activities.csv
+
