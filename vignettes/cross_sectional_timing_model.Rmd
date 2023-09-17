@@ -1,5 +1,5 @@
 ---
-title: "Model Deployment Test of Momentary Sampling"
+title: "Model Deployment -- Momentary Sampling Simulations"
 author: "R. Mark Sharp"
 date: "`r Sys.Date()`"
 output:
@@ -10,7 +10,7 @@ bibliography: ../inst/extdata/references.bib
 header-includes:
   - \usepackage{caption}
 vignette: >
-  %\VignetteIndexEntry{Nonhuman Primate Colony Management Test of a Cross-sectional Sampling Timer}
+  %\VignetteIndexEntry{Model Deployment -- Momentary Sampling Simulations}
   %\usepackage[UTF-8]{inputenc}
   %\VignetteEngine{knitr::rmarkdown_notangle}
 ---
@@ -24,14 +24,19 @@ library(magrittr)
 library(rmsutilityr)
 library(stringi)
 library(here)
-here::i_am("vignettes/cross_sectional_timing_model.Rmd") # needs to be in right
+
+title <- rmarkdown::metadata$title
+customization_file <- "model_customization.R"
+parent_file <- knitr::current_input()
+here::i_am(paste0("vignettes/", parent_file)) # needs to be in right
+                                              # directory
 
 ```
 
 ```{r customization}
 source(
   system.file("extdata", "customizations",
-              "model_customization.R",
+              customization_file,
               package = "crosssectiontimer", lib.loc = NULL,
               mustWork = FALSE))
 

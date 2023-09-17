@@ -10,17 +10,17 @@
 ```
 
 
-## Purpose
+# Purpose
 
 Management of a value stream requires adequate estimates of the resources used
-to create value, with time on task being a direct measure of the primary
+to create value, with time-on-task being a direct measure of the primary
 resource^[Employee effort as measured by time is the most expensive resource.
-In addition, creating a work environment the encourages retention of employees
+In addition, creating a work environment that encourages retention of employees
 requires time management through appropriate prioritization so that employees
 are maximally productive and fulfilled.] creating the value.  The need to
 obtain quality estimates of these times on the various tasks in a value stream
-is the motivation to provide these tools and to advocate for the use of this
-cross-sectional time on task estimation method.
+is the motivation to provide these tools and to advocate for the use of MTS (a
+cross-sectional time-on-task estimation method).
 
 In the following example, estimates are obtained of how much time is spent on
 specific activities by various actors^[
@@ -33,13 +33,15 @@ Detailed planning regarding questions to be addressed is required prior to
 creating the list of activities to be time. 
 (See [Selection of Activities to be Timed].)
 
-A benefit of time on task studies is that they provide hard data regarding how
+A benefit of time-on-task studies is that they provide hard data regarding how
 time is spent and how much of it directly contributes to our primary goals. A
 second benefit is that these data allow each class of actor to advocate for
 modifying the way their time is being used to improve their work environment
 and productivity.
 
-## Comparison of Some Time Analysis Approaches
+# Comparison of Some Time Analysis Approaches
+
+## Duration Between Milestones
 
 Studies that measure duration between value stream milestones have the following
 weaknesses.
@@ -63,6 +65,8 @@ weaknesses.
 -   Milestones impose a linear view of work while the value stream may contain 
     several important feedback loops.
 
+## Time Logging
+
 Longitudinal time-on-task estimation methods that call for representative 
 actors within each group to log time on tasks during their work day have the
 weaknesses listed below.
@@ -78,18 +82,20 @@ weaknesses listed below.
 -   The longitudinal collection of data requires a long data collection
     phase before any analyses can begin.
 -   Variance among different projects is anticipated to be high, which
-    further complicates analysis.
+    further complicates analysis since all projects have to have completed
+    all phases of the projects under analysis.
 
+## Momentary Time Sampling
 
 The MTS design presented^[The MTS design assumes that we have the ability to 
 send a question to selected individuals at selected times and collect that 
-response.] and tested below has the following advantages.
+response.] and simulated below has the following advantages.
 
 -   The _failure to respond rate_^[MTS requires periodic momentary sampling by
     requesting the actor to indicate what she was doing when the request 
     arrived. (In those instances where the actor is not capable of responding, 
     such as in animal behavior studies, a request for input is made to the 
-    data collecting ovserver of the actor.) 
+    data collecting observer of the actor.) 
     _Failure-to-respond_ can occur because the actor is away from work or 
     engaged in an activity where the request is not received or cannot be 
     responded to. In some cases, feedback by the actor to the studiy's point 
@@ -103,7 +109,7 @@ response.] and tested below has the following advantages.
     actors.
 -   Data can be analyzed at any time^[Assuming multiple value streams of the 
     same type are in process and are at different phase of the value stream, 
-    estimates of thime on task for all phases of the value stream are almost 
+    estimates of time-on-task for all phases of the value stream are almost 
     immediately available and become more precies with each subsequent sample.].
 -   Variance among projects could be assessed and more accurately measured if
     desired^[While project differences can be ignored during intitial timing 
@@ -114,7 +120,7 @@ response.] and tested below has the following advantages.
 
 Detailed planning regarding questions to be addressed and how and when those
 questions are presented to participants is required for the successful use of
-this time on task measurement protocol.
+this time-on-task measurement protocol.
 
 ## Selection of Activities to be Timed
 
@@ -133,7 +139,7 @@ is critical to assuring good coverage of possible activities and to reinforce
 the nature of this as a team effort to gain insight for workplace enhancement
 and not as an imposed activity designed to identify poor work habits. Further,
 it is preferable that the management groups of the primary actors take an
-analogous time on task measurement sample during the same time period and
+analogous time-on-task measurement sample during the same time period and
 publish their findings at the same time.
 
 Some actors will work on more than one value stream and all will have
@@ -219,7 +225,7 @@ assessed. This low impact sampling design makes this possible.
 
 The remainder of this document presents an example data collection in a
 simulation study using a realistic design that provides sufficient detail to
-assess expected accuracy and precision of the resulting time on task estimates
+assess expected accuracy and precision of the resulting time-on-task estimates
 for the `r length(activities$activity)` activities.
 
 The example has a set of representative activities for `r actor`s.^[ The
@@ -266,22 +272,43 @@ activities[ , c("activity", "freq")] %>%
 The data have a simple structure. A single observation will have the following
 fields at a minimum.
 
--  The actor's Id, which is typically known because the request for 
+-  Actor's Id, which is typically known because the request for 
    information is often intentionally balanced among all actors which requeres 
    tracking actor Id with the response.
--  The actor type(_`r actor`_, which may be only one of multiple roles an 
+-  Project Id, which will be mapped to further metadata needed for complete 
+   analysis.
+-  Actor type(_`r actor`_, which may be only one of multiple roles an 
    actor may have. The various roles are metadata that are critical for 
    meaningful analysis.
--  The activity name.
+-  Activity name.
 -  Date and time stamp.
 
-For clarity, we demonstrate with the results from sampling one `r actor` one
-time and three times.
+For clarity, we demonstrate with the results from sampling one `r actor` one three times.
 
 ```{r}
-three_samples <- get_and_or_list(make_activity_observation(activities,
-                                                           size = 3,
-                                                           activities$freq))
+size <- 3
+three_samples <- make_activity_observation(
+  activities, size = size, activities$freq)
+
+dateTime <- paste0("2023-09-16 12:", c("12:07", "23:18", "54:42"), " CDT")
+three_samples_df <- 
+  data.frame(aId = paste0("A", sample(1:10, size, replace = TRUE)),
+             pId = paste0("P", sample(1:10, size, replace = TRUE)),
+             Actor_Type = actor,
+             Activity = three_samples,
+             DateTime = dateTime, stringsAsFactors = FALSE)
+caption <- "Example of three rows of data from MTS."
+three_samples_df %>%
+  kbl(col.names = c("Actor ID", "Project ID", "Actor Roll", "Activity", 
+                    "Date Time Stamp"),
+      caption = caption, row.names = FALSE) %>%
+  column_spec(1, width = "2em") %>%
+  column_spec(2, width = "2em") %>%
+  column_spec(3, width = "7em") %>%
+  column_spec(4, width = "20em") %>%
+  column_spec(5, width = "10em") %>%
+  kable_styling(latex_options = "HOLD_position") %>%
+  kable_material(c("striped", "hover"))
 
 ```
 
@@ -521,7 +548,7 @@ of inherent cognitive bias introduced by the actors' own expectations.
 
 See the R script file sourced by the `customization` code chunk of this 
 vignette to see how this document was customizeed.
-To examine results you can expect from your own time on task activity analysis,
+To examine results you can expect from your own time-on-task activity analysis,
 you will need to provide the CSV file^[Comparable to
 colony_management_defined_activities.csv] with your own actors^[Actors are used
 as variable names so must follow rules for naming variables in R and they are 

@@ -44,10 +44,10 @@ The parent documents
 differ by three lines: the first is the title, the second is the name of 
 the file, and the third is the name of the customization R code script which
 is 18 lines long. 
-Thus, a user can easily simulate use MTS with their own value stream by
-creating homologous files of the following three files:
+Thus, a user can easily simulate the use MTS with their own value stream by
+creating homologs of the following three files:
 
--  cross_sectional_timing_colony.Rmd
--  colony_customization.R
--  colony_management_defined_activities.csv
+-  `r parent_file`
+-  `r customization_file`
+-  `r basename(activity_file)`
 
