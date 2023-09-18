@@ -2,5 +2,9 @@
 .Rhistory
 .RData
 .Ruserdata
-^vignettes/cross_sectional_timing_model.Rmd$
-^vignettes/cross_sectional_timing_cache$
+vignettes/cross_sectional_timing_model\.log
+vignettes/cross_sectional_timing_model_cache
+vignettes/cross_sectional_timing_model_files
+vignettes/cross_sectional_timing_colony\.log
+vignettes/cross_sectional_timing_colony_cache
+vignettes/cross_sectional_timing_colony_files

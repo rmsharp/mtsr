@@ -197,8 +197,9 @@ number of units of the desired unit of measure within the time period of
 interest, such as 560 minutes in a typical 8 hour work day, $m_i$ is the number
 of times activity $i$ was observed, $n$ is the number of distinct activities.
 
-See the [description of Table \@ref(tab:small-sample-in-minutes)](
-#calculation-of-minutes-per-day) for an example where the calculation of
+See the [description of 
+Table \@ref(tab:small-sample-in-minutes)] 
+for an example where the calculation of
 minutes per activity in one 8 hour day is illustrated.
 
 Prior to the collection of data the various questions to be addressed should be
@@ -283,9 +284,10 @@ fields at a minimum.
 -  Activity name.
 -  Date and time stamp.
 
-For clarity, we demonstrate with the results from sampling one `r actor` one three times.
+For clarity, Table \@ref(tab:three-samples) lists the results from sampling three 
+times from a pool of `r actor`s.
 
-```{r}
+```{r three-samples}
 size <- 3
 three_samples <- make_activity_observation(
   activities, size = size, activities$freq)
@@ -294,27 +296,25 @@ dateTime <- paste0("2023-09-16 12:", c("12:07", "23:18", "54:42"), " CDT")
 three_samples_df <- 
   data.frame(aId = paste0("A", sample(1:10, size, replace = TRUE)),
              pId = paste0("P", sample(1:10, size, replace = TRUE)),
-             Actor_Type = actor,
+             Actor_Roll = actor,
              Activity = three_samples,
              DateTime = dateTime, stringsAsFactors = FALSE)
-caption <- "Example of three rows of data from MTS."
+caption <- "\\label{tab:three-samples}Example of three rows of MTS data."
 three_samples_df %>%
   kbl(col.names = c("Actor ID", "Project ID", "Actor Roll", "Activity", 
                     "Date Time Stamp"),
       caption = caption, row.names = FALSE) %>%
-  column_spec(1, width = "2em") %>%
-  column_spec(2, width = "2em") %>%
-  column_spec(3, width = "7em") %>%
-  column_spec(4, width = "20em") %>%
-  column_spec(5, width = "10em") %>%
-  kable_styling(latex_options = "HOLD_position") %>%
+  column_spec(1, width = "4em") %>%
+  column_spec(2, width = "5em") %>%
+  column_spec(3, width = "10em") %>%
+  column_spec(4, width = "18em") %>%
+  column_spec(5, width = "11em") %>%
+  kable_styling(latex_options = "HOLD_position",
+                font_size = 8) %>%
   kable_material(c("striped", "hover"))
 
 ```
 
-A single sample: 
-`r make_activity_observation(activities, size = 1, activities$freq)` 
-Three samples: `r three_samples`.
 
 In the single iteration of the simulation below, we observe how precise the
 estimates are if we include `r n_actors` `r actor`s sampled just 
@@ -345,19 +345,21 @@ caption <- stri_c("List of activities, the frequency in which they were ",
 
 delta <- abs(small_sample_duration$duration - activities$freq)
 small_sample_duration %>%
-  cbind(data.frame(prob = activities$freq, delta = delta)) %>%
+  cbind(data.frame(prob = activities$freq, delta = delta,
+                   percent = 100 * delta / activities$freq)) %>%
   kbl(digits = 3,
-      col.names = c("Description", "Observed", "Expected", "Delta"),
+      col.names = c("Description", "Observed", "Expected", "Delta", 
+                    "Delta as % of Expected"),
       caption = caption) %>%
   kable_styling(latex_options = "HOLD_position") %>%
-  add_header_above(c(" " = 1, "Duration" = 3)) %>%
+  add_header_above(c(" " = 1, "Duration" = 4)) %>%
   kable_material(c("striped", "hover"))
 
 ```
 
-(#calculation-of-minutes-per-day) We can estimate the duration in minutes on
-each activity if we allocate the `r n_actors * times_per_month * n_months`
-observations into one 8 hour day which has 560 minutes.
+It is sometimes helpful to remap these percentages into minutes per 8 hour day,
+which can be done by allocating the `r n_actors * times_per_month * n_months`
+observations into 560 minutes.
 
 ```{r small-sample-in-minutes}
 minutes_per_activity <- small_sample_duration$duration * 560
@@ -374,11 +376,10 @@ minutes_per_activity %>%
 ```
 
 I have run this experiment several times and usually the estimates are shown to
-be very close as in seen in the _Delta_ column (within about 1 percent).
-However, it is more instructive to simulation this experiment many times to
+be very close as in seen in the _Delta_ column (usually within 1 percent of 
+the expected value).
+However, it is more instructive to repeat this experiment many times to
 learn what precision we can expect.
-
-<!-- We will start by putting the simulation into a function.  -->
 
 ## Results
 
@@ -386,17 +387,25 @@ Figure \@ref(fig:hist-1X) shows a histogram plot of the results of repeating
 the simulation of `r n_actors` 
 `r stri_replace_all_fixed(actor, pattern = "_", replacement = " ")`s
 providing `r times_per_month` responses in each of the 
-`r n_months` months of a year `r iterations` times.  Similarly, Figure
-\@ref(fig:hist-2X) shows a histogram plot of the similar simulation with 
-`r round(n_actors * 2, 0)` 
-`r stri_replace_all_fixed(actor, pattern = "_", replacement = " ")`s 
-instead of `r n_actors`.
+`r n_months` months of a year `r iterations` times.  Similarly, Figures
+\@ref(fig:hist-2X) and \@ref(fig:hist-4X) show histogram plots of similar 
+simulations with each `r actor` being sampled
+`r round(times_per_month * 2, 0)` and `r round(times_per_month * 4, 0)`
+time per month respectively instead of `r round(times_per_month, 0)` times.
+
+The variance of each estimate ($\sigma^2 = n * p (1 - p)$) is linear 
+with $n$ (number of observations). This translates to a simple method of 
+predicting the improvement in estimates from MTS. 
+That is, the size of the expected 
+percent error can by reduced by a factor of 0.5 each time the number of samples
+is quadrupled.
+
 
 ```{r}
-this_n_actors <- n_actors
+this_times_per_month <- times_per_month
 sim_delta_freq <- sim_sample_duration(
   activities,
-  size = this_n_actors * times_per_month * n_months,
+  size = n_actors * this_times_per_month * n_months,
   iterations = iterations)
 gt_1_percent <- sum(sim_delta_freq > 0.01) / length(sim_delta_freq)
 gt_2_percent <- sum(sim_delta_freq > 0.02) / length(sim_delta_freq)
@@ -407,9 +416,9 @@ hist_1X_cap <-
          format(iterations, decimal.mark = ".",
                 big.mark = ","),
          " iterations with ",
-         this_n_actors, " ",
+         n_actors, " ",
          stri_replace_all_fixed(actor, pattern = "_", replacement = " "),
-         "s sampled ",times_per_month,
+         "s sampled ", this_times_per_month,
          " times per month for one year found ",
          100 * gt_1_percent, "% of durations \nwere greater than ",
          "1 percent away from the ",
@@ -429,19 +438,19 @@ hist_1X_cap <-
 data.frame(freq = sim_delta_freq) %>%
   ggplot(aes(x = freq)) +
   geom_histogram(bins = 30) +
-  ggtitle(stri_c(this_n_actors, " ",
+  ggtitle(stri_c(n_actors, " ",
          stri_replace_all_fixed(actor, pattern = "_", replacement = " "),
-         "s sampled ", times_per_month,
+         "s sampled ", this_times_per_month,
                  " times per month for one year")) +
   xlab("Absolute Value of (Expected - Observed) Frequency") +
   ylab("Count")
 
 ```
 ```{r}
-this_n_actors <- 2 * n_actors
+this_times_per_month <- 2 * times_per_month
 sim_delta_freq <-
   sim_sample_duration(activities,
-                      size = this_n_actors * times_per_month * n_months,
+                      size = n_actors * this_times_per_month * n_months,
                       iterations = iterations)
 gt_1_percent <- sum(sim_delta_freq > 0.01) / length(sim_delta_freq)
 gt_2_percent <- sum(sim_delta_freq > 0.02) / length(sim_delta_freq)
@@ -452,9 +461,9 @@ hist_2X_cap <-
          format(iterations, decimal.mark = ".",
                 big.mark = ","),
          " iterations with ",
-         this_n_actors, " ",
+         n_actors, " ",
          stri_replace_all_fixed(actor, pattern = "_", replacement = " "),
-         "s sampled ",times_per_month,
+         "s sampled ", this_times_per_month,
          " times per month for one year found ",
          100 * gt_1_percent, "% of durations \nwere greater than ",
          "1 percent away from the ",
@@ -472,9 +481,9 @@ hist_2X_cap <-
 data.frame(freq = sim_delta_freq) %>%
   ggplot(aes(x = freq)) +
   geom_histogram(bins = 30) +
-  ggtitle(paste0(round(this_n_actors, 0), " ",
+  ggtitle(paste0(round(n_actors, 0), " ",
          stri_replace_all_fixed(actor, pattern = "_", replacement = " "),
-         "s sampled ", times_per_month,
+         "s sampled ", this_times_per_month,
                  " times per month for one year.")) +
   xlab("Absolute Value of (Expected - Observed) Frequency") +
   ylab("Count")
@@ -482,10 +491,10 @@ data.frame(freq = sim_delta_freq) %>%
 ```
 
 ```{r}
-this_n_actors <- 4 * n_actors
+this_times_per_month <- 4 * times_per_month
 sim_delta_freq <-
   sim_sample_duration(activities,
-                      size = this_n_actors * times_per_month * n_months,
+                      size = n_actors * this_times_per_month * n_months,
                       iterations = iterations)
 gt_1_percent <- sum(sim_delta_freq > 0.01) / length(sim_delta_freq)
 gt_2_percent <- sum(sim_delta_freq > 0.02) / length(sim_delta_freq)
@@ -496,9 +505,9 @@ hist_4X_cap <-
          format(iterations, decimal.mark = ".",
                 big.mark = ","),
          " iterations with ",
-         this_n_actors, " ",
+         n_actors, " ",
          stri_replace_all_fixed(actor, pattern = "_", replacement = " "),
-         "s sampled ",times_per_month,
+         "s sampled ", this_times_per_month,
          " times per month for one year found ",
          100 * gt_1_percent, "% of durations \nwere greater than ",
          "1 percent away from the ",
@@ -512,13 +521,13 @@ hist_4X_cap <-
          ".")
 
 ```
-```{r hist-4X, fig.cap=hist_2X_cap, fig.pos="H"}
+```{r hist-4X, fig.cap=hist_4X_cap, fig.pos="H"}
 data.frame(freq = sim_delta_freq) %>%
   ggplot(aes(x = freq)) +
   geom_histogram(bins = 30) +
-  ggtitle(paste0(round(this_n_actors, 0), " ",
+  ggtitle(paste0(round(n_actors, 0), " ",
          stri_replace_all_fixed(actor, pattern = "_", replacement = " "),
-         "s sampled ", times_per_month,
+         "s sampled ", this_times_per_month,
                  " times per month for one year.")) +
   xlab("Absolute Value of (Expected - Observed) Frequency") +
   ylab("Count")
