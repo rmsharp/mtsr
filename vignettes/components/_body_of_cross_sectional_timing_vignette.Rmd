@@ -22,10 +22,11 @@ to create value, with time-on-task being a direct measure of the primary
 resource^[Employee effort as measured by time is the most expensive resource.
 In addition, creating a work environment that encourages retention of employees
 requires time management through appropriate prioritization so that employees
-are maximally productive and fulfilled.] creating the value.  The need to
-obtain quality estimates of these times on the various tasks in a value stream
+are maximally productive and fulfilled.] creating value. The need to
+obtain quality estimates time spent on the various tasks in a value stream
 is the motivation to provide these tools and to advocate for the use of MTS (a
-cross-sectional time-on-task estimation method).
+cross-sectional time-on-task estimation method) for the great majority of
+complex labor intensive value streams.
 
 In the following example, estimates are obtained of how much time is spent on
 specific activities by various actors^[
@@ -35,10 +36,11 @@ Time-on-task data provide a fundamental metric used to identify those areas
 where improvement opportunities exist.
 
 Detailed planning regarding questions to be addressed is required prior to 
-creating the list of activities to be time. 
+creating the list of activities to be timed. 
 (See [Selection of Activities to be Timed].)
 
-A benefit of time-on-task studies is that they provide hard data regarding how
+A benefit of time-on-task studies is that they provide accurate and precise
+data regarding how
 time is spent and how much of it directly contributes to our primary goals. A
 second benefit is that these data allow each class of actor to advocate for
 modifying the way their time is being used to improve their work environment
@@ -53,22 +55,24 @@ weaknesses.
 
 -   Good estimates of duration between value stream milestones require multiple
     observations per milestone interval and observing the entire value stream
-    (entire duration) multipole times.
+    (entire duration) multiple times.
     -  This means little information is obtained until multiple full passes 
        through the value stream have occurred. Thus, no data driven improvements
-       can be implemented while waiting for p=completion of those complete 
-       passers to occur. This represent an unacceptable lost opportunity cost 
+       can be implemented while waiting for multiple complete 
+       passes to occur. This represent an unacceptable lost-opportunity-cost 
        for those value streams taking any approciable amount of time.
 -   Measures of duration between milestones provide no insight into
     percent effort expended to create value within the duration.
     -  Thus, once you have estimates of duration between milestones, you 
-       remain blind to how the resources were being used within that duration.
--   Milestones do not provide detail available through use of specific tasks.
-    -  Milestones, by there nature, are reached through multiple actions of 
+       remain blind to how the resources were used within that duration.
+-   Milestones do not provide the granularity of specific tasks.
+    -  Milestones, by their nature, are reached through multiple actions of 
        a few to many different types. The percent of effort and the pattern
        of effort in those actions remains unknown.
 -   Milestones impose a linear view of work while the value stream may contain 
     several important feedback loops.
+<!-- TODO create actions that indicate what milestone they exist in or what
+feedback loop they are part of -->
 
 ## Time Logging
 
@@ -93,8 +97,8 @@ weaknesses listed below.
 ## Momentary Time Sampling
 
 The MTS design presented^[The MTS design assumes that we have the ability to 
-send a question to selected individuals at selected times and collect that 
-response.] and simulated below has the following advantages.
+send a question to selected individuals at selected times and collect 
+responses.] and simulated below has the following advantages.
 
 -   The _failure to respond rate_^[MTS requires periodic momentary sampling by
     requesting the actor to indicate what she was doing when the request 
@@ -112,14 +116,14 @@ response.] and simulated below has the following advantages.
 -   Administrative overhead is greatly reduced.
 -   Bias is minimized and is effectively zero given accurate responses by 
     actors.
--   Data can be analyzed at any time^[Assuming multiple value streams of the 
+-   Data can be analyzed at any time.^[Assuming multiple value streams of the 
     same type are in process and are at different phase of the value stream, 
     estimates of time-on-task for all phases of the value stream are almost 
-    immediately available and become more precies with each subsequent sample.].
+    immediately available and become more precies with each subsequent sample.]
 -   Variance among projects could be assessed and more accurately measured if
-    desired^[While project differences can be ignored during intitial timing 
+    desired.^[While project differences can be ignored during intitial timing 
     studies, project metadata will be a rich source of meaningful segmentation 
-    as sufficient data become available.]. 
+    as sufficient data become available.]
 
 # Example Measurement Protocol
 
@@ -236,7 +240,7 @@ for the `r length(activities$activity)` activities.
 
 The example has a set of representative activities for `r actor`s.^[ The
 software is has the ability to examine multiple job types, job specific
-activity lists, and corresponding expected frequencies.].  
+activity lists, and corresponding expected frequencies.]
 It simulates asking
 a set of `r actor`s to indicate which of the activities listed on the
 questionnaire they were doing at the time the question popped up on their
@@ -356,7 +360,7 @@ small_sample_duration %>%
       col.names = c("Description", "Observed", "Expected", "Delta", 
                     "Delta as % of Expected"),
       caption = caption) %>%
-    column_spec(1, width = "10em") %>%
+  column_spec(1, width = "10em") %>%
   column_spec(2, width = "5em") %>%
   column_spec(3, width = "5em") %>%
   column_spec(4, width = "5em") %>%
