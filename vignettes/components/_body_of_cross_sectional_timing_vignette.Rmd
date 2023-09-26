@@ -10,6 +10,13 @@ output:
 
 ```
 
+Thus, a user can easily simulate the use MTS with their own value stream by
+creating homologs of the following three files:
+
+-  `r parent_file`
+-  `r customization_file`
+-  `r basename(activity_file)`
+
 ```{r child = here::here("vignettes/components/_theoretical_background.Rmd"), ref = "theory"}
 
 ```

@@ -8,7 +8,7 @@ output: html_document
 ### github.com Installation
 
 The current development version can be 
-intalled from GitHub.
+installed from GitHub.
 [github.com/rmsharp/crosssectiontimer](
 https://github.com/rmsharp/crosssectiontimer) 
 as all of the dependencies are automatically installed.
