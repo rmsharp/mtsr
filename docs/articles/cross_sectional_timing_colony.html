@@ -81,7 +81,7 @@ Sampling Simulations</h1>
                         <h4 data-toc-skip class="author">R. Mark
 Sharp</h4>
             
-            <h4 data-toc-skip class="date">2023-09-18</h4>
+            <h4 data-toc-skip class="date">2023-09-25</h4>
       
       
       <div class="hidden name"><code>cross_sectional_timing_colony.Rmd</code></div>
@@ -117,8 +117,9 @@ R script that contains the directives of how the simulation is to be run
 and what value stream to examine. The parent documents differ by three
 lines: the first is the title, the second is the name of the file, and
 the third is the name of the customization R code script which is 18
-lines long. Thus, a user can easily simulate the use MTS with their own
-value stream by creating homologs of the following three files:</p>
+lines long.</p>
+<p>Thus, a user can easily simulate the use MTS with their own value
+stream by creating homologs of the following three files:</p>
 <ul>
 <li>cross_sectional_timing_colony.Rmd</li>
 <li>colony_customization.R</li>
@@ -131,9 +132,8 @@ value stream by creating homologs of the following three files:</p>
 <p>Use of MTS assumes that the durations of the tasks of interest are
 sufficiently long as to be readily detected. Tasks of a momentary nature
 are not measured without bias. Multiple animal and human studies as well
-as simulations have demonstrated that instantaneous sampling is
-efficient and unbiased for behavior of greater than momentary duration
-(<span class="citation">Powell et al. (1977)</span>, <span class="citation">Harrop and Daniels (1986)</span>, <span class="citation">Saudargas and Zanolli (1990)</span>, <span class="citation">Suen (1991)</span>, <span class="citation">Harrop and
+as simulations have demonstrated that MTS is efficient and unbiased for
+behavior of greater than momentary duration (<span class="citation">Powell et al. (1977)</span>, <span class="citation">Harrop and Daniels (1986)</span>, <span class="citation">Saudargas and Zanolli (1990)</span>, <span class="citation">Suen (1991)</span>, <span class="citation">Harrop and
 Daniels (1993)</span>, <span class="citation">Rapp et al.
 (2011)</span>).</p>
 </div>
@@ -143,23 +143,24 @@ Daniels (1993)</span>, <span class="citation">Rapp et al.
 </h2>
 <p>Management of a value stream requires adequate estimates of the
 resources used to create value, with time-on-task being a direct measure
-of the primary resource<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> creating the value. The need to obtain
-quality estimates of these times on the various tasks in a value stream
-is the motivation to provide these tools and to advocate for the use of
-MTS (a cross-sectional time-on-task estimation method).</p>
+of the primary resource<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> creating value. The need to obtain quality
+estimates time spent on the various tasks in a value stream is the
+motivation to provide these tools and to advocate for the use of MTS (a
+cross-sectional time-on-task estimation method) for the great majority
+of complex labor intensive value streams.</p>
 <p>In the following example, estimates are obtained of how much time is
 spent on specific activities by various actors<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> responsible for the
 success of the husbandry and veterinary care of colony animals.
 Time-on-task data provide a fundamental metric used to identify those
 areas where improvement opportunities exist.</p>
 <p>Detailed planning regarding questions to be addressed is required
-prior to creating the list of activities to be time. (See <a href="#selection-of-activities-to-be-timed">Selection of Activities to
+prior to creating the list of activities to be timed. (See <a href="#selection-of-activities-to-be-timed">Selection of Activities to
 be Timed</a>.)</p>
-<p>A benefit of time-on-task studies is that they provide hard data
-regarding how time is spent and how much of it directly contributes to
-our primary goals. A second benefit is that these data allow each class
-of actor to advocate for modifying the way their time is being used to
-improve their work environment and productivity.</p>
+<p>A benefit of time-on-task studies is that they provide accurate and
+precise data regarding how time is spent and how much of it directly
+contributes to our primary goals. A second benefit is that these data
+allow each class of actor to advocate for modifying the way their time
+is being used to improve their work environment and productivity.</p>
 </div>
 <div class="section level2">
 <h2 id="comparison-of-some-time-analysis-approaches">Comparison of Some Time Analysis Approaches<a class="anchor" aria-label="anchor" href="#comparison-of-some-time-analysis-approaches"></a>
@@ -172,34 +173,34 @@ the following weaknesses.</p>
 <ul>
 <li>Good estimates of duration between value stream milestones require
 multiple observations per milestone interval and observing the entire
-value stream (entire duration) multipole times.
+value stream (entire duration) multiple times.
 <ul>
 <li>This means little information is obtained until multiple full passes
 through the value stream have occurred. Thus, no data driven
-improvements can be implemented while waiting for p=completion of those
-complete passers to occur. This represent an unacceptable lost
-opportunity cost for those value streams taking any approciable amount
-of time.</li>
+improvements can be implemented while waiting for multiple complete
+passes to occur. This represent an unacceptable lost-opportunity-cost
+for those value streams taking any approciable amount of time.</li>
 </ul>
 </li>
 <li>Measures of duration between milestones provide no insight into
 percent effort expended to create value within the duration.
 <ul>
 <li>Thus, once you have estimates of duration between milestones, you
-remain blind to how the resources were being used within that
-duration.</li>
+remain blind to how the resources were used within that duration.</li>
 </ul>
 </li>
-<li>Milestones do not provide detail available through use of specific
-tasks.
+<li>Milestones do not provide the granularity of specific tasks.
 <ul>
-<li>Milestones, by there nature, are reached through multiple actions of
+<li>Milestones, by their nature, are reached through multiple actions of
 a few to many different types. The percent of effort and the pattern of
 effort in those actions remains unknown.</li>
 </ul>
 </li>
 <li>Milestones impose a linear view of work while the value stream may
-contain several important feedback loops.</li>
+contain several important feedback loops.
+<!-- TODO create actions that indicate what milestone they exist in or what
+feedback loop they are part of -->
+</li>
 </ul>
 </div>
 <div class="section level3">
@@ -237,9 +238,11 @@ since failure to respond simply initiates another response request.</li>
 <li>Administrative overhead is greatly reduced.</li>
 <li>Bias is minimized and is effectively zero given accurate responses
 by actors.</li>
-<li>Data can be analyzed at any time<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>.</li>
+<li>Data can be analyzed at any time.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>
+</li>
 <li>Variance among projects could be assessed and more accurately
-measured if desired<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>.</li>
+measured if desired.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>
+</li>
 </ul>
 </div>
 </div>
@@ -355,12 +358,12 @@ a simulation study using a realistic design that provides sufficient
 detail to assess expected accuracy and precision of the resulting
 time-on-task estimates for the 18 activities.</p>
 <p>The example has a set of representative activities for
-animal_caretakers.<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>.<br>
-It simulates asking a set of animal_caretakers to indicate which of the
-activities listed on the questionnaire they were doing at the time the
-question popped up on their screen. Once the animal_caretaker makes a
-selection, that selection is returned as a result to the collection
-software, which accumulates the responses for later analysis.</p>
+animal_caretakers.<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> It simulates asking a set of
+animal_caretakers to indicate which of the activities listed on the
+questionnaire they were doing at the time the question popped up on
+their screen. Once the animal_caretaker makes a selection, that
+selection is returned as a result to the collection software, which
+accumulates the responses for later analysis.</p>
 <p>In the simulation model, these queries and responses can all be
 processed in less than a second but, as described below, this simulation
 is constructed so that each simulated animal_caretaker responds five
@@ -579,16 +582,16 @@ Date Time Stamp
 <tbody>
 <tr>
 <td style="text-align:left;width: 4em; ">
-A2
+A8
 </td>
 <td style="text-align:left;width: 5em; ">
-P3
+P6
 </td>
 <td style="text-align:left;width: 10em; ">
 animal_caretaker
 </td>
 <td style="text-align:left;width: 18em; ">
-food preparation
+animal care correspondence
 </td>
 <td style="text-align:left;width: 11em; ">
 2023-09-16 12:12:07 CDT
@@ -596,10 +599,10 @@ food preparation
 </tr>
 <tr>
 <td style="text-align:left;width: 4em; ">
-A6
+A10
 </td>
 <td style="text-align:left;width: 5em; ">
-P4
+P3
 </td>
 <td style="text-align:left;width: 10em; ">
 animal_caretaker
@@ -622,7 +625,7 @@ P8
 animal_caretaker
 </td>
 <td style="text-align:left;width: 18em; ">
-gang caged animal inventory and health check
+group animal transfer
 </td>
 <td style="text-align:left;width: 11em; ">
 2023-09-16 12:54:42 CDT
@@ -677,16 +680,16 @@ Delta as % of Expected
 administrative work
 </td>
 <td style="text-align:right;width: 5em; ">
-0.081
+0.107
 </td>
 <td style="text-align:right;width: 5em; ">
 0.10
 </td>
 <td style="text-align:right;width: 5em; ">
-0.019
+0.007
 </td>
 <td style="text-align:right;width: 11em; ">
-18.667
+6.667
 </td>
 </tr>
 <tr>
@@ -694,38 +697,21 @@ administrative work
 animal care correspondence
 </td>
 <td style="text-align:right;width: 5em; ">
-0.005
+0.006
 </td>
 <td style="text-align:right;width: 5em; ">
 0.01
 </td>
 <td style="text-align:right;width: 5em; ">
-0.005
+0.004
 </td>
 <td style="text-align:right;width: 11em; ">
-46.667
+40.000
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 10em; ">
 animal care meeting
-</td>
-<td style="text-align:right;width: 5em; ">
-0.059
-</td>
-<td style="text-align:right;width: 5em; ">
-0.05
-</td>
-<td style="text-align:right;width: 5em; ">
-0.009
-</td>
-<td style="text-align:right;width: 11em; ">
-17.333
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 10em; ">
-animal care record keeping
 </td>
 <td style="text-align:right;width: 5em; ">
 0.054
@@ -742,19 +728,36 @@ animal care record keeping
 </tr>
 <tr>
 <td style="text-align:left;width: 10em; ">
-animal care record use
+animal care record keeping
 </td>
 <td style="text-align:right;width: 5em; ">
-0.063
+0.057
 </td>
 <td style="text-align:right;width: 5em; ">
 0.05
 </td>
 <td style="text-align:right;width: 5em; ">
-0.013
+0.007
 </td>
 <td style="text-align:right;width: 11em; ">
-25.333
+14.667
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+animal care record use
+</td>
+<td style="text-align:right;width: 5em; ">
+0.044
+</td>
+<td style="text-align:right;width: 5em; ">
+0.05
+</td>
+<td style="text-align:right;width: 5em; ">
+0.006
+</td>
+<td style="text-align:right;width: 11em; ">
+12.000
 </td>
 </tr>
 <tr>
@@ -762,7 +765,7 @@ animal care record use
 food preparation
 </td>
 <td style="text-align:right;width: 5em; ">
-0.161
+0.139
 </td>
 <td style="text-align:right;width: 5em; ">
 0.15
@@ -779,16 +782,16 @@ food preparation
 gang cage animal feeding
 </td>
 <td style="text-align:right;width: 5em; ">
-0.193
+0.214
 </td>
 <td style="text-align:right;width: 5em; ">
 0.20
 </td>
 <td style="text-align:right;width: 5em; ">
-0.007
+0.014
 </td>
 <td style="text-align:right;width: 11em; ">
-3.333
+7.000
 </td>
 </tr>
 <tr>
@@ -796,16 +799,16 @@ gang cage animal feeding
 gang caged animal inventory and health check
 </td>
 <td style="text-align:right;width: 5em; ">
-0.049
+0.050
 </td>
 <td style="text-align:right;width: 5em; ">
 0.05
 </td>
 <td style="text-align:right;width: 5em; ">
-0.001
+0.000
 </td>
 <td style="text-align:right;width: 11em; ">
-1.333
+0.000
 </td>
 </tr>
 <tr>
@@ -813,16 +816,16 @@ gang caged animal inventory and health check
 group animal transfer
 </td>
 <td style="text-align:right;width: 5em; ">
-0.057
+0.048
 </td>
 <td style="text-align:right;width: 5em; ">
 0.05
 </td>
 <td style="text-align:right;width: 5em; ">
-0.007
+0.002
 </td>
 <td style="text-align:right;width: 11em; ">
-13.333
+4.000
 </td>
 </tr>
 <tr>
@@ -830,16 +833,16 @@ group animal transfer
 individual animal feeding
 </td>
 <td style="text-align:right;width: 5em; ">
-0.051
+0.046
 </td>
 <td style="text-align:right;width: 5em; ">
 0.05
 </td>
 <td style="text-align:right;width: 5em; ">
-0.001
+0.004
 </td>
 <td style="text-align:right;width: 11em; ">
-2.667
+8.000
 </td>
 </tr>
 <tr>
@@ -864,16 +867,16 @@ individual animal transfer
 individual cage cleaning
 </td>
 <td style="text-align:right;width: 5em; ">
-0.045
+0.047
 </td>
 <td style="text-align:right;width: 5em; ">
 0.05
 </td>
 <td style="text-align:right;width: 5em; ">
-0.005
+0.003
 </td>
 <td style="text-align:right;width: 11em; ">
-9.333
+6.667
 </td>
 </tr>
 <tr>
@@ -881,7 +884,7 @@ individual cage cleaning
 individual cage sanitation
 </td>
 <td style="text-align:right;width: 5em; ">
-0.049
+0.051
 </td>
 <td style="text-align:right;width: 5em; ">
 0.05
@@ -898,16 +901,16 @@ individual cage sanitation
 individual caged animal inventory and health check
 </td>
 <td style="text-align:right;width: 5em; ">
-0.050
+0.055
 </td>
 <td style="text-align:right;width: 5em; ">
 0.05
 </td>
 <td style="text-align:right;width: 5em; ">
-0.000
+0.005
 </td>
 <td style="text-align:right;width: 11em; ">
-0.000
+9.333
 </td>
 </tr>
 <tr>
@@ -915,16 +918,16 @@ individual caged animal inventory and health check
 ordering of major equipment
 </td>
 <td style="text-align:right;width: 5em; ">
-0.009
+0.015
 </td>
 <td style="text-align:right;width: 5em; ">
 0.01
 </td>
 <td style="text-align:right;width: 5em; ">
-0.001
+0.005
 </td>
 <td style="text-align:right;width: 11em; ">
-6.667
+46.667
 </td>
 </tr>
 <tr>
@@ -949,16 +952,16 @@ ordering of supplies and minor equipment
 other
 </td>
 <td style="text-align:right;width: 5em; ">
-0.005
+0.013
 </td>
 <td style="text-align:right;width: 5em; ">
 0.01
 </td>
 <td style="text-align:right;width: 5em; ">
-0.005
+0.003
 </td>
 <td style="text-align:right;width: 11em; ">
-46.667
+26.667
 </td>
 </tr>
 <tr>
@@ -966,16 +969,16 @@ other
 personal time
 </td>
 <td style="text-align:right;width: 5em; ">
-0.051
+0.039
 </td>
 <td style="text-align:right;width: 5em; ">
 0.05
 </td>
 <td style="text-align:right;width: 5em; ">
-0.001
+0.011
 </td>
 <td style="text-align:right;width: 11em; ">
-2.667
+21.333
 </td>
 </tr>
 </tbody>
@@ -1002,7 +1005,7 @@ Minutes
 administrative work
 </td>
 <td style="text-align:right;">
-45.5
+59.7
 </td>
 </tr>
 <tr>
@@ -1010,7 +1013,7 @@ administrative work
 animal care correspondence
 </td>
 <td style="text-align:right;">
-3.0
+3.4
 </td>
 </tr>
 <tr>
@@ -1018,7 +1021,7 @@ animal care correspondence
 animal care meeting
 </td>
 <td style="text-align:right;">
-32.9
+30.2
 </td>
 </tr>
 <tr>
@@ -1026,7 +1029,7 @@ animal care meeting
 animal care record keeping
 </td>
 <td style="text-align:right;">
-30.2
+32.1
 </td>
 </tr>
 <tr>
@@ -1034,7 +1037,7 @@ animal care record keeping
 animal care record use
 </td>
 <td style="text-align:right;">
-35.1
+24.6
 </td>
 </tr>
 <tr>
@@ -1042,7 +1045,7 @@ animal care record use
 food preparation
 </td>
 <td style="text-align:right;">
-90.3
+77.7
 </td>
 </tr>
 <tr>
@@ -1050,7 +1053,7 @@ food preparation
 gang cage animal feeding
 </td>
 <td style="text-align:right;">
-108.3
+119.8
 </td>
 </tr>
 <tr>
@@ -1058,7 +1061,7 @@ gang cage animal feeding
 gang caged animal inventory and health check
 </td>
 <td style="text-align:right;">
-27.6
+28.0
 </td>
 </tr>
 <tr>
@@ -1066,7 +1069,7 @@ gang caged animal inventory and health check
 group animal transfer
 </td>
 <td style="text-align:right;">
-31.7
+26.9
 </td>
 </tr>
 <tr>
@@ -1074,7 +1077,7 @@ group animal transfer
 individual animal feeding
 </td>
 <td style="text-align:right;">
-28.7
+25.8
 </td>
 </tr>
 <tr>
@@ -1090,7 +1093,7 @@ individual animal transfer
 individual cage cleaning
 </td>
 <td style="text-align:right;">
-25.4
+26.1
 </td>
 </tr>
 <tr>
@@ -1098,7 +1101,7 @@ individual cage cleaning
 individual cage sanitation
 </td>
 <td style="text-align:right;">
-27.3
+28.7
 </td>
 </tr>
 <tr>
@@ -1106,7 +1109,7 @@ individual cage sanitation
 individual caged animal inventory and health check
 </td>
 <td style="text-align:right;">
-28.0
+30.6
 </td>
 </tr>
 <tr>
@@ -1114,7 +1117,7 @@ individual caged animal inventory and health check
 ordering of major equipment
 </td>
 <td style="text-align:right;">
-5.2
+8.2
 </td>
 </tr>
 <tr>
@@ -1130,7 +1133,7 @@ ordering of supplies and minor equipment
 other
 </td>
 <td style="text-align:right;">
-3.0
+7.1
 </td>
 </tr>
 <tr>
@@ -1138,7 +1141,7 @@ other
 personal time
 </td>
 <td style="text-align:right;">
-28.7
+22.0
 </td>
 </tr>
 </tbody>
@@ -1164,45 +1167,45 @@ translates to a simple method of predicting the improvement in estimates
 from MTS. That is, the size of the expected percent error can by reduced
 by a factor of 0.5 each time the number of samples is quadrupled.</p>
 <div class="figure">
-<img src="cross_sectional_timing_colony_files/figure-html/hist-1X-1.png" alt="Simulation of 5,000 iterations with 25 animal caretakers sampled 5 times per month for one year found 80.44% of durations 
-were greater than 1 percent away from the expected value and 9.74% of durations 
-were greater than 2 percent away from the expected value and 0.48% of 
+<img src="cross_sectional_timing_colony_files/figure-html/hist-1X-1.png" alt="Simulation of 5,000 iterations with 25 animal caretakers sampled 5 times per month for one year found 81.06% of durations 
+were greater than 1 percent away from the expected value and 9.36% of durations 
+were greater than 2 percent away from the expected value and 0.28% of 
 durations were greater than 3 percent away from the expected value 
-with the largest absolute delta value being 0.039." width="700"><p class="caption">
+with the largest absolute delta value being 0.038." width="700"><p class="caption">
 Simulation of 5,000 iterations with 25 animal caretakers sampled 5 times
-per month for one year found 80.44% of durations were greater than 1
-percent away from the expected value and 9.74% of durations were greater
-than 2 percent away from the expected value and 0.48% of durations were
+per month for one year found 81.06% of durations were greater than 1
+percent away from the expected value and 9.36% of durations were greater
+than 2 percent away from the expected value and 0.28% of durations were
 greater than 3 percent away from the expected value with the largest
-absolute delta value being 0.039.
+absolute delta value being 0.038.
 </p>
 </div>
 <div class="figure">
-<img src="cross_sectional_timing_colony_files/figure-html/hist-2X-1.png" alt="Simulation of 5,000 iterations with 25 animal caretakers sampled 10 times per month for one year found 38.28% of durations 
-were greater than 1 percent away from the expected value and 0.6% of 
+<img src="cross_sectional_timing_colony_files/figure-html/hist-2X-1.png" alt="Simulation of 5,000 iterations with 25 animal caretakers sampled 10 times per month for one year found 38.36% of durations 
+were greater than 1 percent away from the expected value and 0.98% of 
 durations were greater than 2 percent away from the expected value and 
 0% of durations were greater than 3 percent away from the expected 
-value with the largest absolute delta value being 0.028." width="700"><p class="caption">
+value with the largest absolute delta value being 0.029." width="700"><p class="caption">
 Simulation of 5,000 iterations with 25 animal caretakers sampled 10
-times per month for one year found 38.28% of durations were greater than
-1 percent away from the expected value and 0.6% of durations were
+times per month for one year found 38.36% of durations were greater than
+1 percent away from the expected value and 0.98% of durations were
 greater than 2 percent away from the expected value and 0% of durations
 were greater than 3 percent away from the expected value with the
-largest absolute delta value being 0.028.
+largest absolute delta value being 0.029.
 </p>
 </div>
 <div class="figure">
-<img src="cross_sectional_timing_colony_files/figure-html/hist-4X-1.png" alt="Simulation of 5,000 iterations with 25 animal caretakers sampled 20 times per month for one year found 9.32% of durations 
-were greater than 1 percent away from the expected value and 0.04% of 
+<img src="cross_sectional_timing_colony_files/figure-html/hist-4X-1.png" alt="Simulation of 5,000 iterations with 25 animal caretakers sampled 20 times per month for one year found 9.2% of durations 
+were greater than 1 percent away from the expected value and 0.02% of 
 durations were greater than 2 percent away from the expected value and 
 0% of durations were greater than 3 percent away from the expected 
-value with the largest absolute delta value being 0.022." width="700"><p class="caption">
+value with the largest absolute delta value being 0.02." width="700"><p class="caption">
 Simulation of 5,000 iterations with 25 animal caretakers sampled 20
-times per month for one year found 9.32% of durations were greater than
-1 percent away from the expected value and 0.04% of durations were
-greater than 2 percent away from the expected value and 0% of durations
-were greater than 3 percent away from the expected value with the
-largest absolute delta value being 0.022.
+times per month for one year found 9.2% of durations were greater than 1
+percent away from the expected value and 0.02% of durations were greater
+than 2 percent away from the expected value and 0% of durations were
+greater than 3 percent away from the expected value with the largest
+absolute delta value being 0.02.
 </p>
 </div>
 <div style="page-break-before: always;"></div>
@@ -1302,8 +1305,8 @@ appropriate prioritization so that employees are maximally productive
 and fulfilled.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 <li id="fn3"><p> animal_caretaker<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
 <li id="fn4"><p>The MTS design assumes that we have the ability to send
-a question to selected individuals at selected times and collect that
-response.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+a question to selected individuals at selected times and collect
+responses.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
 <li id="fn5"><p>MTS requires periodic momentary sampling by requesting
 the actor to indicate what she was doing when the request arrived. (In
 those instances where the actor is not capable of responding, such as in
