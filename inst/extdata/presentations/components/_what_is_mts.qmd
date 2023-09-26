@@ -1,0 +1,3 @@
+Momentary time sampling (MTS) is a time-on-task
+estimation method that samples defined behaviours in the exact
+instant that you’re taking data.

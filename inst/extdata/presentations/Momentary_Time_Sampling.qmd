@@ -1,0 +1,26 @@
+---
+title: "Momentary Time Sampling"
+author: "R. Mark Sharp"
+format: revealjs
+---
+
+## What is Momentary Time Sampling (MTS)
+
+{{< include components/_what_is_mts.qmd >}}
+
+## Bullets
+
+When you click the **Render** button a document will be generated that includes:
+
+-   Content authored with markdown
+-   Output from executable code
+
+## Code
+
+When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+
