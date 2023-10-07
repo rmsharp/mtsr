@@ -156,7 +156,7 @@ and to prevent interpretation of the process as an imposed activity designed
 to identify poor work habits. Further,
 it is preferable that the management groups of the primary actors participate 
 in an analogous time-on-task study during the same time period and
-publish and analyse their findings equally transparently.
+publish and analyse their findings equaly transparently.
 
 The goal is to discover how the actors' work
 environment can be improved. Thus, measuring time spent on activities not
@@ -223,7 +223,7 @@ occur prior to any data being collected.  This clarity of purpose will promote
 rapid recognition of unexpected data trends that may prompt revision of the
 activity lists or collection methodology.
 
-The primary analysis for each value stream should include calculating the time
+The primary analysis for each value stream should include calculating the time 
 estimates for each
 activity.  $$time_{activity_i} = m_i * time\_units / \sum_{i=1}^{i=n} m_i$$
 where $i$ is the index of the activity of interest, $time\_units$ is the total
@@ -277,7 +277,10 @@ analysis.
 
 In the simulation model, these queries and responses can all be processed in
 less than a second but, as described below, this simulation is constructed so
-that each simulated `r actor` responds `r numbers2words(times_per_month)` times
+that each simulated `r actor` responds `r numbers2words(times_per_month)`
+<!--`r get_and_or_list(numbers2words(c(times_per_month, 2 * times_per_month, 4 * times_per_month))`
+-->
+times
 during the duration of each of the three experiments illustrated below.
 
 The manner in which the questions are presented and the timing of when the

@@ -1,7 +1,7 @@
 README
 ================
 R. Mark Sharp
-2023-09-25
+2023-10-06
 
 [![Rdoc](http://www.rdocumentation.org/badges/version/roxygen2)](http://www.rdocumentation.org/packages/roxygen2)
 [![Build
@@ -36,6 +36,8 @@ and what value stream to examine. The parent documents differ by three
 lines: the first is the title, the second is the name of the file, and
 the third is the name of the customization R code script which is 18
 lines long.
+
+Full documentation is at <https://rmsharp.github.io/crosssectiontimer/>
 
 ### github.com Installation
 
