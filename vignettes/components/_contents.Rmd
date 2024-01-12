@@ -22,7 +22,8 @@ instant that you’re taking data.
 This package presents MTS^[Identified as Instantaneous, Pinpoint, 
 Momentary, and Scan Sampling in animal and human behavior research. Momentary
 Time Sampling dominates in the human literature.] in two parallel vignettes 
-that use different value streams for illustration. 
+that use different value streams to illustrate the generality of the 
+methodology. 
 Each vignette describes the strengths of MTS over two
 common longitudinal time collection methods: (1) time duration between 
 milestones and (2) time logging.
@@ -34,6 +35,11 @@ Three levels of sampling demonstrate the ease and relatively low impact that
 any need for increased precision would impose on the sampled population.
 A discussion of appropriately identifying what activities to time and how the 
 data could be collected is included.
+
+Interested parties can use the two vignettes as examples to guide
+simulating their own value streams. 
+Further customization of the simulation can facilitate the
+timing study design for the value streams of interest. 
 
 This package contains all R functions used to create this document including
 the simulation software. The two vignettes share almost all code and text.
