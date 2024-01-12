@@ -37,6 +37,8 @@ lines: the first is the title, the second is the name of the file, and
 the third is the name of the customization R code script which is 18
 lines long.
 
+Full documentation is at <https://rmsharp.github.io/crosssectiontimer/>
+
 ### github.com Installation
 
 The current development version can be installed from GitHub.

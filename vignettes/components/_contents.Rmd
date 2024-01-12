@@ -46,6 +46,5 @@ the file, and the third is the name of the customization R code script which
 is 18 lines long. 
 
 Full documentation is at 
-[https://rmsharp.github.io/crosssectiontimer/index.html](
-https://rmsharp.github.io/crosssectiontimer/index.html)
-
+[https://rmsharp.github.io/crosssectiontimer/](
+https://rmsharp.github.io/crosssectiontimer/)
