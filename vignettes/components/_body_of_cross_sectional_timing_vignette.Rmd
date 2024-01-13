@@ -277,8 +277,11 @@ analysis.
 
 In the simulation model, these queries and responses can all be processed in
 less than a second but, as described below, this simulation is constructed so
-that each simulated `r actor` responds `r numbers2words(times_per_month)` times
-during the duration of each of the three experiments illustrated below.
+that each `r actor` responds 
+<!--`r numbers2words(times_per_month)`-->
+`r get_and_or_list(numbers2words(c(times_per_month, 2 * times_per_month, 4 * times_per_month)))`
+times respectively
+during each of the three experiments illustrated below.
 
 The manner in which the questions are presented and the timing of when the
 questions are presented are critical aspects of the study design but are not
