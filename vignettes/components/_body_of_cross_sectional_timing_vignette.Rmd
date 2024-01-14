@@ -155,8 +155,8 @@ the nature of this as a team effort to gain insight for workplace enhancement,
 and to prevent interpretation of the process as an imposed activity designed 
 to identify poor work habits. Further,
 it is preferable that the management groups of the primary actors participate 
-in an analogous time-on-task study during the same time period and
-publish and analyse their findings equally transparently.
+in an analogous time-on-task study during the same time period. The results
+and analyses should be equally transparent and published.
 
 The goal is to discover how the actors' work
 environment can be improved. Thus, measuring time spent on activities not
