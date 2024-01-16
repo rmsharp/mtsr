@@ -1,7 +1,7 @@
 Package: crosssectiontimer
 Type: Package
 Title: Cross-Section Activity Timer Simulation Tool
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: c(
     person("R. Mark", "Sharp", email = "rmsharp@me.com", 
     comment = c(ORCID = "0000-0002-6170-6942"), 
@@ -20,7 +20,8 @@ Suggests:
     rmarkdown,
     rmsutilityr,
     roxygen2 (>= 7.0.0),
-    stringi
+    stringi,
+    yaml
 Remotes: rmsharp/rmsutilityr
 Language: en-US
 Encoding: UTF-8

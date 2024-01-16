@@ -1,0 +1,73 @@
+---
+title: "Creating Data Collection User Interface"
+author: "R. Mark Sharp"
+date: "`r Sys.Date()`"
+output:
+  bookdown::pdf_document2:
+    extra_dependencies: ["float"]
+  bookdown::html_document2: default
+bibliography: ../inst/extdata/references.bib
+header-includes:
+  - \usepackage{caption}
+vignette: >
+  %\VignetteIndexEntry{Model Deployment -- Momentary Sampling Simulations}
+  %\usepackage[UTF-8]{inputenc}
+  %\VignetteEngine{knitr::rmarkdown_notangle}
+---
+
+```{r setup, include=FALSE}
+library(yaml)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Creation of Project, Actor Types, and Possible Activities Data File
+
+```{r read-in-example-project-yml, echo = FALSE}
+
+example_project_file <- system.file("extdata", "project_yaml_files",
+                                    "example_colony_project.yml", 
+                                    package = "crosssectiontimer")
+example_project <- yaml::read_yaml(example_project_file, fileEncoding = "UTF-8", 
+                                   readLines.warn = TRUE)
+example_project_text <- readLines(example_project_file, encoding = "UTF-8")
+
+```
+
+
+```{r comment, echo = FALSE, include = FALSE}
+## This was checked in the R console to make sure that the YAML file was formed
+## and read in correctly
+## In console:
+# > write_yaml(example_project, "example_project.yml")
+
+## In terminal:
+# $prefect:crosssectiontimer rmsharp$ diff vignettes/example_project.yml \\
+# inst/extdata/project_yaml_files/example_colony_project.yml 
+# 0a1
+# > # example_colony_project.yml
+# 8,9c9,12
+# <       description: |
+# <         The animal caretaker is the responsible for basic animal husbandry \\
+# including feeding, cleaning housing area, routine inventory, and basic health\\
+# and behavioral ## monitoring.
+# ---
+# >       description: >
+# >         The animal caretaker is the responsible for basic animal husbandry
+# >         including feeding, cleaning housing area, routine inventory, and basic
+# >         health and behavioral monitoring.
+
+```
+
+
+Use YAML key value pair format to create a data file that will be used to 
+create the user interface for data collection.  The first 15 lines of the
+example data file shown below:
+
+```{r 1st-25-lines-of-example-project-yml, comment = "", echo = FALSE}
+cat(example_project_text[1:25], sep = "\n")
+
+```
+
+
+## Reading in Projects, Actors, and Activities
+

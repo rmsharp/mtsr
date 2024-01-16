@@ -1,0 +1,164 @@
+project:
+  name: colony_management
+  description: This is an example project.
+  version: 1.0.0
+  actors:
+    animal_caretaker:
+      name: animal caretaker
+      description: |
+        The animal caretaker is the responsible for basic animal husbandry including feeding, cleaning housing area, routine inventory, and basic health and behavioral monitoring.
+      actions:
+        meetings:
+          name: meetings
+          description: |
+            All meetings and events directly associated with the project.
+          version: 1.0.0
+        animal_care_correspondence:
+          name: animal care correspondence
+          description: |
+            All communications including messages, email, and conversations directly associated with the project.
+          version: 1.0.0
+        record_keeping:
+          name: record keeping
+          description: |
+            animal care record keeping; include time needed to examine other records to enable creation of new or edited records
+          version: 1.0.0
+        record_use:
+          name: record use
+          description: |
+            animal care record use; includes creation of reports and providing information gleaned from records to inform actions, other work, and others
+          version: 1.0.0
+        food_preparation:
+          name: food preparation
+          description: |
+            food preparation; includes preparing food, cleaning food preparation area, and maintaining food preparation equipment. May include creation of non-standard feeding records as in special research diets and feeding regimens.
+          version: 1.0.0
+        feeding_individual_animals:
+          name: feeding individual animals
+          description: |
+            feeding; includes feeding animals, cleaning feeding area, and maintaining feeding equipment. Does not include gang cage feeding activities or the creation of non-standard feeding records as in special research diets and feeding regimens.
+          version: 1.0.0
+        gang_cage_feeding:
+          name: gang cage feeding
+          description: |
+            feeding; includes feeding animals in gang cages and maintaining feeding equipment. Does not include the creation of non-standard feeding records as in special research diets and feeding regimens.
+          version: 1.0.0
+        gang_cage_animal_inventory_and_health_check:
+          name: gang cage animal inventory and health check
+          description: |
+            gang cage animal inventory and health check; includes counting animals, checking for health issues. Includes cage maintenance check for water availability and cage safety.
+          version: 1.0.0
+        individual_animal_inventory_and_health_check:
+          name: individual animal inventory and health check
+          description: |
+            individual animal inventory and health check; includes indentifying each animal, checking for health issues. Includes cage maintenance check for water availability and cage safety.
+          version: 1.0.0
+        group_animal_transfer:
+          name: group animal transfer
+          description: |
+            group animal transfer; includes moving animals from one cage to another.
+          version: 1.0.0
+        individual_animal_transfer:
+          name: individual animal transfer
+          description: |
+            individual animal transfer; includes moving animals from one cage to another and from one location to another.
+          version: 1.0.0
+        individual_cage_cleaning:
+          name: individual cage cleaning
+          description: |
+            individual cage cleaning; includes removing animals from cage, cleaning cage, and returning animals to the same or another cage.
+          version: 1.0.0
+        individual_cage_sanitation:
+          name: individual cage sanitation
+          description: |
+            individual cage sanitation; includes removing animals from cage, sanitizing cage, and returning animals to the same or another cage.
+          version: 1.0.0
+        ordering_of_major_equipment:
+          name: ordering of major equipment
+          description: |
+            ordering of major equipment; includes identifying need, identifying source, and placing order. Major equipment is defined as equipment inventoried by institution.
+          version: 1.0.0
+        ordering_of_supplies_and_minor_equipment:
+          name: ordering of supplies and minor equipment
+          description: |
+            ordering of supplies and minor equipment; includes identifying need, identifying source, and placing order. The minor equipment are not inventoried by institution.
+          version: 1.0.0
+        personal_time:
+          name: personal time
+          description: |
+            personal time; includes time spent on personal activities such as eating, restroom breaks, and personal phone calls.
+          version: 1.0.0
+        training:
+          name: training
+          description: |
+            training; includes time spent on training activities such as attending training sessions, reading training materials, and completing training exercises.
+          version: 1.0.0
+    veterinary_tech:
+      name: veterinary tech
+      description: |
+        The veterinary tech is the responsible routine and experimental veterinary procedures other than those performed by the veterinarian.
+      actions:
+        meetings:
+          name: meetings
+          description: |
+            All meetings and events directly associated with the project.
+          version: 1.0.0
+        veterinary_correspondence:
+          name: veterinary correspondence
+          description: |
+            All communications including messages, email, and conversations directly associated with the project.
+          version: 1.0.0
+        record_keeping:
+          name: record keeping
+          description: |
+            veterinary procedure record keeping; include time needed to examine other records to enable creation of new or edited records
+          version: 1.0.0
+        record_use:
+          name: record use
+          description: |
+            veterinary care record use; includes creation of reports and providing information gleaned from records to inform actions, other work, and others
+          version: 1.0.0
+        food_preparation:
+          name: food preparation
+          description: |
+            food preparation; includes preparing food, cleaning food preparation area, and maintaining food preparation equipment. May include creation of non-standard feeding records as in special research diets and feeding regimens.
+          version: 1.0.0
+        feeding_individual_animals:
+          name: feeding individual animals
+          description: |
+            feeding; includes feeding animals, cleaning feeding area, and maintaining feeding equipment. Does not include gang cage feeding activities or the creation of non-standard feeding records as in special research diets and feeding regimens.
+          version: 1.0.0
+        gang_cage_feeding:
+          name: gang cage feeding
+          description: |
+            feeding; includes feeding animals in gang cages and maintaining feeding equipment. Does not include the creation of non-standard feeding records as in special research diets and feeding regimens.
+          version: 1.0.0
+        gang_cage_animal_inventory_and_health_check:
+          name: gang cage animal inventory and health check
+          description: |
+            gang cage animal inventory and health check; includes counting animals, checking for health issues. Includes cage maintenance check for water availability
+        medicine_and_drug_preparation:
+          name: medicine and drug preparation
+          description: |
+            medicine and drug preparation; includes preparing medicine and drugs, Does not include ordering of supplies necessary.
+          version: 1.0.0
+        physical_examination:
+          name: physical examination
+          description: |
+            physical examination; includes examining animals for health issues.
+          version: 1.0.0
+        experimental_procedures:
+          name: experimental procedures
+          description: |
+            experimental procedures; includes performing procedures for research purposes. Excludes surgeries on animals and direct assistance to veterinarians.
+          version: 1.0.0
+        veterinary_procedures:
+          name: veterinary procedures
+          description: |
+            veterinary procedures; includes performing procedures for health purposes. Excludes experimental procedures.
+          version: 1.0.0
+        experimental_veterinary_assistance:
+          name: experimental veterinary assistance
+          description: |
+            experimental veterinary assistance; includes assisting veterinarians research driven procedures and surgeries.
+          version: 1.0.0
