@@ -15,3 +15,7 @@ docc/*.js
 ^vignettes/cross_sectional_timing_colony.pdf$
 ^\.travis.yml$
 ^.*\.Rmd$
+^\.Rhistory\ 2$
+^inst/extdata/presentations/*\.html$
+^inst/extdata/presentations/mts_files$
+^inst/extdata/presentations/mts_proposal\.Rpres$

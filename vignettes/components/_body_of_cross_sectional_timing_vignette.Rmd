@@ -37,7 +37,7 @@ complex labor intensive value streams.
 
 In the following example, estimates are obtained of how much time is spent on
 specific activities by various actors^[
-`r get_and_or_list(unique(activities$actor))`] responsible for the success of 
+`r get_and_or_list(unique(activities$actor_type))`] responsible for the success of 
 the `r value_stream_descriptor`. 
 Time-on-task data provide a fundamental metric used to identify those areas
 where improvement opportunities exist.
@@ -51,7 +51,7 @@ The simulation method demonstrated later in this document provides a robust
 estimate of expected precision.]
 data regarding how
 time is spent and how much of it directly contributes to our primary goals. A
-second benefit is that these data allow each class of actor to advocate for
+second benefit is that these data allow each type of actor to advocate for
 modifying the way their time is being used to improve their work environment
 and productivity.
 
@@ -264,20 +264,20 @@ for the `r length(activities$activity)` activities.
 
 ## Design
 
-The example has a set of representative activities for `r actor`s.^[ The
+The example has a set of representative activities for `r actor_type`s.^[ The
 software has the ability to examine multiple job types, job specific
 activity lists, and corresponding expected frequencies.]
 It simulates asking
-a set of `r actor`s to indicate which of the activities listed on the
+a set of `r actor_type`s to indicate which of the activities listed on the
 questionnaire they were doing at the time the question appeared on their
 screen. 
-Once the `r actor` makes a selection, that selection is returned as a
+Once the `r actor_type` makes a selection, that selection is returned as a
 result to the collection software, which accumulates the responses for later
 analysis.
 
 In the simulation model, these queries and responses can all be processed in
 less than a second but, as described below, this simulation is constructed so
-that each `r actor` responds 
+that each `r actor_type` responds 
 <!--`r numbers2words(times_per_month)`-->
 `r get_and_or_list(numbers2words(c(times_per_month, 2 * times_per_month, 4 * times_per_month)))`
 times respectively
@@ -289,13 +289,13 @@ part of the simulation.
 
 ## Simulation Activity Frequencies
 
-The `r actor`s' activities are programmed to occur with the following
+The `r actor_type`s' activities are programmed to occur with the following
 frequencies as specified in the CSV file.
 
 ```{r activities, echo = FALSE}
-activities <- activities[activities$actor_type == actor, ]
+activities <- activities[activities$actor_type == actor_type, ]
 caption <- stri_c("List of possible activities for the ",
-                  stri_replace_all_fixed(actor, pattern = "_",
+                  stri_replace_all_fixed(actor_type, pattern = "_",
                                          replacement = "\\_"),
 " with assigned frequencies to be used in simulations.")
 activities[ , c("activity", "freq")] %>%
@@ -316,14 +316,14 @@ fields at a minimum.
    tracking actor Id with the response.
 -  Project Id, which will be mapped to further metadata needed for complete 
    analysis.
--  Actor type(_`r actor`_, which may be only one of multiple roles an 
+-  Actor type(_`r actor_type`_, which may be only one of multiple roles an 
    actor may have. The various roles are metadata that are critical for 
    meaningful analysis.
 -  Activity name.
 -  Date and time stamp.
 
 For clarity, Table \@ref(tab:three-samples) lists the results from sampling three 
-times from a pool of `r actor`s.
+times from a pool of `r actor_type`s.
 
 ```{r three-samples}
 size <- 3
@@ -334,12 +334,12 @@ dateTime <- paste0("2023-09-16 12:", c("12:07", "23:18", "54:42"), " CDT")
 three_samples_df <- 
   data.frame(aId = paste0("A", sample(1:10, size, replace = TRUE)),
              pId = paste0("P", sample(1:10, size, replace = TRUE)),
-             Actor_Roll = actor,
+             Actor_Roll = actor_type,
              Activity = three_samples,
              DateTime = dateTime, stringsAsFactors = FALSE)
 caption <- "\\label{tab:three-samples}Example of three rows of MTS data."
 three_samples_df %>%
-  kbl(col.names = c("Actor ID", "Project ID", "Actor Roll", "Activity", 
+  kbl(col.names = c("Actor ID", "Project ID", "Actor Type", "Activity", 
                     "Date Time Stamp"),
       caption = caption, row.names = FALSE) %>%
   column_spec(1, width = "4em") %>%
@@ -355,10 +355,10 @@ three_samples_df %>%
 
 
 In the single iteration of the simulation below, we observe how precise the
-estimates are if we include `r n_actors` `r actor`s sampled just 
+estimates are if we include `r n_actors` `r actor_type`s sampled just 
 `r times_per_month` times a month for each of `r n_months` months.
 
-Since the algorithm is not actually modeling individual `r actor`s, the order
+Since the algorithm is not actually modeling individual `r actor_type`s, the order
 of sampling has no impact on results, which means we simply take 
 `r n_actors * times_per_month * n_months`
 (`r n_actors` * `r times_per_month` * `r n_months`)
@@ -430,11 +430,11 @@ learn what precision we can expect.
 
 Figure \@ref(fig:hist-1X) shows a histogram plot of the results of repeating
 the simulation of `r n_actors` 
-`r stri_replace_all_fixed(actor, pattern = "_", replacement = " ")`s
+`r stri_replace_all_fixed(actor_type, pattern = "_", replacement = " ")`s
 providing `r times_per_month` responses in each of the 
 `r n_months` months of a year `r iterations` times.  Similarly, Figures
 \@ref(fig:hist-2X) and \@ref(fig:hist-4X) show histogram plots of similar 
-simulations with each `r actor` being sampled
+simulations with each `r actor_type` being sampled
 `r round(times_per_month * 2, 0)` and `r round(times_per_month * 4, 0)`
 time per month respectively instead of `r round(times_per_month, 0)` times.
 
@@ -462,7 +462,7 @@ hist_1X_cap <-
                 big.mark = ","),
          " iterations with ",
          n_actors, " ",
-         stri_replace_all_fixed(actor, pattern = "_", replacement = " "),
+         stri_replace_all_fixed(actor_type, pattern = "_", replacement = " "),
          "s sampled ", this_times_per_month,
          " times per month for one year found ",
          100 * gt_1_percent, "% of durations \nwere greater than ",
@@ -484,7 +484,7 @@ data.frame(freq = sim_delta_freq) %>%
   ggplot(aes(x = freq)) +
   geom_histogram(bins = 30) +
   ggtitle(stri_c(n_actors, " ",
-         stri_replace_all_fixed(actor, pattern = "_", replacement = " "),
+         stri_replace_all_fixed(actor_type, pattern = "_", replacement = " "),
          "s sampled ", this_times_per_month,
                  " times per month for one year")) +
   xlab("Absolute Value of (Expected - Observed) Frequency") +
@@ -507,7 +507,7 @@ hist_2X_cap <-
                 big.mark = ","),
          " iterations with ",
          n_actors, " ",
-         stri_replace_all_fixed(actor, pattern = "_", replacement = " "),
+         stri_replace_all_fixed(actor_type, pattern = "_", replacement = " "),
          "s sampled ", this_times_per_month,
          " times per month for one year found ",
          100 * gt_1_percent, "% of durations \nwere greater than ",
@@ -527,7 +527,7 @@ data.frame(freq = sim_delta_freq) %>%
   ggplot(aes(x = freq)) +
   geom_histogram(bins = 30) +
   ggtitle(paste0(round(n_actors, 0), " ",
-         stri_replace_all_fixed(actor, pattern = "_", replacement = " "),
+         stri_replace_all_fixed(actor_type, pattern = "_", replacement = " "),
          "s sampled ", this_times_per_month,
                  " times per month for one year.")) +
   xlab("Absolute Value of (Expected - Observed) Frequency") +
@@ -551,7 +551,7 @@ hist_4X_cap <-
                 big.mark = ","),
          " iterations with ",
          n_actors, " ",
-         stri_replace_all_fixed(actor, pattern = "_", replacement = " "),
+         stri_replace_all_fixed(actor_type, pattern = "_", replacement = " "),
          "s sampled ", this_times_per_month,
          " times per month for one year found ",
          100 * gt_1_percent, "% of durations \nwere greater than ",
@@ -571,7 +571,7 @@ data.frame(freq = sim_delta_freq) %>%
   ggplot(aes(x = freq)) +
   geom_histogram(bins = 30) +
   ggtitle(paste0(round(n_actors, 0), " ",
-         stri_replace_all_fixed(actor, pattern = "_", replacement = " "),
+         stri_replace_all_fixed(actor_type, pattern = "_", replacement = " "),
          "s sampled ", this_times_per_month,
                  " times per month for one year.")) +
   xlab("Absolute Value of (Expected - Observed) Frequency") +
@@ -619,7 +619,7 @@ activity_file <-
               mustWork = FALSE)
 value_stream_descriptor <- stri_c("husbandry and veterinary care of ",
                                   "colony animals")
-actor <- "animal_caretaker" # can be any value in the actor column of the
+actor_type <- "animal_caretaker" # can be any value in the actor column of the
                             # activity file
 
 # The product of n_actors, times_per_month, and n_months is the size.

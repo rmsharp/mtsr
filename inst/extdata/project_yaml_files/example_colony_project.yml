@@ -3,7 +3,7 @@ project:
   name: colony_management
   description: This is an example project.
   version: 1.0.0
-  actors:
+  actor_type:
     animal_caretaker:
       name: animal caretaker
       description: >
