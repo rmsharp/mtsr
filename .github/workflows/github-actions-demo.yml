@@ -17,6 +17,6 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - name: Run unit tests
-        run: Rscript -e "test_check()"
+        run: Rscript -e "testthat::test_check()"
       - run: echo "🍏 This job's status is ${{ job.status }}."
 
