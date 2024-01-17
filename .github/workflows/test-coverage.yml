@@ -4,8 +4,17 @@
 on:
   push:
     branches: [main, master]
+    paths:
+    - '.github/workflows/test-coverage.yml'
+    - 'R/*'
+    - 'tests/testthat/*'
+
   pull_request:
     branches: [main, master]
+    paths:
+    - '.github/workflows/test-coverage.yml'
+    - 'R/*'
+    - 'tests/testthat/*'
 
 name: Test coverage
 
