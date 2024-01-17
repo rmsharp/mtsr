@@ -1,12 +1,16 @@
 README
 ================
 R. Mark Sharp
-2023-10-06
+2024-01-17
 
+<!-- badges: start -->
+
+⁠
 [![Rdoc](http://www.rdocumentation.org/badges/version/roxygen2)](http://www.rdocumentation.org/packages/roxygen2)
 [![Build
 Status](https://travis-ci.org/rmsharp/rmsutilityr.svg?branch=master)](https://travis-ci.org/rmsharp/crosssectiontimer)
-[![codecov](https://codecov.io/gh/rmsharp/rmsutilityr/branch/master/graph/badge.svg)](https://codecov.io/gh/rmsharp/crosssectiontimer)
+[![codecov](https://codecov.io/gh/rmsharp/crosssectiontimer/branch/master/graph/badge.svg)](https://codecov.io/gh/rmsharp/crosssectiontimer)
+⁠<!-- badges: end -->⁠
 
 # crosssectiontimer
 
@@ -15,9 +19,10 @@ Status](https://travis-ci.org/rmsharp/rmsutilityr.svg?branch=master)](https://tr
 Momentary time sampling (MTS) is a time-on-task estimation method that
 samples defined behaviours in the exact instant that you’re taking data.
 This package presents MTS[^1] in two parallel vignettes that use
-different value streams for illustration. Each vignette describes the
-strengths of MTS over two common longitudinal time collection methods:
-(1) time duration between milestones and (2) time logging.
+different value streams to illustrate the generality of the methodology.
+Each vignette describes the strengths of MTS over two common
+longitudinal time collection methods: (1) time duration between
+milestones and (2) time logging.
 
 The two vignettes contain topic specific simulations that illustrate the
 structure, simplicity, accuracy, and precision of the cross-sectional
@@ -26,6 +31,11 @@ ease and relatively low impact that any need for increased precision
 would impose on the sampled population. A discussion of appropriately
 identifying what activities to time and how the data could be collected
 is included.
+
+Interested parties can use the two vignettes as examples to guide
+simulating their own value streams. Further customization of the
+simulation can facilitate the timing study design for the value streams
+of interest.
 
 This package contains all R functions used to create this document
 including the simulation software. The two vignettes share almost all

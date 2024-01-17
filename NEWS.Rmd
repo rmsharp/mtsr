@@ -11,6 +11,10 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# crosssectiontimer 1.0.0.9000 20240117
+-   Added unit tests
+-   Added 1st functions to be used to demonstrate sample collection with
+    a Shiny application.
 # crosssectiontimer 1.0.0 20211125
 -   Clarified vignette
 -   Simplified README

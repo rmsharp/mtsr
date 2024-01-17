@@ -1,7 +1,7 @@
 Package: crosssectiontimer
 Type: Package
 Title: Cross-Section Activity Timer Simulation Tool
-Version: 1.0.1
+Version: 1.0.0.9000
 Authors@R: c(
     person("R. Mark", "Sharp", email = "rmsharp@me.com", 
     comment = c(ORCID = "0000-0002-6170-6942"), 
