@@ -14,3 +14,5 @@ vignettes/cross_sectional_timing_colony_cache
 vignettes/cross_sectional_timing_colony_files
 .DS_Store
 .Rhistory\ 2
+inst/extdata/todo_notes.html
+inst/extdata/todo_notes_files
