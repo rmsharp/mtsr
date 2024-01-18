@@ -1,0 +1,84 @@
+---
+title: "ToDo Notes"
+author: "R. Mark Sharp, Ph.D."
+format: html
+---
+
+## Shiny Application for Data Collection Demo
+
+### Data files for demo
+
+    -  example_colony_project.yml
+    -  example_colony_project_team.yml
+
+### Functions for demo
+
+    -    get_project_actor_types
+         -    Reads project YAML file (e.g., example_colony_project.yml)
+         -    Returns a character vector of actor types found in the project
+    -    get_project_actor_type_actions
+         -    Reads project YAML file (e.g., example_colony_project.yml)
+         -    Returns a list of actor types found with a character vector of
+              actions for each actor type
+    -    get_colony_project_team
+         -    Reads project team YAML file (e.g., example_colony_project_team.yml)
+         -    Returns a list of projects found with with one or more actor types
+              where each actor type has a character vector of team
+              member IDs. If the actor type has no team members, then the function
+              returns a WARNING message and the actor type is not included in the
+              returned list. This function and its warning could be used to check 
+              the quality of the project team YAML file. However, a special purpose
+              built function would be better for this purpose.
+    -    get_actor_schedule
+         -    Reads example actor schedule YAML file (e.g., 
+              example_actor_schedule.yml)
+        
+### Shiny Application
+#### UI
+    -    Display actor name and actor ID at the top with possible projects 
+         as a set of radio buttons if more than one exists. If only one project
+         exists, then the project is selected automatically.
+    -    Selection of the appropriate project will display the list of possible
+         actor types as a set of radio buttons if more than one exists. If only
+         one actor type exists, then the actor type is selected automatically.
+    -    Selection of the appropriate actor type will display the list of possible
+         actions as a set of radio buttons. Selection of any radio button 
+         except for the "Other" radio button will save the responses and close 
+         the interface. Selection of the "Other" radio button will display a
+         text box for the user to enter a short description. The user must click 
+         the "Save" button to save the response and close the interface.
+#### Server
+    -    The server will read the project YAML file (e.g., example_colony_project.yml)
+         and the project team YAML file (e.g., example_colony_project_team.yml).
+    -    
+    -    The server will save the responses to a CSV file with the following
+         columns:
+         -    actor_name
+         -    actor_id
+         -    project_name
+         -    actor_type
+         -    action
+         -    action_description
+         -    date_time
+    -    The server will display a message to the user that the response was
+         saved and the interface will close.
+    -    The server will display a message to the user that the response was
+         saved and the interface will close.
+    -    The server will display a message to the user that the response was
+         saved and the interface will close.
+    -    The server will display a message to the user that the response was
+         saved and the interface will close.
+    -    The server will display a message to the user that the response was
+         saved and the interface will close.
+    -    The server will display a message to the user that the response was
+         saved and the interface will close.
+    -    The server will display a message to the user that the response was
+         saved and the interface will close.
+    -    The server will display a message to the user that the response was
+         saved and the interface will close.
+    -    The server will display a message to the user that the response was
+         saved and the interface will close.
+    -    The server will display a message to the user that the response was
+         saved and the interface will close.
+    -    The server will display a message to the user that the response was
+         saved and the interface will close.
