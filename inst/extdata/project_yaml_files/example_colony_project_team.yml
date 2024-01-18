@@ -1,0 +1,30 @@
+# example_colony_project_team.yml
+project:
+  cm123: # project_id
+    actor_type:
+      animal_caretaker:
+        - animal_caretaker_1
+        - animal_caretaker_2
+        - animal_caretaker_3
+        - animal_caretaker_4
+        - animal_caretaker_5
+      veterinary_tech:
+        - veterinary_tech_1
+        - veterinary_tech_2
+        - veterinary_tech_3
+        - veterinary_tech_4
+  cm234: # project_id
+    actor_type:
+      animal_caretaker:
+        - animal_caretaker_1
+        - animal_caretaker_2
+        - animal_caretaker_3
+        - animal_caretaker_6
+        - animal_caretaker_7
+      veterinary_tech:
+        - veterinary_tech_3
+        - veterinary_tech_4
+        - veterinary_tech_5
+        - veterinary_tech_6
+        - veterinary_tech_7
+

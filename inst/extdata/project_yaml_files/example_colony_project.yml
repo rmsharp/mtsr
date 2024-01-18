@@ -1,6 +1,7 @@
 # example_colony_project.yml
 project:
   name: colony_management
+  id: cm123
   description: This is an example project.
   version: 1.0.0
   actor_type:
