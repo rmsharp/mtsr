@@ -1,14 +1,14 @@
 README
 ================
 R. Mark Sharp
-2024-01-17
+2024-01-18
 
 <!-- badges: start -->
 
 ⁠
 [![Rdoc](http://www.rdocumentation.org/badges/version/roxygen2)](http://www.rdocumentation.org/packages/roxygen2)
 [![Build
-Status](https://travis-ci.org/rmsharp/rmsutilityr.svg?branch=master)](https://travis-ci.org/rmsharp/crosssectiontimer)
+Status](https://travis-ci.org/rmsharp/crosssectiontimer?branch=master)](https://travis-ci.org/rmsharp/crosssectiontimer)
 [![codecov](https://codecov.io/gh/rmsharp/crosssectiontimer/branch/master/graph/badge.svg)](https://codecov.io/gh/rmsharp/crosssectiontimer)
 ⁠<!-- badges: end -->⁠
 
