@@ -26,7 +26,7 @@ Remotes: rmsharp/rmsutilityr
 Language: en-US
 Encoding: UTF-8
 License: MIT + file LICENSE
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 LazyData: TRUE
 VignetteBuilder: knitr, rmarkdown
 Config/testthat/edition: 3
