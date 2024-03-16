@@ -60,7 +60,7 @@ example_project_text <- readLines(example_project_file, encoding = "UTF-8")
 
 
 Use YAML key value pair format to create a data file that will be used to 
-create the user interface for data collection.  The first 15 lines of the
+create the user interface for data collection.  The first 25 lines of the
 example data file shown below:
 
 ```{r 1st-25-lines-of-example-project-yml, comment = "", echo = FALSE}

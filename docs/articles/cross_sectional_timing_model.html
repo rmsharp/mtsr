@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">crosssectiontimer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0.9000</span>
       </span>
     </div>
 
@@ -50,6 +50,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="../articles/creating_ui_project_file.html">Creating Data Collection User Interface</a>
+    </li>
+    <li>
       <a href="../articles/cross_sectional_timing_colony.html">Nonhuman Primate Colony Management -- Momentary Sampling Simulations</a>
     </li>
     <li>
@@ -72,8 +75,7 @@
       
 
       </header><script src="cross_sectional_timing_model_files/kePrint-0.0.1/kePrint.js"></script><link href="cross_sectional_timing_model_files/lightable-0.0.1/lightable.css" rel="stylesheet">
-<link href="cross_sectional_timing_model_files/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet">
-<script src="cross_sectional_timing_model_files/bsTable-3.3.7/bootstrapTable.js"></script><div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Model Deployment – Momentary Sampling
@@ -81,7 +83,7 @@ Simulations</h1>
                         <h4 data-toc-skip class="author">R. Mark
 Sharp</h4>
             
-            <h4 data-toc-skip class="date">2023-09-25</h4>
+            <h4 data-toc-skip class="date">2024-02-10</h4>
       
       
       <div class="hidden name"><code>cross_sectional_timing_model.Rmd</code></div>
@@ -99,9 +101,10 @@ Sharp</h4>
 <p>Momentary time sampling (MTS) is a time-on-task estimation method
 that samples defined behaviours in the exact instant that you’re taking
 data. This package presents MTS<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> in two parallel vignettes that use
-different value streams for illustration. Each vignette describes the
-strengths of MTS over two common longitudinal time collection methods:
-(1) time duration between milestones and (2) time logging.</p>
+different value streams to illustrate the generality of the methodology.
+Each vignette describes the strengths of MTS over two common
+longitudinal time collection methods: (1) time duration between
+milestones and (2) time logging.</p>
 <p>The two vignettes contain topic specific simulations that illustrate
 the structure, simplicity, accuracy, and precision of the
 cross-sectional time-on-task estimation method. Three levels of sampling
@@ -109,6 +112,10 @@ demonstrate the ease and relatively low impact that any need for
 increased precision would impose on the sampled population. A discussion
 of appropriately identifying what activities to time and how the data
 could be collected is included.</p>
+<p>Interested parties can use the two vignettes as examples to guide
+simulating their own value streams. Further customization of the
+simulation can facilitate the timing study design for the value streams
+of interest.</p>
 <p>This package contains all R functions used to create this document
 including the simulation software. The two vignettes share almost all
 code and text. Their individual attributes are provided by their
@@ -118,8 +125,8 @@ and what value stream to examine. The parent documents differ by three
 lines: the first is the title, the second is the name of the file, and
 the third is the name of the customization R code script which is 18
 lines long.</p>
-<p>Full documentation is at <a href="https://rmsharp.github.io/crosssectiontimer/index.html" class="external-link">https://rmsharp.github.io/crosssectiontimer/index.html</a></p>
-<p>Thus, a user can easily simulate the use MTS with their own value
+<p>Full documentation is at <a href="https://rmsharp.github.io/crosssectiontimer/" class="external-link">https://rmsharp.github.io/crosssectiontimer/</a></p>
+<p>Thus, a user can easily simulate the use of MTS with their own value
 stream by creating homologs of the following three files:</p>
 <ul>
 <li>cross_sectional_timing_model.Rmd</li>
@@ -145,7 +152,7 @@ Daniels (1993)</span>, <span class="citation">Rapp et al.
 <p>Management of a value stream requires adequate estimates of the
 resources used to create value, with time-on-task being a direct measure
 of the primary resource<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> creating value. The need to obtain quality
-estimates time spent on the various tasks in a value stream is the
+estimates of time spent on the various tasks in a value stream is the
 motivation to provide these tools and to advocate for the use of MTS (a
 cross-sectional time-on-task estimation method) for the great majority
 of complex labor intensive value streams.</p>
@@ -158,10 +165,11 @@ improvement opportunities exist.</p>
 prior to creating the list of activities to be timed. (See <a href="#selection-of-activities-to-be-timed">Selection of Activities to
 be Timed</a>.)</p>
 <p>A benefit of time-on-task studies is that they provide accurate and
-precise data regarding how time is spent and how much of it directly
-contributes to our primary goals. A second benefit is that these data
-allow each class of actor to advocate for modifying the way their time
-is being used to improve their work environment and productivity.</p>
+precise<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>
+data regarding how time is spent and how much of it directly contributes
+to our primary goals. A second benefit is that these data allow each
+type of actor to advocate for modifying the way their time is being used
+to improve their work environment and productivity.</p>
 </div>
 <div class="section level2">
 <h2 id="comparison-of-some-time-analysis-approaches">Comparison of Some Time Analysis Approaches<a class="anchor" aria-label="anchor" href="#comparison-of-some-time-analysis-approaches"></a>
@@ -230,19 +238,19 @@ all phases of the projects under analysis.</li>
 <div class="section level3">
 <h3 id="momentary-time-sampling">Momentary Time Sampling<a class="anchor" aria-label="anchor" href="#momentary-time-sampling"></a>
 </h3>
-<p>The MTS design presented<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> and simulated below has the following
+<p>The MTS design presented<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> and simulated below has the following
 advantages.</p>
 <ul>
-<li>The <em>failure to respond rate</em><a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> has far less impact
+<li>The <em>failure to respond rate</em><a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> has far less impact
 since failure to respond simply initiates another response request.</li>
 <li>Participants do not need to recall time spent.</li>
 <li>Administrative overhead is greatly reduced.</li>
 <li>Bias is minimized and is effectively zero given accurate responses
 by actors.</li>
-<li>Data can be analyzed at any time.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>
+<li>Data can be analyzed at any time.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>
 </li>
 <li>Variance among projects could be assessed and more accurately
-measured if desired.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>
+measured if desired.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>
 </li>
 </ul>
 </div>
@@ -252,51 +260,58 @@ measured if desired.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup>
 </h2>
 <p>Detailed planning regarding questions to be addressed and how and
 when those questions are presented to participants is required for the
-successful use of this time-on-task measurement protocol.</p>
+successful use of any time-on-task measurement protocol.</p>
 <div class="section level3">
 <h3 id="selection-of-activities-to-be-timed">Selection of Activities to be Timed<a class="anchor" aria-label="anchor" href="#selection-of-activities-to-be-timed"></a>
 </h3>
-<p>Creation of the activity list is a critical step. The process should
-engage all participants to included everything that should be measured
-and leave out those that should not be measured. The goal is to discover
-how the actors’ work environment can be improved. Thus, measuring time
-spent on activities not directly contributing to the value stream(s)
-being studied are often critical. Examples, include administrative
-activities, non-mission critical meetings, and dealing with work
-blocking technical issues.</p>
+<p>Creation of the activity list is a critical step. The list is to
+include everything that should be measured and leave out those that
+should not be measured. Unambiguous definitions of the boundaries of the
+value stream and of the selected activities is essential.</p>
 <p>One or more individuals familiar with all potential workday
-activities should make the initial trial list. This list should then be
+activities should make an initial trial list. This list should then be
 submitted to participants for further refinement. Having the
 participants help create and refine the list is critical to assuring
-good coverage of possible activities and to reinforce the nature of this
-as a team effort to gain insight for workplace enhancement and not as an
-imposed activity designed to identify poor work habits. Further, it is
-preferable that the management groups of the primary actors take an
-analogous time-on-task measurement sample during the same time period
-and publish their findings at the same time.</p>
+good coverage of possible activities, to reinforce the nature of this as
+a team effort to gain insight for workplace enhancement, and to prevent
+interpretation of the process as an imposed activity designed to
+identify poor work habits. Further, it is preferable that the management
+groups of the primary actors participate in an analogous time-on-task
+study during the same time period. The results and analyses should be
+equally transparent and published.</p>
+<p>The goal is to discover how the actors’ work environment can be
+improved. Thus, measuring time spent on activities not directly
+contributing to the value stream(s) being studied is critical to
+enhanced understanding of the work environment in which the value stream
+work is done. Examples, include administrative activities, non-value
+stream related work, general training, non-mission critical meetings,
+and dealing with work blocking technical issues.</p>
 <p>Some actors will work on more than one value stream and all will have
 additional responsibilities specific to their work environment. Thus,
 some activities recorded are intentionally defined as various unrelated
 activities. The activity list could include <strong>Personal</strong> to
 assure participants that management supports a healthy work-life
 balance. This is an example where the inclusion of activities not
-directly related to the workstream under study may be appropriate. These
-activities could include references to practices encouraged by
+directly related to the value stream under study may be appropriate.
+These activities could include references to practices encouraged by
 management such as ongoing education, exercise breaks, and helping
 co-workers. It is critical that these aspects of the work landscape are
-clearly described so that any negative stigma associated with
-non-workstream related activities are accurately captured.</p>
+clearly described so that any negative stigma associated with non value
+stream related activities are accurately captured.</p>
 <p>Finding that the activity equivalent to <strong>Other</strong> in the
 simulation below represents more time than anticipated may be a reason
 to collect additional information to identify sub components.</p>
+<p>An important advantage of MTS is that later refinement of the
+activity list to more accurately capture desired information can be
+performed at any time without loss of information.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></p>
 </div>
 <div class="section level3">
 <h3 id="collecting-the-timing-data">Collecting the Timing Data<a class="anchor" aria-label="anchor" href="#collecting-the-timing-data"></a>
 </h3>
 <p>The method used to collect the timing data should have minimal impact
-on the actor’s day. An ideal would be to have a modal box appear on an
-actor’s computer monitor and request a minimal amount of input so that
-the modal box can be dismissed in less than 10 seconds where fewer
+on the actor’s day. One ideal method would be to have a modal box appear
+on an actor’s computer monitor and request a minimal amount of input so
+that the modal box can be dismissed in less than 10 seconds where fewer
 seconds are desirable.</p>
 <p>A webpage could be used by all participants to indicate a willingness
 to participate, their current availability, and provide any basic
@@ -307,8 +322,8 @@ that contained the various activity lists being used, an algorithm for
 selecting when actors are prompted for a current activity response, and
 a method to accept the response data and store it in a database that can
 later be accessed for data analysis.</p>
-<p>Group chat tools, such as <strong>Slack</strong><a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> may have APIs to
-provide similar services.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></p>
+<p>Group chat tools, such as <strong>Slack</strong><a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> may have APIs to
+provide similar services.<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a></p>
 <p>It is recommended that uniformly pseudo-random times throughout the
 work period (typically day, week, and month) would be used so that
 systematic work schedules will not bias the results.</p>
@@ -317,12 +332,12 @@ systematic work schedules will not bias the results.</p>
 <h3 id="data-analysis-and-followup">Data Analysis and Followup<a class="anchor" aria-label="anchor" href="#data-analysis-and-followup"></a>
 </h3>
 <p>Planning how much detail to collect and how the data will be analyzed
-should occur prior to any data being collected. This essential to
-preventing bias introduced by observing the results prior to designing
-the analysis.</p>
-<p>The primary analysis should include calculating the time estimates
-for each activity. <span class="math display">\[time_{activity_i} = m_i
-* time\_units / \sum_{i=1}^{i=n} m_i\]</span> where <span class="math inline">\(i\)</span> is the index of the activity of
+should occur prior to any data being collected. This clarity of purpose
+will promote rapid recognition of unexpected data trends that may prompt
+revision of the activity lists or collection methodology.</p>
+<p>The primary analysis for each value stream should include calculating
+the time estimates for each activity. <span class="math display">\[time_{activity_i} = m_i * time\_units /
+\sum_{i=1}^{i=n} m_i\]</span> where <span class="math inline">\(i\)</span> is the index of the activity of
 interest, <span class="math inline">\(time\_units\)</span> is the total
 number of units of the desired unit of measure within the time period of
 interest, such as 560 minutes in a typical 8 hour work day, <span class="math inline">\(m_i\)</span> is the number of times activity <span class="math inline">\(i\)</span> was observed, <span class="math inline">\(n\)</span> is the number of distinct
@@ -330,9 +345,9 @@ activities.</p>
 <p>See the [description of Table @ref(tab:small-sample-in-minutes)] for
 an example where the calculation of minutes per activity in one 8 hour
 day is illustrated.</p>
-<p>Prior to the collection of data the various questions to be addressed
-should be articulated along with a description of how the provided
-activity durations will address those questions. In addition to
+<p>Prior to the collection of data, the various questions to be
+addressed should be articulated along with a description of how the
+provided activity durations will address those questions. In addition to
 questions to be addressed, expected relationships among various subset
 of activities should be recorded for later reference.</p>
 <p>This is a critical part of the analysis as the full appreciation of
@@ -351,25 +366,25 @@ makes this possible.</p>
 <div class="section level2">
 <h2 id="simulation">Simulation<a class="anchor" aria-label="anchor" href="#simulation"></a>
 </h2>
+<p>The remainder of this document presents a simulation of an example
+data collection using a realistic design that provides sufficient detail
+to assess expected accuracy and precision of the resulting MTS estimates
+for the 18 activities.</p>
 <div class="section level3">
 <h3 id="design">Design<a class="anchor" aria-label="anchor" href="#design"></a>
 </h3>
-<p>The remainder of this document presents an example data collection in
-a simulation study using a realistic design that provides sufficient
-detail to assess expected accuracy and precision of the resulting
-time-on-task estimates for the 18 activities.</p>
 <p>The example has a set of representative activities for
-model_developers.<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> It simulates asking a set of
+model_developers.<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a> It simulates asking a set of
 model_developers to indicate which of the activities listed on the
-questionnaire they were doing at the time the question popped up on
-their screen. Once the model_developer makes a selection, that selection
-is returned as a result to the collection software, which accumulates
-the responses for later analysis.</p>
+questionnaire they were doing at the time the question appeared on their
+screen. Once the model_developer makes a selection, that selection is
+returned as a result to the collection software, which accumulates the
+responses for later analysis.</p>
 <p>In the simulation model, these queries and responses can all be
 processed in less than a second but, as described below, this simulation
-is constructed so that each simulated model_developer responds five
-times during the duration of each of the three experiments illustrated
-below.</p>
+is constructed so that each model_developer responds <!--five--> five,
+ten, and twenty zero times respectively during each of the three
+experiments illustrated below.</p>
 <p>The manner in which the questions are presented and the timing of
 when the questions are presented are critical aspects of the study
 design but are not part of the simulation.</p>
@@ -571,7 +586,7 @@ Actor ID
 Project ID
 </th>
 <th style="text-align:left;">
-Actor Roll
+Actor Type
 </th>
 <th style="text-align:left;">
 Activity
@@ -583,16 +598,16 @@ Date Time Stamp
 <tbody>
 <tr>
 <td style="text-align:left;width: 4em; ">
-A6
+A4
 </td>
 <td style="text-align:left;width: 5em; ">
-P9
+P8
 </td>
 <td style="text-align:left;width: 10em; ">
 model_developer
 </td>
 <td style="text-align:left;width: 18em; ">
-unit test creation
+formal documentation
 </td>
 <td style="text-align:left;width: 11em; ">
 2023-09-16 12:12:07 CDT
@@ -600,16 +615,16 @@ unit test creation
 </tr>
 <tr>
 <td style="text-align:left;width: 4em; ">
-A5
+A6
 </td>
 <td style="text-align:left;width: 5em; ">
-P6
+P8
 </td>
 <td style="text-align:left;width: 10em; ">
 model_developer
 </td>
 <td style="text-align:left;width: 18em; ">
-meetings
+other
 </td>
 <td style="text-align:left;width: 11em; ">
 2023-09-16 12:23:18 CDT
@@ -617,16 +632,16 @@ meetings
 </tr>
 <tr>
 <td style="text-align:left;width: 4em; ">
-A7
+A6
 </td>
 <td style="text-align:left;width: 5em; ">
-P10
+P5
 </td>
 <td style="text-align:left;width: 10em; ">
 model_developer
 </td>
 <td style="text-align:left;width: 18em; ">
-research
+administrative work
 </td>
 <td style="text-align:left;width: 11em; ">
 2023-09-16 12:54:42 CDT
@@ -681,149 +696,13 @@ Delta as % of Expected
 administrative work
 </td>
 <td style="text-align:right;width: 5em; ">
-0.112
-</td>
-<td style="text-align:right;width: 5em; ">
-0.10
-</td>
-<td style="text-align:right;width: 5em; ">
-0.012
-</td>
-<td style="text-align:right;width: 11em; ">
-12.000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 10em; ">
-code hardening
-</td>
-<td style="text-align:right;width: 5em; ">
-0.041
-</td>
-<td style="text-align:right;width: 5em; ">
-0.05
-</td>
-<td style="text-align:right;width: 5em; ">
-0.009
-</td>
-<td style="text-align:right;width: 11em; ">
-18.667
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 10em; ">
-code peer review
-</td>
-<td style="text-align:right;width: 5em; ">
-0.053
-</td>
-<td style="text-align:right;width: 5em; ">
-0.05
-</td>
-<td style="text-align:right;width: 5em; ">
-0.003
-</td>
-<td style="text-align:right;width: 11em; ">
-5.333
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 10em; ">
-correspondence with business representatives
-</td>
-<td style="text-align:right;width: 5em; ">
-0.056
-</td>
-<td style="text-align:right;width: 5em; ">
-0.05
-</td>
-<td style="text-align:right;width: 5em; ">
-0.006
-</td>
-<td style="text-align:right;width: 11em; ">
-12.000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 10em; ">
-correspondence with model implementation team
-</td>
-<td style="text-align:right;width: 5em; ">
-0.005
-</td>
-<td style="text-align:right;width: 5em; ">
-0.01
-</td>
-<td style="text-align:right;width: 5em; ">
-0.005
-</td>
-<td style="text-align:right;width: 11em; ">
-46.667
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 10em; ">
-data acquisition
-</td>
-<td style="text-align:right;width: 5em; ">
-0.091
+0.109
 </td>
 <td style="text-align:right;width: 5em; ">
 0.10
 </td>
 <td style="text-align:right;width: 5em; ">
 0.009
-</td>
-<td style="text-align:right;width: 11em; ">
-8.667
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 10em; ">
-data cleaning
-</td>
-<td style="text-align:right;width: 5em; ">
-0.053
-</td>
-<td style="text-align:right;width: 5em; ">
-0.05
-</td>
-<td style="text-align:right;width: 5em; ">
-0.003
-</td>
-<td style="text-align:right;width: 11em; ">
-5.333
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 10em; ">
-data transformations - feature creation
-</td>
-<td style="text-align:right;width: 5em; ">
-0.052
-</td>
-<td style="text-align:right;width: 5em; ">
-0.05
-</td>
-<td style="text-align:right;width: 5em; ">
-0.002
-</td>
-<td style="text-align:right;width: 11em; ">
-4.000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 10em; ">
-formal documentation
-</td>
-<td style="text-align:right;width: 5em; ">
-0.045
-</td>
-<td style="text-align:right;width: 5em; ">
-0.05
-</td>
-<td style="text-align:right;width: 5em; ">
-0.005
 </td>
 <td style="text-align:right;width: 11em; ">
 9.333
@@ -831,24 +710,7 @@ formal documentation
 </tr>
 <tr>
 <td style="text-align:left;width: 10em; ">
-meeting preparation
-</td>
-<td style="text-align:right;width: 5em; ">
-0.059
-</td>
-<td style="text-align:right;width: 5em; ">
-0.05
-</td>
-<td style="text-align:right;width: 5em; ">
-0.009
-</td>
-<td style="text-align:right;width: 11em; ">
-18.667
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 10em; ">
-meetings
+code hardening
 </td>
 <td style="text-align:right;width: 5em; ">
 0.047
@@ -865,27 +727,78 @@ meetings
 </tr>
 <tr>
 <td style="text-align:left;width: 10em; ">
-model testing
+code peer review
 </td>
 <td style="text-align:right;width: 5em; ">
-0.019
+0.054
 </td>
 <td style="text-align:right;width: 5em; ">
-0.02
+0.05
+</td>
+<td style="text-align:right;width: 5em; ">
+0.004
+</td>
+<td style="text-align:right;width: 11em; ">
+8.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+correspondence with business representatives
+</td>
+<td style="text-align:right;width: 5em; ">
+0.043
+</td>
+<td style="text-align:right;width: 5em; ">
+0.05
+</td>
+<td style="text-align:right;width: 5em; ">
+0.007
+</td>
+<td style="text-align:right;width: 11em; ">
+13.333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+correspondence with model implementation team
+</td>
+<td style="text-align:right;width: 5em; ">
+0.009
+</td>
+<td style="text-align:right;width: 5em; ">
+0.01
 </td>
 <td style="text-align:right;width: 5em; ">
 0.001
 </td>
 <td style="text-align:right;width: 11em; ">
-3.333
+13.333
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 10em; ">
-model use design
+data acquisition
 </td>
 <td style="text-align:right;width: 5em; ">
-0.056
+0.097
+</td>
+<td style="text-align:right;width: 5em; ">
+0.10
+</td>
+<td style="text-align:right;width: 5em; ">
+0.003
+</td>
+<td style="text-align:right;width: 11em; ">
+2.667
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+data cleaning
+</td>
+<td style="text-align:right;width: 5em; ">
+0.044
 </td>
 <td style="text-align:right;width: 5em; ">
 0.05
@@ -899,30 +812,13 @@ model use design
 </tr>
 <tr>
 <td style="text-align:left;width: 10em; ">
-ongoing monitoring metric development
+data transformations - feature creation
 </td>
 <td style="text-align:right;width: 5em; ">
-0.027
+0.050
 </td>
 <td style="text-align:right;width: 5em; ">
-0.02
-</td>
-<td style="text-align:right;width: 5em; ">
-0.007
-</td>
-<td style="text-align:right;width: 11em; ">
-36.667
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 10em; ">
-other
-</td>
-<td style="text-align:right;width: 5em; ">
-0.100
-</td>
-<td style="text-align:right;width: 5em; ">
-0.10
+0.05
 </td>
 <td style="text-align:right;width: 5em; ">
 0.000
@@ -933,7 +829,24 @@ other
 </tr>
 <tr>
 <td style="text-align:left;width: 10em; ">
-personal time
+formal documentation
+</td>
+<td style="text-align:right;width: 5em; ">
+0.052
+</td>
+<td style="text-align:right;width: 5em; ">
+0.05
+</td>
+<td style="text-align:right;width: 5em; ">
+0.002
+</td>
+<td style="text-align:right;width: 11em; ">
+4.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+meeting preparation
 </td>
 <td style="text-align:right;width: 5em; ">
 0.049
@@ -950,19 +863,121 @@ personal time
 </tr>
 <tr>
 <td style="text-align:left;width: 10em; ">
-research
+meetings
 </td>
 <td style="text-align:right;width: 5em; ">
-0.083
+0.045
+</td>
+<td style="text-align:right;width: 5em; ">
+0.05
+</td>
+<td style="text-align:right;width: 5em; ">
+0.005
+</td>
+<td style="text-align:right;width: 11em; ">
+9.333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+model testing
+</td>
+<td style="text-align:right;width: 5em; ">
+0.028
+</td>
+<td style="text-align:right;width: 5em; ">
+0.02
+</td>
+<td style="text-align:right;width: 5em; ">
+0.008
+</td>
+<td style="text-align:right;width: 11em; ">
+40.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+model use design
+</td>
+<td style="text-align:right;width: 5em; ">
+0.055
+</td>
+<td style="text-align:right;width: 5em; ">
+0.05
+</td>
+<td style="text-align:right;width: 5em; ">
+0.005
+</td>
+<td style="text-align:right;width: 11em; ">
+9.333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+ongoing monitoring metric development
+</td>
+<td style="text-align:right;width: 5em; ">
+0.025
+</td>
+<td style="text-align:right;width: 5em; ">
+0.02
+</td>
+<td style="text-align:right;width: 5em; ">
+0.005
+</td>
+<td style="text-align:right;width: 11em; ">
+26.667
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+other
+</td>
+<td style="text-align:right;width: 5em; ">
+0.093
 </td>
 <td style="text-align:right;width: 5em; ">
 0.10
 </td>
 <td style="text-align:right;width: 5em; ">
-0.017
+0.007
 </td>
 <td style="text-align:right;width: 11em; ">
-17.333
+6.667
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+personal time
+</td>
+<td style="text-align:right;width: 5em; ">
+0.044
+</td>
+<td style="text-align:right;width: 5em; ">
+0.05
+</td>
+<td style="text-align:right;width: 5em; ">
+0.006
+</td>
+<td style="text-align:right;width: 11em; ">
+12.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 10em; ">
+research
+</td>
+<td style="text-align:right;width: 5em; ">
+0.105
+</td>
+<td style="text-align:right;width: 5em; ">
+0.10
+</td>
+<td style="text-align:right;width: 5em; ">
+0.005
+</td>
+<td style="text-align:right;width: 11em; ">
+5.333
 </td>
 </tr>
 <tr>
@@ -970,7 +985,7 @@ research
 unit test creation
 </td>
 <td style="text-align:right;width: 5em; ">
-0.051
+0.049
 </td>
 <td style="text-align:right;width: 5em; ">
 0.05
@@ -979,7 +994,7 @@ unit test creation
 0.001
 </td>
 <td style="text-align:right;width: 11em; ">
-2.667
+1.333
 </td>
 </tr>
 </tbody>
@@ -1006,7 +1021,7 @@ Minutes
 administrative work
 </td>
 <td style="text-align:right;">
-62.7
+61.2
 </td>
 </tr>
 <tr>
@@ -1014,7 +1029,7 @@ administrative work
 code hardening
 </td>
 <td style="text-align:right;">
-22.8
+26.5
 </td>
 </tr>
 <tr>
@@ -1022,7 +1037,7 @@ code hardening
 code peer review
 </td>
 <td style="text-align:right;">
-29.5
+30.2
 </td>
 </tr>
 <tr>
@@ -1030,7 +1045,7 @@ code peer review
 correspondence with business representatives
 </td>
 <td style="text-align:right;">
-31.4
+24.3
 </td>
 </tr>
 <tr>
@@ -1038,7 +1053,7 @@ correspondence with business representatives
 correspondence with model implementation team
 </td>
 <td style="text-align:right;">
-3.0
+4.9
 </td>
 </tr>
 <tr>
@@ -1046,7 +1061,7 @@ correspondence with model implementation team
 data acquisition
 </td>
 <td style="text-align:right;">
-51.1
+54.5
 </td>
 </tr>
 <tr>
@@ -1054,7 +1069,7 @@ data acquisition
 data cleaning
 </td>
 <td style="text-align:right;">
-29.5
+24.6
 </td>
 </tr>
 <tr>
@@ -1062,7 +1077,7 @@ data cleaning
 data transformations - feature creation
 </td>
 <td style="text-align:right;">
-29.1
+28.0
 </td>
 </tr>
 <tr>
@@ -1070,7 +1085,7 @@ data transformations - feature creation
 formal documentation
 </td>
 <td style="text-align:right;">
-25.4
+29.1
 </td>
 </tr>
 <tr>
@@ -1078,7 +1093,7 @@ formal documentation
 meeting preparation
 </td>
 <td style="text-align:right;">
-33.2
+27.3
 </td>
 </tr>
 <tr>
@@ -1086,7 +1101,7 @@ meeting preparation
 meetings
 </td>
 <td style="text-align:right;">
-26.5
+25.4
 </td>
 </tr>
 <tr>
@@ -1094,7 +1109,7 @@ meetings
 model testing
 </td>
 <td style="text-align:right;">
-10.8
+15.7
 </td>
 </tr>
 <tr>
@@ -1102,7 +1117,7 @@ model testing
 model use design
 </td>
 <td style="text-align:right;">
-31.4
+30.6
 </td>
 </tr>
 <tr>
@@ -1110,7 +1125,7 @@ model use design
 ongoing monitoring metric development
 </td>
 <td style="text-align:right;">
-15.3
+14.2
 </td>
 </tr>
 <tr>
@@ -1118,7 +1133,7 @@ ongoing monitoring metric development
 other
 </td>
 <td style="text-align:right;">
-56.0
+52.3
 </td>
 </tr>
 <tr>
@@ -1126,7 +1141,7 @@ other
 personal time
 </td>
 <td style="text-align:right;">
-27.3
+24.6
 </td>
 </tr>
 <tr>
@@ -1134,7 +1149,7 @@ personal time
 research
 </td>
 <td style="text-align:right;">
-46.3
+59.0
 </td>
 </tr>
 <tr>
@@ -1142,7 +1157,7 @@ research
 unit test creation
 </td>
 <td style="text-align:right;">
-28.7
+27.6
 </td>
 </tr>
 </tbody>
@@ -1168,45 +1183,45 @@ translates to a simple method of predicting the improvement in estimates
 from MTS. That is, the size of the expected percent error can by reduced
 by a factor of 0.5 each time the number of samples is quadrupled.</p>
 <div class="figure">
-<img src="cross_sectional_timing_model_files/figure-html/hist-1X-1.png" alt="Simulation of 5,000 iterations with 25 model developers sampled 5 times per month for one year found 82.56% of durations 
-were greater than 1 percent away from the expected value and 4.44% of durations 
-were greater than 2 percent away from the expected value and 0.1% of 
+<img src="cross_sectional_timing_model_files/figure-html/hist-1X-1.png" alt="Simulation of 5,000 iterations with 25 model developers sampled 5 times per month for one year found 81.34% of durations 
+were greater than 1 percent away from the expected value and 4.74% of durations 
+were greater than 2 percent away from the expected value and 0.02% of 
 durations were greater than 3 percent away from the expected value 
-with the largest absolute delta value being 0.039." width="700"><p class="caption">
+with the largest absolute delta value being 0.031." width="700"><p class="caption">
 Simulation of 5,000 iterations with 25 model developers sampled 5 times
-per month for one year found 82.56% of durations were greater than 1
-percent away from the expected value and 4.44% of durations were greater
-than 2 percent away from the expected value and 0.1% of durations were
+per month for one year found 81.34% of durations were greater than 1
+percent away from the expected value and 4.74% of durations were greater
+than 2 percent away from the expected value and 0.02% of durations were
 greater than 3 percent away from the expected value with the largest
-absolute delta value being 0.039.
+absolute delta value being 0.031.
 </p>
 </div>
 <div class="figure">
-<img src="cross_sectional_timing_model_files/figure-html/hist-2X-1.png" alt="Simulation of 5,000 iterations with 25 model developers sampled 10 times per month for one year found 33.02% of durations 
+<img src="cross_sectional_timing_model_files/figure-html/hist-2X-1.png" alt="Simulation of 5,000 iterations with 25 model developers sampled 10 times per month for one year found 33.6% of durations 
 were greater than 1 percent away from the expected value and 0.06% of 
 durations were greater than 2 percent away from the expected value and 
 0% of durations were greater than 3 percent away from the expected 
-value with the largest absolute delta value being 0.023." width="700"><p class="caption">
+value with the largest absolute delta value being 0.024." width="700"><p class="caption">
 Simulation of 5,000 iterations with 25 model developers sampled 10 times
-per month for one year found 33.02% of durations were greater than 1
+per month for one year found 33.6% of durations were greater than 1
 percent away from the expected value and 0.06% of durations were greater
 than 2 percent away from the expected value and 0% of durations were
 greater than 3 percent away from the expected value with the largest
-absolute delta value being 0.023.
+absolute delta value being 0.024.
 </p>
 </div>
 <div class="figure">
-<img src="cross_sectional_timing_model_files/figure-html/hist-4X-1.png" alt="Simulation of 5,000 iterations with 25 model developers sampled 20 times per month for one year found 4.1% of durations 
+<img src="cross_sectional_timing_model_files/figure-html/hist-4X-1.png" alt="Simulation of 5,000 iterations with 25 model developers sampled 20 times per month for one year found 3.66% of durations 
 were greater than 1 percent away from the expected value and 0% of 
 durations were greater than 2 percent away from the expected value and 
 0% of durations were greater than 3 percent away from the expected 
-value with the largest absolute delta value being 0.019." width="700"><p class="caption">
+value with the largest absolute delta value being 0.015." width="700"><p class="caption">
 Simulation of 5,000 iterations with 25 model developers sampled 20 times
-per month for one year found 4.1% of durations were greater than 1
+per month for one year found 3.66% of durations were greater than 1
 percent away from the expected value and 0% of durations were greater
 than 2 percent away from the expected value and 0% of durations were
 greater than 3 percent away from the expected value with the largest
-absolute delta value being 0.019.
+absolute delta value being 0.015.
 </p>
 </div>
 <div style="page-break-before: always;"></div>
@@ -1268,8 +1283,8 @@ Partial-Interval Recording.”</span> <em>J. Appl. Behav. Anal.</em> 24
 <p>See the R script file sourced by the <code>customization</code> code
 chunk of this vignette to see how this document was customizeed. To
 examine results you can expect from your own time-on-task activity
-analysis, you will need to provide the CSV file<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a> with your own
-actors<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a>, activities, and activity descriptions in
+analysis, you will need to provide the CSV file<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a> with your own
+actors<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a>, activities, and activity descriptions in
 addition to providing your definitions for the setup chunk definitions
 indicated below.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -1280,7 +1295,7 @@ indicated below.</p>
 <span>              mustWork <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">value_stream_descriptor</span> <span class="op">&lt;-</span> <span class="fu">stri_c</span><span class="op">(</span><span class="st">"husbandry and veterinary care of "</span>,</span>
 <span>                                  <span class="st">"colony animals"</span><span class="op">)</span></span>
-<span><span class="va">actor</span> <span class="op">&lt;-</span> <span class="st">"animal_caretaker"</span> <span class="co"># can be any value in the actor column of the</span></span>
+<span><span class="va">actor_type</span> <span class="op">&lt;-</span> <span class="st">"animal_caretaker"</span> <span class="co"># can be any value in the actor column of the</span></span>
 <span>                            <span class="co"># activity file</span></span>
 <span></span>
 <span><span class="co"># The product of n_actors, times_per_month, and n_months is the size.</span></span>
@@ -1299,16 +1314,18 @@ indicated below.</p>
 <li id="fn1"><p>Identified as Instantaneous, Pinpoint, Momentary, and
 Scan Sampling in animal and human behavior research. Momentary Time
 Sampling dominates in the human literature.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>Employee effort as measured by time is the most
+<li id="fn2"><p>Employee effort, as measured by time, is the most
 expensive resource. In addition, creating a work environment that
 encourages retention of employees requires time management through
 appropriate prioritization so that employees are maximally productive
 and fulfilled.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 <li id="fn3"><p> model_developer<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
-<li id="fn4"><p>The MTS design assumes that we have the ability to send
+<li id="fn4"><p> The simulation method demonstrated later in this
+document provides a robust estimate of expected precision.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>The MTS design assumes that we have the ability to send
 a question to selected individuals at selected times and collect
-responses.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
-<li id="fn5"><p>MTS requires periodic momentary sampling by requesting
+responses.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>MTS requires periodic momentary sampling by requesting
 the actor to indicate what she was doing when the request arrived. (In
 those instances where the actor is not capable of responding, such as in
 animal behavior studies, a request for input is made to the data
@@ -1317,26 +1334,28 @@ because the actor is away from work or engaged in an activity where the
 request is not received or cannot be responded to. In some cases,
 feedback by the actor to the studiy’s point of contact is needed to
 identify those activities that are significant contributors to the
-<em>failure-to-respond rate</em><a href="#fnref5" class="footnote-back">↩︎</a></p></li>
-<li id="fn6"><p>Assuming multiple value streams of the same type are in
+<em>failure-to-respond rate</em><a href="#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p>Assuming multiple value streams of the same type are in
 process and are at different phase of the value stream, estimates of
 time-on-task for all phases of the value stream are almost immediately
-available and become more precies with each subsequent sample.<a href="#fnref6" class="footnote-back">↩︎</a></p></li>
-<li id="fn7"><p>While project differences can be ignored during intitial
+available and become more precies with each subsequent sample.<a href="#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p>While project differences can be ignored during intitial
 timing studies, project metadata will be a rich source of meaningful
-segmentation as sufficient data become available.<a href="#fnref7" class="footnote-back">↩︎</a></p></li>
-<li id="fn8"><p>Slack is an online communication platform for teams<a href="#fnref8" class="footnote-back">↩︎</a></p></li>
-<li id="fn9"><p>See, <a href="https://api.slack.com/block-kit/building" class="external-link uri">https://api.slack.com/block-kit/building</a> for a possible
-Slack approach.<a href="#fnref9" class="footnote-back">↩︎</a></p></li>
-<li id="fn10"><p> The software is has the ability to examine multiple
-job types, job specific activity lists, and corresponding expected
-frequencies.<a href="#fnref10" class="footnote-back">↩︎</a></p></li>
-<li id="fn11"><p>Comparable to
-colony_management_defined_activities.csv<a href="#fnref11" class="footnote-back">↩︎</a></p></li>
-<li id="fn12"><p>Actors are used as variable names so must follow rules
+segmentation as sufficient data become available.<a href="#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn9"><p>This does require version control of the activity list
+recording the version ID being used with the every record.<a href="#fnref9" class="footnote-back">↩︎</a></p></li>
+<li id="fn10"><p>Slack is an online communication platform for teams<a href="#fnref10" class="footnote-back">↩︎</a></p></li>
+<li id="fn11"><p>See, <a href="https://api.slack.com/block-kit/building" class="external-link uri">https://api.slack.com/block-kit/building</a> for a possible
+Slack approach.<a href="#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p> The software has the ability to examine multiple job
+types, job specific activity lists, and corresponding expected
+frequencies.<a href="#fnref12" class="footnote-back">↩︎</a></p></li>
+<li id="fn13"><p>Comparable to
+colony_management_defined_activities.csv<a href="#fnref13" class="footnote-back">↩︎</a></p></li>
+<li id="fn14"><p>Actors are used as variable names so must follow rules
 for naming variables in R and they are used in LaTex so underscores may
 not be allowed. They must start with a letter, contain only letters,
-numerals, “.”, and “_“.<a href="#fnref12" class="footnote-back">↩︎</a></p></li>
+numerals, “.”, and “_“.<a href="#fnref14" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>

@@ -35,7 +35,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">crosssectiontimer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0.9000</span>
       </span>
     </div>
 
@@ -52,6 +52,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="articles/creating_ui_project_file.html">Creating Data Collection User Interface</a>
+    </li>
+    <li>
       <a href="articles/cross_sectional_timing_colony.html">Nonhuman Primate Colony Management -- Momentary Sampling Simulations</a>
     </li>
     <li>
@@ -79,8 +82,9 @@
 <div class="section level1">
 <div class="page-header"><h1 id="readme">README<a class="anchor" aria-label="anchor" href="#readme"></a>
 </h1></div>
-<p>R. Mark Sharp 2023-09-25</p>
-<p><a href="http://www.rdocumentation.org/packages/roxygen2" class="external-link"><img src="http://www.rdocumentation.org/badges/version/roxygen2" alt="Rdoc"></a> <a href="https://travis-ci.org/rmsharp/crosssectiontimer" class="external-link"><img src="https://travis-ci.org/rmsharp/rmsutilityr.svg?branch=master" alt="Build Status"></a> <a href="https://codecov.io/gh/rmsharp/crosssectiontimer" class="external-link"><img src="https://codecov.io/gh/rmsharp/rmsutilityr/branch/master/graph/badge.svg" alt="codecov"></a></p>
+<p>R. Mark Sharp 2024-01-18</p>
+<!-- badges: start -->
+
 </div>
 <div class="section level1">
 <h1 id="crosssectiontimer">crosssectiontimer<a class="anchor" aria-label="anchor" href="#crosssectiontimer"></a>
@@ -88,9 +92,11 @@
 <div class="section level2">
 <h2 id="package-contents">Package Contents<a class="anchor" aria-label="anchor" href="#package-contents"></a>
 </h2>
-<p>Momentary time sampling (MTS) is a time-on-task estimation method that samples defined behaviours in the exact instant that you’re taking data. This package presents MTS<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> in two parallel vignettes that use different value streams for illustration. Each vignette describes the strengths of MTS over two common longitudinal time collection methods: (1) time duration between milestones and (2) time logging.</p>
+<p>Momentary time sampling (MTS) is a time-on-task estimation method that samples defined behaviours in the exact instant that you’re taking data. This package presents MTS<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> in two parallel vignettes that use different value streams to illustrate the generality of the methodology. Each vignette describes the strengths of MTS over two common longitudinal time collection methods: (1) time duration between milestones and (2) time logging.</p>
 <p>The two vignettes contain topic specific simulations that illustrate the structure, simplicity, accuracy, and precision of the cross-sectional time-on-task estimation method. Three levels of sampling demonstrate the ease and relatively low impact that any need for increased precision would impose on the sampled population. A discussion of appropriately identifying what activities to time and how the data could be collected is included.</p>
+<p>Interested parties can use the two vignettes as examples to guide simulating their own value streams. Further customization of the simulation can facilitate the timing study design for the value streams of interest.</p>
 <p>This package contains all R functions used to create this document including the simulation software. The two vignettes share almost all code and text. Their individual attributes are provided by their separate parent documents, the value stream’s defined activities, and an R script that contains the directives of how the simulation is to be run and what value stream to examine. The parent documents differ by three lines: the first is the title, the second is the name of the file, and the third is the name of the customization R code script which is 18 lines long.</p>
+<p>Full documentation is at <a href="https://rmsharp.github.io/crosssectiontimer/" class="external-link uri">https://rmsharp.github.io/crosssectiontimer/</a></p>
 <div class="section level3">
 <h3 id="githubcom-installation">github.com Installation<a class="anchor" aria-label="anchor" href="#githubcom-installation"></a>
 </h3>
@@ -140,7 +146,14 @@
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="http://www.rdocumentation.org/packages/roxygen2" class="external-link"><img src="http://www.rdocumentation.org/badges/version/roxygen2" alt="Rdoc"></a></li>
+<li><a href="https://travis-ci.org/rmsharp/crosssectiontimer" class="external-link"><img src="https://travis-ci.org/rmsharp/crosssectiontimer?branch=master" alt="Build Status"></a></li>
+<li><a href="https://codecov.io/gh/rmsharp/crosssectiontimer" class="external-link"><img src="https://codecov.io/gh/rmsharp/crosssectiontimer/branch/master/graph/badge.svg" alt="codecov"></a></li>
+</ul>
+</div>
 
   </div>
 </div>
