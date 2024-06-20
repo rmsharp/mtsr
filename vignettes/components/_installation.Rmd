@@ -29,6 +29,5 @@ You can install **rmsutilityr** from github with:
 ```{r gh-rmsutilityr-installation, eval = FALSE, echo = TRUE}
 install.packages("devtools")
 devtools::install_github("rmsharp/rmsutilityr")
-
 ```
 

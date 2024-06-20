@@ -11,6 +11,7 @@ Description: This document presents a cross-sectional sampling design as an
  alternative to a longitudinal sampling design inherent in the logging of
  activities method proposed to collect time on task information. 
 Suggests:
+    bookdown,
     ggplot2,
     here,
     kableExtra,

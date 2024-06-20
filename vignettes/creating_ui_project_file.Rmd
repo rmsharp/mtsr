@@ -25,12 +25,11 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r read-in-example-project-yml, echo = FALSE}
 
 example_project_file <- system.file("extdata", "project_yaml_files",
-                                    "example_colony_project.yml", 
+                                    "example_colony_project.yml",
                                     package = "crosssectiontimer")
-example_project <- yaml::read_yaml(example_project_file, fileEncoding = "UTF-8", 
+example_project <- yaml::read_yaml(example_project_file, fileEncoding = "UTF-8",
                                    readLines.warn = TRUE)
 example_project_text <- readLines(example_project_file, encoding = "UTF-8")
-
 ```
 
 
@@ -42,20 +41,19 @@ example_project_text <- readLines(example_project_file, encoding = "UTF-8")
 
 ## In terminal:
 # $prefect:crosssectiontimer rmsharp$ diff vignettes/example_project.yml \\
-# inst/extdata/project_yaml_files/example_colony_project.yml 
+# inst/extdata/project_yaml_files/example_colony_project.yml
 # 0a1
 # > # example_colony_project.yml
 # 8,9c9,12
 # <       description: |
-# <         The animal caretaker is the responsible for basic animal husbandry \\
-# including feeding, cleaning housing area, routine inventory, and basic health\\
-# and behavioral ## monitoring.
+# <         The animal caretaker is the responsible for basic animal \\
+#           husbandry including feeding, cleaning housing area,  \\
+#           routine inventory, and basic health and behavioral ## monitoring.
 # ---
 # >       description: >
 # >         The animal caretaker is the responsible for basic animal husbandry
-# >         including feeding, cleaning housing area, routine inventory, and basic
-# >         health and behavioral monitoring.
-
+# >         including feeding, cleaning housing area, routine inventory, and
+# >         basic health and behavioral monitoring.
 ```
 
 
@@ -65,7 +63,6 @@ example data file shown below:
 
 ```{r 1st-25-lines-of-example-project-yml, comment = "", echo = FALSE}
 cat(example_project_text[1:25], sep = "\n")
-
 ```
 
 

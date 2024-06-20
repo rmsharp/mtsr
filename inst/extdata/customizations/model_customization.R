@@ -5,8 +5,8 @@ activity_file <-
               mustWork = FALSE)
 value_stream_descriptor <- stri_c("selection and training of predictive ",
                                   "models")
-actor_type <- "model_developer" # can be any value in the actor_type column of the
-# activity file
+actor_type <- "model_developer" # can be any value in the actor_type column of
+# the activity file
 # The product of n_actors, times_per_month, and n_months is the size.
 # The size should be about 250 for about 20 activities to get the precision
 # illustrated herein

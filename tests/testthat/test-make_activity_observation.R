@@ -1,7 +1,7 @@
 test_that("make_activity_observation works", {
   set.seed(123)
   activity_file <-
-   system.file("extdata", "defined_activities",
+    system.file("extdata", "defined_activities",
                "colony_management_defined_activities.csv",
                package = "crosssectiontimer", lib.loc = NULL,
                mustWork = FALSE)

@@ -16,7 +16,7 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, fig.pos = 'H')
+knitr::opts_chunk$set(echo = FALSE, fig.pos = "H")
 library(crosssectiontimer)
 library(ggplot2)
 library(kableExtra)
@@ -30,7 +30,6 @@ customization_file <- "colony_customization.R"
 parent_file <- knitr::current_input()
 here::i_am(paste0("vignettes/", parent_file)) # needs to be in right
                                               # directory
-
 ```
 
 ```{r customization}
@@ -39,9 +38,7 @@ source(
               customization_file,
               package = "crosssectiontimer", lib.loc = NULL,
               mustWork = FALSE))
-
 ```
 
 ```{r child = here("vignettes/components/_body_of_cross_sectional_timing_vignette.Rmd"), ref = "body"}
-
 ```

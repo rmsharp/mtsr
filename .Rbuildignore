@@ -20,3 +20,5 @@ docc/*.js
 ^inst/extdata/presentations/mts_files$
 ^inst/extdata/presentations/mts_proposal\.Rpres$
 ^\.github$
+^lintr\.yml$
+^\.gitlab-ci\.yml$

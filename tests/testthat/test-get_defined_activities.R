@@ -11,7 +11,7 @@ actor_type <-
   "animal_caretaker" # can be any value in the actor_type column of the
 activities_all <- get_defined_activities(activity_file)
 activities_animal_caretaker <-
-  activities_all[activities_all$actor_type == actor_type,]
+  activities_all[activities_all$actor_type == actor_type, ]
 test_that("get_defined_activities works", {
   expect_true(setequal(
     activities_animal_caretaker$activity,

@@ -298,7 +298,7 @@ caption <- stri_c("List of possible activities for the ",
                   stri_replace_all_fixed(actor_type, pattern = "_",
                                          replacement = "\\_"),
 " with assigned frequencies to be used in simulations.")
-activities[ , c("activity", "freq")] %>%
+activities[, c("activity", "freq")] %>%
   kbl(digits = 2, col.names = c("Activity", "Frequency"),
       caption = caption, row.names = FALSE) %>%
   kable_styling(latex_options = "HOLD_position") %>%
@@ -331,7 +331,7 @@ three_samples <- make_activity_observation(
   activities, size = size, activities$freq)
 
 dateTime <- paste0("2023-09-16 12:", c("12:07", "23:18", "54:42"), " CDT")
-three_samples_df <- 
+three_samples_df <-
   data.frame(aId = paste0("A", sample(1:10, size, replace = TRUE)),
              pId = paste0("P", sample(1:10, size, replace = TRUE)),
              Actor_Roll = actor_type,
@@ -339,7 +339,7 @@ three_samples_df <-
              DateTime = dateTime, stringsAsFactors = FALSE)
 caption <- "\\label{tab:three-samples}Example of three rows of MTS data."
 three_samples_df %>%
-  kbl(col.names = c("Actor ID", "Project ID", "Actor Type", "Activity", 
+  kbl(col.names = c("Actor ID", "Project ID", "Actor Type", "Activity",
                     "Date Time Stamp"),
       caption = caption, row.names = FALSE) %>%
   column_spec(1, width = "4em") %>%
@@ -386,7 +386,7 @@ small_sample_duration %>%
   cbind(data.frame(prob = activities$freq, delta = delta,
                    percent = 100 * delta / activities$freq)) %>%
   kbl(digits = 3,
-      col.names = c("Description", "Observed", "Expected", "Delta", 
+      col.names = c("Description", "Observed", "Expected", "Delta",
                     "Delta as % of Expected"),
       caption = caption) %>%
   column_spec(1, width = "10em") %>%
@@ -396,7 +396,7 @@ small_sample_duration %>%
   column_spec(5, width = "11em") %>%
   kable_styling(latex_options = "HOLD_position",
                 font_size = 12) %>%
-kable_styling(latex_options = "HOLD_position") %>%
+  kable_styling(latex_options = "HOLD_position") %>%
   add_header_above(c(" " = 1, "Duration" = 4)) %>%
   kable_material(c("striped", "hover"))
 
@@ -408,8 +408,9 @@ observations into 560 minutes.
 
 ```{r small-sample-in-minutes}
 minutes_per_activity <- small_sample_duration$duration * 560
-minutes_per_activity <- data.frame(description = small_sample_duration$description,
-                                    minutes = as.numeric(minutes_per_activity))
+minutes_per_activity <-
+  data.frame(description = small_sample_duration$description,
+             minutes = as.numeric(minutes_per_activity))
 caption <- stri_c("List of activities and the estimated number of minutes ",
                   "spent on the activity if represented in a single day.")
 minutes_per_activity %>%
@@ -571,12 +572,11 @@ data.frame(freq = sim_delta_freq) %>%
   ggplot(aes(x = freq)) +
   geom_histogram(bins = 30) +
   ggtitle(paste0(round(n_actors, 0), " ",
-         stri_replace_all_fixed(actor_type, pattern = "_", replacement = " "),
-         "s sampled ", this_times_per_month,
-                 " times per month for one year.")) +
+          stri_replace_all_fixed(actor_type, pattern = "_", replacement = " "),
+          "s sampled ", this_times_per_month,
+          " times per month for one year.")) +
   xlab("Absolute Value of (Expected - Observed) Frequency") +
   ylab("Count")
-
 ```
 
 `r clearpage()`
@@ -620,7 +620,7 @@ activity_file <-
 value_stream_descriptor <- stri_c("husbandry and veterinary care of ",
                                   "colony animals")
 actor_type <- "animal_caretaker" # can be any value in the actor column of the
-                            # activity file
+                                 # activity file
 
 # The product of n_actors, times_per_month, and n_months is the size.
 # The size should be about 250 for about 20 activities to get the precision
@@ -630,5 +630,4 @@ times_per_month <- 5
 n_months <- 12
 
 iterations <- 5000          # 5000 seems more than adequate for stable results
-
 ```
