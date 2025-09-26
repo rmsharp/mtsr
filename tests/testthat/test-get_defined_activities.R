@@ -3,7 +3,7 @@ activity_file <-
     "extdata",
     "defined_activities",
     "colony_management_defined_activities.csv",
-    package = "crosssectiontimer",
+    package = "mtsr",
     lib.loc = NULL,
     mustWork = FALSE
   )

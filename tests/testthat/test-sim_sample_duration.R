@@ -3,7 +3,7 @@ test_that("sim_sample_duration works", {
   activity_file <-
     system.file("extdata", "defined_activities",
                 "colony_management_defined_activities.csv",
-                package = "crosssectiontimer", lib.loc = NULL,
+                package = "mtsr", lib.loc = NULL,
                 mustWork = FALSE)
   activities <- get_defined_activities(activity_file)
   activities <- activities[activities$actor_type == "animal_caretaker", ]

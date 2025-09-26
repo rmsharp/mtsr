@@ -1,18 +1,18 @@
 README
 ================
 R. Mark Sharp
-2024-01-18
+2024-06-14
 
 <!-- badges: start -->
 
 ⁠
 [![Rdoc](http://www.rdocumentation.org/badges/version/roxygen2)](http://www.rdocumentation.org/packages/roxygen2)
 [![Build
-Status](https://travis-ci.org/rmsharp/crosssectiontimer?branch=master)](https://travis-ci.org/rmsharp/crosssectiontimer)
-[![codecov](https://codecov.io/gh/rmsharp/crosssectiontimer/branch/master/graph/badge.svg)](https://codecov.io/gh/rmsharp/crosssectiontimer)
+Status](https://travis-ci.org/rmsharp/mtsr?branch=master)](https://travis-ci.org/rmsharp/mtsr)
+[![codecov](https://codecov.io/gh/rmsharp/mtsr/branch/master/graph/badge.svg)](https://codecov.io/gh/rmsharp/mtsr)
 ⁠<!-- badges: end -->⁠
 
-# crosssectiontimer
+# mtsr
 
 ## Package Contents
 
@@ -47,19 +47,19 @@ lines: the first is the title, the second is the name of the file, and
 the third is the name of the customization R code script which is 18
 lines long.
 
-Full documentation is at <https://rmsharp.github.io/crosssectiontimer/>
+Full documentation is at <https://rmsharp.github.io/mtsr/>
 
 ### github.com Installation
 
 The current development version can be installed from GitHub.
-[github.com/rmsharp/crosssectiontimer](https://github.com/rmsharp/crosssectiontimer)
+[github.com/rmsharp/mtsr](https://github.com/rmsharp/mtsr)
 as all of the dependencies are automatically installed.
 
-You can install **crosssectiontimer** from github with:
+You can install **mtsr** from github with:
 
 ``` r
 install.packages("devtools")
-devtools::install_github("rmsharp/crosssectiontimer")
+devtools::install_github("rmsharp/mtsr")
 ```
 
 All missing dependencies should be automatically installed except for

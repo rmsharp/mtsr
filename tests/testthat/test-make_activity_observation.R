@@ -3,7 +3,7 @@ test_that("make_activity_observation works", {
   activity_file <-
     system.file("extdata", "defined_activities",
                "colony_management_defined_activities.csv",
-               package = "crosssectiontimer", lib.loc = NULL,
+               package = "mtsr", lib.loc = NULL,
                mustWork = FALSE)
   activities_all <- get_defined_activities(activity_file)
   activities <- activities_all$activity[

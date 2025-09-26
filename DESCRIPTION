@@ -1,17 +1,16 @@
-Package: crosssectiontimer
+Package: mtsr
 Type: Package
-Title: Cross-Section Activity Timer Simulation Tool
+Title: Momentary Time Sampling Simulation Tool
 Version: 1.0.0.9000
 Authors@R: c(
     person("R. Mark", "Sharp", email = "rmsharp@me.com", 
     comment = c(ORCID = "0000-0002-6170-6942"), 
     role = c("aut", "cre", "cph", "dtc"))
     )
-Description: This document presents a cross-sectional sampling design as an
+Description: This document presents a momentary time sampling design as an
  alternative to a longitudinal sampling design inherent in the logging of
  activities method proposed to collect time on task information. 
 Suggests:
-    bookdown,
     ggplot2,
     here,
     kableExtra,
@@ -27,7 +26,7 @@ Remotes: rmsharp/rmsutilityr
 Language: en-US
 Encoding: UTF-8
 License: MIT + file LICENSE
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.3
 LazyData: TRUE
 VignetteBuilder: knitr, rmarkdown
 Config/testthat/edition: 3

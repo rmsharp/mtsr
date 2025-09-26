@@ -26,8 +26,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 example_project_file <- system.file("extdata", "project_yaml_files",
                                     "example_colony_project.yml",
-                                    package = "crosssectiontimer")
-example_project <- yaml::read_yaml(example_project_file, fileEncoding = "UTF-8",
+                                    package = "mtsr")
+example_project <- yaml::read_yaml(example_project_file,
+                                   fileEncoding = "UTF-8",
                                    readLines.warn = TRUE)
 example_project_text <- readLines(example_project_file, encoding = "UTF-8")
 ```
@@ -40,20 +41,21 @@ example_project_text <- readLines(example_project_file, encoding = "UTF-8")
 # > write_yaml(example_project, "example_project.yml")
 
 ## In terminal:
-# $prefect:crosssectiontimer rmsharp$ diff vignettes/example_project.yml \\
+# $prefect:mtsr rmsharp$ diff vignettes/example_project.yml \\
 # inst/extdata/project_yaml_files/example_colony_project.yml
 # 0a1
 # > # example_colony_project.yml
 # 8,9c9,12
 # <       description: |
-# <         The animal caretaker is the responsible for basic animal \\
-#           husbandry including feeding, cleaning housing area,  \\
-#           routine inventory, and basic health and behavioral ## monitoring.
+# <         The animal caretaker is the responsible for basic animal husbandry \\
+# including feeding, cleaning housing area, routine inventory, and basic health\\
+# and behavioral ## monitoring.
 # ---
 # >       description: >
 # >         The animal caretaker is the responsible for basic animal husbandry
-# >         including feeding, cleaning housing area, routine inventory, and
-# >         basic health and behavioral monitoring.
+# >         including feeding, cleaning housing area, routine inventory, and basic
+# >         health and behavioral monitoring.
+
 ```
 
 

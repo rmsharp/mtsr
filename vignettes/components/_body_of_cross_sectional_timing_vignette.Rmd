@@ -297,7 +297,7 @@ activities <- activities[activities$actor_type == actor_type, ]
 caption <- stri_c("List of possible activities for the ",
                   stri_replace_all_fixed(actor_type, pattern = "_",
                                          replacement = "\\_"),
-" with assigned frequencies to be used in simulations.")
+                  " with assigned frequencies to be used in simulations.")
 activities[, c("activity", "freq")] %>%
   kbl(digits = 2, col.names = c("Activity", "Frequency"),
       caption = caption, row.names = FALSE) %>%
@@ -396,7 +396,7 @@ small_sample_duration %>%
   column_spec(5, width = "11em") %>%
   kable_styling(latex_options = "HOLD_position",
                 font_size = 12) %>%
-  kable_styling(latex_options = "HOLD_position") %>%
+kable_styling(latex_options = "HOLD_position") %>%
   add_header_above(c(" " = 1, "Duration" = 4)) %>%
   kable_material(c("striped", "hover"))
 
@@ -572,11 +572,12 @@ data.frame(freq = sim_delta_freq) %>%
   ggplot(aes(x = freq)) +
   geom_histogram(bins = 30) +
   ggtitle(paste0(round(n_actors, 0), " ",
-          stri_replace_all_fixed(actor_type, pattern = "_", replacement = " "),
-          "s sampled ", this_times_per_month,
-          " times per month for one year.")) +
+         stri_replace_all_fixed(actor_type, pattern = "_", replacement = " "),
+         "s sampled ", this_times_per_month,
+                 " times per month for one year.")) +
   xlab("Absolute Value of (Expected - Observed) Frequency") +
   ylab("Count")
+
 ```
 
 `r clearpage()`
@@ -615,12 +616,12 @@ for the setup chunk definitions indicated below.
 activity_file <-
   system.file("extdata",
               "colony_management_defined_activities.csv",
-              package = "crosssectiontimer", lib.loc = NULL,
+              package = "mtsr", lib.loc = NULL,
               mustWork = FALSE)
 value_stream_descriptor <- stri_c("husbandry and veterinary care of ",
                                   "colony animals")
 actor_type <- "animal_caretaker" # can be any value in the actor column of the
-                                 # activity file
+                            # activity file
 
 # The product of n_actors, times_per_month, and n_months is the size.
 # The size should be about 250 for about 20 activities to get the precision

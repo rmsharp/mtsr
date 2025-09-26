@@ -1,0 +1,45 @@
+---
+title: "Nonhuman Primate Colony Management -- Momentary Sampling Simulations"
+author: "R. Mark Sharp"
+date: "`r Sys.Date()`"
+output:
+  bookdown::pdf_document2:
+    extra_dependencies: ["float"]
+  bookdown::html_document2: default
+bibliography: ../inst/extdata/references.bib
+header-includes:
+  - \usepackage{caption}
+vignette: >
+  %\VignetteIndexEntry{Nonhuman Primate Colony Management -- Momentary Sampling Simulations}
+  %\usepackage[UTF-8]{inputenc}
+  %\VignetteEngine{knitr::rmarkdown_notangle}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, fig.pos = "H")
+library(mtsr)
+library(ggplot2)
+library(kableExtra)
+library(magrittr)
+library(rmsutilityr)
+library(stringi)
+library(here)
+
+title <- rmarkdown::metadata$title
+customization_file <- "colony_customization.R"
+parent_file <- knitr::current_input()
+here::i_am(paste0("vignettes/", parent_file)) # needs to be in right
+                                              # directory
+
+```
+
+```{r customization}
+source(
+  system.file("extdata", "customizations",
+              customization_file,
+              package = "mtsr", lib.loc = NULL,
+              mustWork = FALSE))
+```
+
+```{r child = here("vignettes/components/_body_of_cross_sectional_timing_vignette.Rmd"), ref = "body"}
+```

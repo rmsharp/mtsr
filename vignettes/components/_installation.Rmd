@@ -9,15 +9,15 @@ output: html_document
 
 The current development version can be 
 installed from GitHub.
-[github.com/rmsharp/crosssectiontimer](
-https://github.com/rmsharp/crosssectiontimer) 
+[github.com/rmsharp/mtsr](
+https://github.com/rmsharp/mtsr) 
 as all of the dependencies are automatically installed.
 
-You can install **crosssectiontimer** from github with:
+You can install **mtsr** from github with:
 
 ```{r gh-installation, eval = FALSE, echo = TRUE}
 install.packages("devtools")
-devtools::install_github("rmsharp/crosssectiontimer")
+devtools::install_github("rmsharp/mtsr")
 
 ```
 
@@ -30,4 +30,3 @@ You can install **rmsutilityr** from github with:
 install.packages("devtools")
 devtools::install_github("rmsharp/rmsutilityr")
 ```
-

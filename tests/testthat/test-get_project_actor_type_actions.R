@@ -1,7 +1,7 @@
 test_that("get_project_actor_type_actions works", {
   project_file <-
     system.file("extdata", "project_yaml_files", "example_colony_project.yml",
-                package = "crosssectiontimer", lib.loc = NULL,
+                package = "mtsr", lib.loc = NULL,
                 mustWork = FALSE)
 
   actor_type_actions <-

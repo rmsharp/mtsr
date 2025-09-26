@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(crosssectiontimer)
+library(mtsr)
 
-test_check("crosssectiontimer")
+test_check("mtsr")
