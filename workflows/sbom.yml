@@ -1,52 +1,56 @@
 name: Generate SBOM
 
 on:
- push:
-   branches: [ master ]
- pull_request:
+  push:
+    branches: [ main ]
+  pull_request:
 
 jobs:
- sbom:
-   runs-on: ubuntu-latest
+  sbom:
+    runs-on: ubuntu-latest
 
-   steps:
-     - name: Checkout repository
-       uses: actions/checkout@v4
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-     - name: Setup R
-       uses: r-lib/actions/setup-r@v2
-       with:
-         r-version: "4.4.1"
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: "4.4.1"
 
-     - name: Install dependencies
-       run: |
-         Rscript -e 'install.packages(c("renv", "jsonlite"))'
-         Rscript -e 'if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")'
+      - name: Install R dependencies
+        run: |
+          Rscript -e 'install.packages(c("renv", "jsonlite"), repos="https://cloud.r-project.org")'
 
-     - name: Snapshot dependencies
-       run: |
-         Rscript -e 'renv::restore()'
-         Rscript -e 'renv::snapshot()'
+      - name: Initialize and snapshot dependencies
+        run: |
+          Rscript -e 'if (!dir.exists("renv")) renv::init(bare = TRUE)'
+          Rscript -e 'renv::restore()'
+          Rscript -e 'renv::snapshot()'
 
-     - name: Export dependency list (JSON)
-       run: |
-         Rscript -e 'lock <- jsonlite::fromJSON("renv.lock"); \
-                     deps <- lock$Packages; \
-                     df <- data.frame(package=names(deps), version=sapply(deps, function(x) x$Version), source=sapply(deps, function(x) x$Source)); \
-                     jsonlite::write_json(df, "deps.json", pretty=TRUE)'
+      - name: Export dependency list to JSON
+        run: |
+          Rscript -e 'lock <- jsonlite::fromJSON("renv.lock"); \
+                      deps <- lock$Packages; \
+                      df <- data.frame(package=names(deps), \
+                                       version=sapply(deps, function(x) x$Version), \
+                                       source=sapply(deps, function(x) x$Source)); \
+                      jsonlite::write_json(df, "deps.json", pretty=TRUE)'
 
-     - name: Install CycloneDX CLI
-       run: |
-         curl -L https://github.com/CycloneDX/cyclonedx-cli/releases/latest/download/cyclonedx-linux-x64 -o cyclonedx
-         chmod +x cyclonedx
-         sudo mv cyclonedx /usr/local/bin/
+      - name: Install CycloneDX CLI
+        run: |
+          curl -L https://github.com/CycloneDX/cyclonedx-cli/releases/latest/download/cyclonedx-linux-x64 -o cyclonedx
+          chmod +x cyclonedx
+          sudo mv cyclonedx /usr/local/bin/
 
-     - name: Convert to CycloneDX SBOM
-       run: |
-         cyclonedx convert --input-file deps.json --output-file sbom.json --output-format json
+      - name: Generate CycloneDX SBOM
+        run: |
+          cyclonedx convert --input-file deps.json --output-file sbom.json --output-format json
 
-     - name: Upload SBOM artifact
-       uses: actions/upload-artifact@v4
-       with:
-         name: sbom
-         path: sbom.json
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom.json
+          if-no-files-found: error
+          retention-days: 14
