@@ -1,0 +1,68 @@
+name: Generate SBOM
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+
+jobs:
+  sbom:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: "4.4.1"
+
+      - name: Install R dependencies
+        run: |
+          Rscript -e 'install.packages(c("yaml", "desc"), repos="https://cloud.r-project.org")'
+
+      - name: Generate SBOM YAML
+        run: |
+          Rscript -e '
+          library(yaml)
+          library(desc)
+          
+          # Read package description
+          pkg_desc <- desc::description$new()
+          
+          # Get package dependencies
+          deps <- pkg_desc$get_deps()
+          
+          # Create SBOM structure
+          sbom <- list(
+            sbom_version = "1.0",
+            creation_date = Sys.Date(),
+            package = list(
+              name = pkg_desc$get("Package"),
+              version = pkg_desc$get("Version"),
+              description = pkg_desc$get("Title"),
+              license = pkg_desc$get("License"),
+              authors = pkg_desc$get("Authors@R")
+            ),
+            dependencies = lapply(1:nrow(deps), function(i) {
+              list(
+                name = deps$package[i],
+                type = deps$type[i],
+                version = deps$version[i]
+              )
+            })
+          )
+          
+          # Write SBOM to YAML file
+          yaml::write_yaml(sbom, "sbom.yml")
+          cat("SBOM generated successfully\n")
+          '
+
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom.yml
+          if-no-files-found: error
+          retention-days: 14
