@@ -22,7 +22,7 @@ format: html
               actions for each actor type
     -    get_colony_project_team
          -    Reads project team YAML file (e.g., example_colony_project_team.yml)
-         -    Returns a list of projects found with with one or more actor types
+         -    Returns a list of projects found with one or more actor types
               where each actor type has a character vector of team
               member IDs. If the actor type has no team members, then the function
               returns a WARNING message and the actor type is not included in the
@@ -34,6 +34,7 @@ format: html
               example_actor_schedule.yml)
         
 ### Shiny Application
+
 #### UI
     -    Display actor name and actor ID at the top with possible projects 
          as a set of radio buttons if more than one exists. If only one project
@@ -47,12 +48,12 @@ format: html
          the interface. Selection of the "Other" radio button will display a
          text box for the user to enter a short description. The user must click 
          the "Save" button to save the response and close the interface.
+         
 #### Server
     -    The server will read the project YAML file (e.g., example_colony_project.yml)
          and the project team YAML file (e.g., example_colony_project_team.yml).
-    -    
-    -    The server will save the responses to a CSV file with the following
-         columns:
+    -    The server will save the responses to a data store (CSV file or database) with 
+         the following columns:
          -    actor_name
          -    actor_id
          -    project_name
@@ -60,25 +61,5 @@ format: html
          -    action
          -    action_description
          -    date_time
-    -    The server will display a message to the user that the response was
-         saved and the interface will close.
-    -    The server will display a message to the user that the response was
-         saved and the interface will close.
-    -    The server will display a message to the user that the response was
-         saved and the interface will close.
-    -    The server will display a message to the user that the response was
-         saved and the interface will close.
-    -    The server will display a message to the user that the response was
-         saved and the interface will close.
-    -    The server will display a message to the user that the response was
-         saved and the interface will close.
-    -    The server will display a message to the user that the response was
-         saved and the interface will close.
-    -    The server will display a message to the user that the response was
-         saved and the interface will close.
-    -    The server will display a message to the user that the response was
-         saved and the interface will close.
-    -    The server will display a message to the user that the response was
-         saved and the interface will close.
     -    The server will display a message to the user that the response was
          saved and the interface will close.
